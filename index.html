@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tharun Rathod -IIT Roorkee</title>
+  <title>Tharun Rathod – IIT Roorkee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -25,7 +25,7 @@
       --surface: #f3f1ec;
       --text: #1a1a18;
       --muted: #7a7a72;
-      --faint: #b0ae a6;
+      --faint: #b0aea6;
       --border: #e2dfd8;
       --accent: #2a5a3b;
       --accent-light: #e6efe9;
@@ -38,9 +38,7 @@
       --card-hover: #f1efe8;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'EB Garamond', Georgia, serif;
@@ -51,779 +49,259 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── ANIMATIONS ─────────────────────── */
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
+    .fade-up { animation: fadeUp 0.55s ease both; }
+    .fade-in { animation: fadeIn 0.6s ease both; }
 
-    .fade-up {
-      animation: fadeUp 0.55s ease both;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.6s ease both;
-    }
-
-    /* ── NAV ─────────────────────────────── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: rgba(249, 248, 245, 0.94);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(249,248,245,0.94);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       height: 52px;
     }
-
     .nav-name {
       font-family: 'EB Garamond', serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: 0.01em;
+      font-size: 16px; font-weight: 500; color: var(--text);
+      text-decoration: none; letter-spacing: 0.01em;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a {
       font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      text-decoration: none;
-      text-transform: uppercase;
+      font-size: 10.5px; font-weight: 300; letter-spacing: 0.06em;
+      color: var(--muted); text-decoration: none; text-transform: uppercase;
       transition: color 0.18s;
     }
+    .nav-links a:hover { color: var(--accent); }
 
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    /* ── LAYOUT ──────────────────────────── */
     .wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 0 3.8rem;
-      align-items: start;
+      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 210px 1fr;
+      gap: 0 3.8rem; align-items: start;
     }
 
-    /* ── SIDEBAR ──────────────────────────── */
     .sidebar {
-      position: sticky;
-      top: 72px;
+      position: sticky; top: 72px;
       padding: 3rem 0 3rem;
     }
-
     .sidebar-photo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1.1rem;
-      border: 1px solid var(--border);
-      filter: grayscale(100%);
+      width: 160px; height: 160px; border-radius: 50%;
+      object-fit: cover; margin-bottom: 1.1rem;
+      border: 1px solid var(--border); filter: grayscale(100%);
     }
-
-    .sidebar-name {
-      font-size: 21px;
-      font-weight: 500;
-      line-height: 1.25;
-      margin-bottom: 3px;
-      letter-spacing: -0.01em;
-    }
-
+    .sidebar-name { font-size: 21px; font-weight: 500; line-height: 1.25; margin-bottom: 3px; letter-spacing: -0.01em; }
     .sidebar-tag {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 1.3rem;
+      font-size: 10px; color: var(--muted); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 1.3rem;
     }
-
-    .sidebar-bio {
-      font-size: 13.5px;
-      line-height: 1.65;
-      color: #58574f;
-      margin-bottom: 1.6rem;
-    }
-
-    .sidebar-links {
-      list-style: none;
-    }
-
-    .sidebar-links li {
-      margin-bottom: 7px;
-    }
-
+    .sidebar-bio { font-size: 13.5px; line-height: 1.65; color: #58574f; margin-bottom: 1.6rem; }
+    .sidebar-links { list-style: none; }
+    .sidebar-links li { margin-bottom: 7px; }
     .sidebar-links a {
       font-family: 'DM Mono', monospace;
-      font-size: 11.5px;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      transition: color 0.18s;
+      font-size: 11.5px; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 7px; transition: color 0.18s;
     }
-
-    .sidebar-links a::before {
-      content: '→';
-      font-size: 10px;
-    }
-
-    .sidebar-links a:hover {
-      color: var(--accent);
-    }
-
-    .sidebar-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1.5rem 0;
-    }
-
-    .sidebar-stat {
-      font-size: 13px;
-      line-height: 1.65;
-      color: var(--muted);
-    }
-
-    .sidebar-stat strong {
-      color: var(--text);
-      font-weight: 500;
-      display: block;
-      font-size: 13.5px;
-    }
-
-    .sidebar-stat+.sidebar-stat {
-      margin-top: 0.9rem;
-    }
-
+    .sidebar-links a::before { content: '→'; font-size: 10px; }
+    .sidebar-links a:hover { color: var(--accent); }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .sidebar-stat { font-size: 13px; line-height: 1.65; color: var(--muted); }
+    .sidebar-stat strong { color: var(--text); font-weight: 500; display: block; font-size: 13.5px; }
+    .sidebar-stat + .sidebar-stat { margin-top: 0.9rem; }
     .looking-badge {
-      margin-top: 1.5rem;
-      padding: 8px 12px;
-      background: var(--accent-light);
-      border: 1px solid #c2d9c9;
-      border-radius: 6px;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.04em;
-      line-height: 1.6;
+      margin-top: 1.5rem; padding: 8px 12px;
+      background: var(--accent-light); border: 1px solid #c2d9c9; border-radius: 6px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--accent); letter-spacing: 0.04em; line-height: 1.6;
     }
+    .looking-badge::before { content: '● '; color: var(--accent); font-size: 8px; }
 
-    .looking-badge::before {
-      content: '● ';
-      color: var(--accent);
-      font-size: 8px;
-    }
-
-    /* ── MAIN ─────────────────────────────── */
-    main {
-      padding: 3rem 0 7rem;
-    }
-
-    section {
-      margin-bottom: 4.2rem;
-    }
-
+    main { padding: 3rem 0 7rem; }
+    section { margin-bottom: 4.2rem; }
     .section-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: 10.5px; font-weight: 400; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
       margin-bottom: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      display: flex; align-items: center; gap: 12px;
     }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── HERO ─────────────────────────────── */
-    .hero {
-      padding: 1.2rem 0 0.6rem;
-      margin-bottom: 3.6rem;
-    }
-
+    .hero { padding: 1.2rem 0 0.6rem; margin-bottom: 3.6rem; }
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.9rem;
+      font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem;
     }
-
     .hero-name {
-      font-size: clamp(32px, 4.5vw, 50px);
-      font-weight: 500;
-      line-height: 1.12;
-      letter-spacing: -0.025em;
-      margin-bottom: 1.2rem;
+      font-size: clamp(32px, 4.5vw, 50px); font-weight: 500;
+      line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 1.2rem;
     }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .hero-desc {
-      font-size: 17.5px;
-      line-height: 1.75;
-      color: #4a4a44;
-      max-width: 620px;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .hero-name em { font-style: italic; color: var(--muted); }
+    .hero-desc { font-size: 17.5px; line-height: 1.75; color: #4a4a44; max-width: 620px; margin-bottom: 1.8rem; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .hero-pill {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.04em;
-      padding: 5px 12px;
-      border-radius: 20px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border: 1px solid var(--border);
+      font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em;
+      padding: 5px 12px; border-radius: 20px;
+      background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border);
     }
+    .hero-pill.accent { background: var(--accent-light); color: var(--accent); border-color: #c2d9c9; }
 
-    .hero-pill.accent {
-      background: var(--accent-light);
-      color: var(--accent);
-      border-color: #c2d9c9;
-    }
-
-    /* ── CARDS (projects / research) ─────── */
     .card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem 1.6rem;
-      margin-bottom: 1rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.5rem 1.6rem; margin-bottom: 1rem;
       background: var(--bg);
       transition: background 0.2s, border-color 0.2s, transform 0.2s;
       position: relative;
     }
-
-    .card:hover {
-      background: var(--card-hover);
-      border-color: #ccc9c0;
-      transform: translateY(-1px);
-    }
-
+    .card:hover { background: var(--card-hover); border-color: #ccc9c0; transform: translateY(-1px); }
     .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 0.55rem;
-      flex-wrap: wrap;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; margin-bottom: 0.55rem; flex-wrap: wrap;
     }
-
-    .card-title {
-      font-size: 16.5px;
-      font-weight: 500;
-      line-height: 1.35;
-      letter-spacing: -0.005em;
-    }
-
-    .card-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: var(--muted);
-      letter-spacing: 0.03em;
-      margin-bottom: 0.55rem;
-    }
-
-    .card-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #4e4e48;
-      margin-bottom: 1rem;
-    }
-
-    .card-bullets {
-      margin: 0.6rem 0 1rem 1.1rem;
-      font-size: 14px;
-      line-height: 1.75;
-      color: #4e4e48;
-    }
-
-    .card-bullets li {
-      margin-bottom: 3px;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .card-title { font-size: 16.5px; font-weight: 500; line-height: 1.35; letter-spacing: -0.005em; }
+    .card-meta { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 0.55rem; }
+    .card-desc { font-size: 15px; line-height: 1.7; color: #4e4e48; margin-bottom: 1rem; }
+    .card-bullets { margin: 0.6rem 0 1rem 1.1rem; font-size: 14px; line-height: 1.75; color: #4e4e48; }
+    .card-bullets li { margin-bottom: 3px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .card-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.03em;
-      padding: 3px 9px;
-      border-radius: 4px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border: 1px solid var(--border);
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.03em;
+      padding: 3px 9px; border-radius: 4px;
+      background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border);
     }
 
-    /* badges */
     .badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.05em;
-      padding: 3px 9px;
-      border-radius: 4px;
-      white-space: nowrap;
+      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.05em;
+      padding: 3px 9px; border-radius: 4px; white-space: nowrap;
     }
+    .badge-live { background: #e6efe9; color: var(--accent); border: 1px solid #c2d9c9; }
+    .badge-wip { background: #fef8ec; color: #8a6a10; border: 1px solid #e8d898; }
+    .badge-paper { background: #f0edfa; color: #4a3a7a; border: 1px solid #ccc4e8; }
+    .badge-sole { background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border); }
+    .badge-mcp { background: #e8f4f8; color: #2a6a8a; border: 1px solid #b8d8e8; }
+    .badge-ux { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border); }
 
-    .badge-live {
-      background: #e6efe9;
-      color: var(--accent);
-      border: 1px solid #c2d9c9;
-    }
-
-    .badge-wip {
-      background: #fef8ec;
-      color: #8a6a10;
-      border: 1px solid #e8d898;
-    }
-
-    .badge-paper {
-      background: #f0edfa;
-      color: #4a3a7a;
-      border: 1px solid #ccc4e8;
-    }
-
-    .badge-sole {
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border: 1px solid var(--border);
-    }
-
-    /* ── RESEARCH ─────────────────────────── */
     .research-card {
       border-left: 3px solid var(--border);
-      padding: 1rem 0 1rem 1.4rem;
-      margin-bottom: 1.3rem;
+      padding: 1rem 0 1rem 1.4rem; margin-bottom: 1.3rem;
       transition: border-color 0.2s;
     }
+    .research-card:hover { border-left-color: var(--accent); }
+    .research-title { font-size: 15.5px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
+    .research-meta { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); margin-bottom: 0.55rem; }
+    .research-desc { font-size: 14px; line-height: 1.7; color: #555550; }
+    .research-finding { margin-top: 0.5rem; font-size: 13px; font-style: italic; color: var(--accent); }
 
-    .research-card:hover {
-      border-left-color: var(--accent);
-    }
-
-    .research-title {
-      font-size: 15.5px;
-      font-weight: 500;
-      line-height: 1.4;
-      margin-bottom: 4px;
-    }
-
-    .research-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: var(--muted);
-      margin-bottom: 0.55rem;
-    }
-
-    .research-desc {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #555550;
-    }
-
-    .research-finding {
-      margin-top: 0.5rem;
-      font-size: 13px;
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    /* ── SKILLS ──────────────────────────── */
     .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--border);
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden; background: var(--border);
     }
-
-    .skill-block {
-      background: var(--bg);
-      padding: 1.1rem 1.3rem;
-    }
-
-    .skill-block:last-child:nth-child(odd) {
-      grid-column: span 2;
-    }
-
+    .skill-block { background: var(--bg); padding: 1.1rem 1.3rem; }
+    .skill-block:last-child:nth-child(odd) { grid-column: span 2; }
     .skill-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 7px;
+      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
     }
+    .skill-items { font-size: 14px; line-height: 1.65; color: #3a3a36; }
 
-    .skill-items {
-      font-size: 14px;
-      line-height: 1.65;
-      color: #3a3a36;
-    }
-
-    /* ── UX BATTLES ──────────────────────── */
     .battle {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.4rem 1.6rem;
-      margin-bottom: 1.1rem;
-      background: var(--bg);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.4rem 1.6rem; margin-bottom: 1.1rem; background: var(--bg);
     }
-
-    .battle-title {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 3px;
-    }
-
-    .battle-sub {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: var(--muted);
-      letter-spacing: 0.03em;
-      margin-bottom: 0.8rem;
-    }
-
-    .battle-insight {
-      font-size: 14.5px;
-      line-height: 1.7;
-      color: #4e4e48;
-      margin-bottom: 1rem;
-    }
-
-    .insight-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13.5px;
-      margin-bottom: 0.8rem;
-    }
-
+    .battle-title { font-size: 16px; font-weight: 500; margin-bottom: 3px; }
+    .battle-sub { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
+    .battle-insight { font-size: 14.5px; line-height: 1.7; color: #4e4e48; margin-bottom: 1rem; }
+    .insight-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 0.8rem; }
     .insight-table th {
-      font-family: 'DM Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-bottom: 1px solid var(--border);
-      padding: 6px 8px;
-      text-align: left;
-      font-weight: 400;
+      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; font-weight: 400;
     }
-
-    .insight-table td {
-      padding: 7px 8px;
-      border-bottom: 1px solid var(--border);
-      line-height: 1.55;
-      color: #4a4a44;
-    }
-
-    .insight-table tr:last-child td {
-      border-bottom: none;
-    }
-
+    .insight-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); line-height: 1.55; color: #4a4a44; }
+    .insight-table tr:last-child td { border-bottom: none; }
     .concept {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.03em;
-      color: var(--accent);
-      background: var(--accent-light);
-      padding: 2px 7px;
-      border-radius: 3px;
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.03em;
+      color: var(--accent); background: var(--accent-light); padding: 2px 7px; border-radius: 3px;
     }
 
-    /* ── DARK PATTERNS ───────────────────── */
     .dp-card {
-      border: 1px solid var(--warn-border);
-      border-radius: 8px;
-      padding: 1.3rem 1.5rem;
-      margin-bottom: 1rem;
-      background: var(--warn-bg);
+      border: 1px solid var(--warn-border); border-radius: 8px;
+      padding: 1.3rem 1.5rem; margin-bottom: 1rem; background: var(--warn-bg);
     }
-
     .dp-name {
-      font-family: 'DM Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--warn);
-      margin-bottom: 4px;
+      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--warn); margin-bottom: 4px;
     }
+    .dp-title { font-size: 16px; font-weight: 500; margin-bottom: 0.55rem; }
+    .dp-desc { font-size: 14.5px; line-height: 1.7; color: #4e4e48; margin-bottom: 0.6rem; }
+    .dp-example { font-family: 'DM Mono', monospace; font-size: 10.5px; color: #9a5030; letter-spacing: 0.02em; }
 
-    .dp-title {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 0.55rem;
-    }
-
-    .dp-desc {
-      font-size: 14.5px;
-      line-height: 1.7;
-      color: #4e4e48;
-      margin-bottom: 0.6rem;
-    }
-
-    .dp-example {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: #9a5030;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── BRIEF BOX ────────────────────────── */
-    .brief-box {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.8rem 2rem;
-      background: var(--surface);
-    }
-
-    .brief-name {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .brief-title {
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    .brief-sub {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #5a5a54;
-      margin-bottom: 1.4rem;
-    }
-
-    .brief-delivers {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 20px;
-      margin-bottom: 1.6rem;
-    }
-
-    .brief-item {
-      font-size: 14px;
-      color: #4a4a44;
-      display: flex;
-      align-items: flex-start;
-      gap: 7px;
-    }
-
-    .brief-item::before {
-      content: '—';
-      color: var(--accent);
-      font-size: 13px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
+    .brief-box { border: 1px solid var(--border); border-radius: 8px; padding: 1.8rem 2rem; background: var(--surface); }
+    .brief-name { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+    .brief-title { font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+    .brief-sub { font-size: 14.5px; line-height: 1.65; color: #5a5a54; margin-bottom: 1.4rem; }
+    .brief-delivers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; margin-bottom: 1.6rem; }
+    .brief-item { font-size: 14px; color: #4a4a44; display: flex; align-items: flex-start; gap: 7px; }
+    .brief-item::before { content: '—'; color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 2px; }
     .brief-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      text-decoration: none;
-      border: 1px solid var(--accent);
-      padding: 8px 18px;
-      border-radius: 5px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.04em;
+      color: var(--accent); text-decoration: none;
+      border: 1px solid var(--accent); padding: 8px 18px; border-radius: 5px;
       transition: background 0.18s, color 0.18s;
     }
+    .brief-cta:hover { background: var(--accent); color: #fff; }
 
-    .brief-cta:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* ── CERTS ───────────────────────────── */
     .cert-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 0.75rem 0; border-bottom: 1px solid var(--border);
     }
-
-    .cert-row:last-child {
-      border-bottom: none;
-    }
-
-    .cert-name {
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .cert-by {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
+    .cert-row:last-child { border-bottom: none; }
+    .cert-name { font-size: 15px; font-weight: 500; }
+    .cert-by { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 2px; }
     .cert-status {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.05em;
-      padding: 3px 10px;
-      border-radius: 4px;
-      white-space: nowrap;
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em;
+      padding: 3px 10px; border-radius: 4px; white-space: nowrap;
     }
+    .cert-done { background: var(--accent-light); color: var(--accent); border: 1px solid #c2d9c9; }
+    .cert-progress { background: var(--tag-bg); color: var(--muted); border: 1px solid var(--border); }
 
-    .cert-done {
-      background: var(--accent-light);
-      color: var(--accent);
-      border: 1px solid #c2d9c9;
-    }
-
-    .cert-empty {
-      background: var(--tag-bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
-    /* ── ACHIEVEMENTS ───────────────────── */
-    .ach-list {
-      list-style: none;
-    }
-
+    .ach-list { list-style: none; }
     .ach-list li {
-      font-size: 15px;
-      line-height: 1.65;
-      color: #4a4a44;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      font-size: 15px; line-height: 1.65; color: #4a4a44;
+      padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 10px;
     }
+    .ach-list li:last-child { border-bottom: none; }
+    .ach-list li::before { content: '—'; color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 3px; }
 
-    .ach-list li:last-child {
-      border-bottom: none;
-    }
-
-    .ach-list li::before {
-      content: '—';
-      color: var(--accent);
-      font-size: 13px;
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    /* ── FOOTER ──────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 2rem 2rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      text-align: center;
+      padding: 2rem; font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--muted); letter-spacing: 0.04em; text-align: center;
     }
 
-    /* ── RESPONSIVE ──────────────────────── */
     @media (max-width: 780px) {
-      .wrapper {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .sidebar {
-        position: static;
-        padding: 2rem 0 0;
-      }
-
-      nav {
-        padding: 0 1rem;
-      }
-
-      .nav-links {
-        gap: 1rem;
-      }
-
-      .hero-name {
-        font-size: 34px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .brief-delivers {
-        grid-template-columns: 1fr;
-      }
-
-      main {
-        padding-bottom: 4rem;
-      }
+      .wrapper { grid-template-columns: 1fr; gap: 0; }
+      .sidebar { position: static; padding: 2rem 0 0; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .hero-name { font-size: 34px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .brief-delivers { grid-template-columns: 1fr; }
+      main { padding-bottom: 4rem; }
     }
   </style>
 </head>
@@ -839,7 +317,7 @@
       <li><a href="#ux-battles">UX</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#brief">Consult</a></li>
-      <li><a href="mailto:Tharunrathod2005@gmail.com">Email</a></li>
+      <li><a href="mailto:tharun_rb@ee.iitr.ac.in">Email</a></li>
     </ul>
   </nav>
 
@@ -851,23 +329,23 @@
       <div class="sidebar-name">Bhukke Tharun<br />Rathod</div>
       <div class="sidebar-tag">IIT Roorkee · EE · 2027</div>
       <p class="sidebar-bio">
-        Solo founder, full-stack engineer, and independent researcher. I build products, publish papers, and break down
-        UX.
+        Solo founder, full-stack engineer, and independent researcher. I build products, publish papers, and break down UX — all from IIT Roorkee.
       </p>
       <ul class="sidebar-links">
-        <li><a href="mailto:Tharunrathod2005@gmail.com">Tharunrathod2005@gmail.com</a></li>
+        <li><a href="mailto:tharun_rb@ee.iitr.ac.in">tharun_rb@ee.iitr.ac.in</a></li>
         <li><a href="https://linkedin.com/in/tharun-rathod" target="_blank">linkedin</a></li>
         <li><a href="https://github.com/edcore2025-ctrl" target="_blank">github</a></li>
         <li><a href="https://zenodo.org/doi/10.5281/zenodo.19885744" target="_blank">zenodo paper</a></li>
+        <li><a href="https://edcore.tech" target="_blank">edcore.tech</a></li>
       </ul>
       <hr class="sidebar-divider" />
       <div class="sidebar-stat">
-        <strong>2 products shipped</strong>
-        Edcore + Offset -solo
+        <strong>4 products shipped</strong>
+        Edcore · Wayfound · TravelChecker · Chai Lovers
       </div>
       <div class="sidebar-stat">
-        <strong>4 papers published</strong>
-        3 co-authored, 1 sole-authored
+        <strong>6 papers pub / in-progress</strong>
+        2 sole-authored, 2 co-authored + more
       </div>
       <div class="sidebar-stat">
         <strong>500 trials</strong>
@@ -879,7 +357,7 @@
       </div>
       <hr class="sidebar-divider" />
       <div class="sidebar-stat">+91 8074091839</div>
-      <div class="looking-badge">Open to internships -Full-Stack · BA / UX · AI Research</div>
+      <div class="looking-badge">Open to internships — Full-Stack · BA / UX · AI Research</div>
     </aside>
 
     <!-- MAIN -->
@@ -887,19 +365,19 @@
 
       <!-- HERO -->
       <div class="hero fade-up">
-        <div class="hero-eyebrow">B.Tech Electrical Engineering · 3rd Year</div>
+        <div class="hero-eyebrow">B.Tech Electrical Engineering · 3rd Year · IIT Roorkee</div>
         <h1 class="hero-name">Engineer.<br />Founder. <em>Researcher.</em></h1>
         <p class="hero-desc">
-          I build full-stack products from scratch, run empirical AI studies, and dissect UX decisions in Indian apps —
-          all solo, all from IIT Roorkee. Two shipped products, four publications, and a dataset no competitor offers.
+          IIT Roorkee engineer, solo founder, and independent researcher — four shipped products, six published/in-progress papers, and a 500-trial empirical AI study. Full-stack across Next.js + MongoDB; strong in UX research, business analysis, and LLM evaluation.
         </p>
         <div class="hero-pills">
           <span class="hero-pill accent">Full-Stack Dev</span>
           <span class="hero-pill accent">AI Research</span>
           <span class="hero-pill accent">UX Analysis</span>
-          <span class="hero-pill">Next.js · Supabase</span>
+          <span class="hero-pill">Next.js · MongoDB</span>
           <span class="hero-pill">LLM Evaluation</span>
           <span class="hero-pill">Business Analysis</span>
+          <span class="hero-pill">MCP Servers</span>
           <span class="hero-pill">CGPA: 5.7 · JEE AIR 23,496</span>
         </div>
       </div>
@@ -908,67 +386,138 @@
       <section id="projects">
         <div class="section-label">Projects</div>
 
+        <!-- Edcore -->
         <div class="card fade-up" style="animation-delay:0.05s">
           <div class="card-header">
-            <div class="card-title">Edcore -Full-Stack EdTech Platform</div>
+            <div class="card-title">Edcore — Full-Stack EdTech Platform</div>
             <span class="badge badge-live">live · in dev</span>
           </div>
-          <div class="card-meta">2025 – Present · Solo Founder &amp; Developer · Next.js 16, TypeScript, Supabase
-            (PostgreSQL), Vercel, MSG91, Resend</div>
-          <p class="card-desc">Four modules -ExamNotifi, CollegeTracker, Tutorix, NextTalk -built end-to-end by one
-            person, zero team, zero funding. The platform carries a 2,000+ college dataset across 25 fields that no
-            competitor offers: hostel vibe, coding culture, campus life, placements.</p>
+          <div class="card-meta">2025 – Present · Solo Founder &amp; Developer · Next.js 16, TypeScript, MongoDB, Vercel, MSG91, Resend · edcore.tech</div>
+          <p class="card-desc">Four modules — ExamNotifi, CollegeTracker, Tutorix, NextTalk — built end-to-end by one person, zero team, zero funding. The platform carries a 2,000+ college dataset across 25 fields that no competitor offers: hostel vibe, coding culture, campus life, placements.</p>
           <ul class="card-bullets">
-            <li>15-table PostgreSQL schema -users, sessions, OTPs, college data, tutor profiles, enrollment flows, RLS
-              policies</li>
-            <li>Auth: email OTP via crypto.randomInt() (deliberate -not Math.random), session creation, route
-              protection via proxy.ts middleware</li>
-            <li>MSG91 SMS OTP with DLT approval; migrated to Resend as interim -zero auth downtime</li>
-            <li>REST API routes across all four modules; edge-case handling for session expiry, duplicate OTPs,
-              unauthenticated access</li>
+            <li>Built end-to-end solo — MongoDB schema design, OTP auth using crypto.randomInt(), REST APIs, and route protection middleware deployed on Vercel</li>
+            <li>Manually collected and structured 2,000+ colleges across 25 fields (placements, hostel vibe, coding culture, campus life) — original dataset at a depth no competitor offers in one place</li>
           </ul>
           <div class="card-tags">
             <span class="card-tag">Next.js 16</span>
             <span class="card-tag">TypeScript</span>
-            <span class="card-tag">Supabase</span>
-            <span class="card-tag">PostgreSQL</span>
+            <span class="card-tag">MongoDB</span>
             <span class="card-tag">REST APIs</span>
             <span class="card-tag">Auth systems</span>
             <span class="card-tag">Solo build</span>
           </div>
         </div>
 
-        <div class="card fade-up" style="animation-delay:0.15s">
+        <!-- Wayfound -->
+        <div class="card fade-up" style="animation-delay:0.08s">
           <div class="card-header">
-            <div class="card-title">LLM Benchmark -Specialist vs Generalist Models</div>
+            <div class="card-title">Wayfound — AI Trip Planner for Hyderabad</div>
+            <span class="badge badge-live">shipped</span>
+          </div>
+          <div class="card-meta">2026 · IIT Roorkee Open Competition · Groq API, Google Places API</div>
+          <p class="card-desc">Users input group size, budget, and vibe → AI generates a full curated outing plan with real venues, timings, and routing. Built and shipped as a live public entry for IIT Roorkee's open hackathon.</p>
+          <ul class="card-bullets">
+            <li>Integrated Groq for natural-language trip planning with Google Places for real-time venue discovery</li>
+            <li>Handled prompt engineering for structured JSON output → rendered itinerary UI</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Groq API</span>
+            <span class="card-tag">Google Places API</span>
+            <span class="card-tag">Prompt engineering</span>
+            <span class="card-tag">Hackathon</span>
+          </div>
+        </div>
+
+        <!-- TravelChecker -->
+        <div class="card fade-up" style="animation-delay:0.11s">
+          <div class="card-header">
+            <div class="card-title">TravelChecker — Multi-Modal Travel Comparison Engine</div>
+            <span class="badge badge-mcp">MCP server</span>
+          </div>
+          <div class="card-meta">2026 · TypeScript · MCP Server · Google Maps, Aviasales, IRCTC APIs</div>
+          <p class="card-desc">Compares flights, trains, buses, cabs, and self-drive with live data from Google Maps, Aviasales, and IRCTC — e.g. 'Khammam to Delhi' returns the optimal route (cab to Vijayawada airport → flight) with cost and comfort factored in.</p>
+          <ul class="card-bullets">
+            <li>Built as a Model Context Protocol (MCP) server so Claude and Cursor can call it as a native tool</li>
+            <li>Includes rate-limit handling across three free-tier API providers</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">TypeScript</span>
+            <span class="card-tag">MCP Server</span>
+            <span class="card-tag">Google Maps API</span>
+            <span class="card-tag">Aviasales</span>
+            <span class="card-tag">IRCTC API</span>
+          </div>
+        </div>
+
+        <!-- MakeMyTrip UX Analysis -->
+        <div class="card fade-up" style="animation-delay:0.14s">
+          <div class="card-header">
+            <div class="card-title">MakeMyTrip UX Analysis — Dark Patterns in Cancellation Flows</div>
+            <span class="badge badge-ux">UX / BA</span>
+          </div>
+          <div class="card-meta">May 2026 · Self-Initiated · Heuristic Evaluation, Dark Pattern Analysis</div>
+          <p class="card-desc">Identified 3 compounding dark patterns in MakeMyTrip's cancellation and refund flow — each individually defensible, collectively predatory.</p>
+          <ul class="card-bullets">
+            <li>Unverifiable refund: ₹1,600 displayed vs ₹600 actually processed — a ₹1,000 discrepancy with no breakdown</li>
+            <li>4-step IVR optimised for drop-off, not resolution — each step adds friction to an already frustrated user</li>
+            <li>Undisclosed AI agent deployed where a human was implied — documented with CCPA escalation paths</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Heuristic evaluation</span>
+            <span class="card-tag">Dark patterns</span>
+            <span class="card-tag">Consumer rights</span>
+            <span class="card-tag">UX audit</span>
+          </div>
+        </div>
+
+        <!-- Ola Mini Business Analysis -->
+        <div class="card fade-up" style="animation-delay:0.17s">
+          <div class="card-header">
+            <div class="card-title">Ola Mini Business Analysis — Supply &amp; Experience Failure</div>
+            <span class="badge badge-ux">BA / Platform</span>
+          </div>
+          <div class="card-meta">Jun 2026 · Self-Initiated · Root Cause Analysis, Platform Economics</div>
+          <p class="card-desc">Mapped a 6-layer booking cascade across supply operations, data integrity, pricing policy, and trust &amp; safety — with competitive impact vs Rapido and Uber.</p>
+          <ul class="card-bullets">
+            <li>Cascade: thin supply → wrong vehicle category dispatched → driver condition-cancels → ₹75 penalty → 50% surge on rebooking → user churns to Rapido</li>
+            <li>Root cause analysis traced the failure across four business domains — not a single bug, a systemic misalignment</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Root cause analysis</span>
+            <span class="card-tag">Platform economics</span>
+            <span class="card-tag">Competitive analysis</span>
+            <span class="card-tag">Supply ops</span>
+          </div>
+        </div>
+
+        <!-- LLM Benchmark -->
+        <div class="card fade-up" style="animation-delay:0.20s">
+          <div class="card-header">
+            <div class="card-title">LLM Benchmark — Specialist vs Generalist vs Hybrid Architectures</div>
             <span class="badge badge-sole">independent research</span>
           </div>
-          <div class="card-meta">2026 · Python, Groq API, OpenRouter, CSV Pipeline</div>
-          <p class="card-desc">90-problem automated benchmarking pipeline: Qwen3-32B (specialist) vs Llama-4-Scout
-            (generalist) across Easy / Medium / Hard tiers. Tracked pass@1, compile error rates, completion rates, and
-            complexity correctness per model per tier.</p>
+          <div class="card-meta">2026 · Python, Groq API · Published paper (see Research section)</div>
+          <p class="card-desc">Built an automated pipeline evaluating 4 conditions (Generalist, Specialist, Hybrid-naive, Hybrid-guarded) across 75 problems + 4 adversarial probes using a triaxial framework: Pass@1, CxSelf, CxJudge.</p>
           <ul class="card-bullets">
-            <li>Rate-limit detection mid-run -isolated corrupted results, reran affected batches, preserved full CSV
-              integrity</li>
-            <li>Model-specific routing: specialist, generalist, decomposer, and judge roles per tier</li>
+            <li>Key result: generalist leads execution (0.911 vs 0.862); specialist leads complexity awareness — a trade-off invisible to single-axis evaluation</li>
+            <li>Naive Hybrid regresses 0.133, guarded variant recovers 87% — architecture choice matters as much as model choice</li>
           </ul>
           <div class="card-tags">
             <span class="card-tag">Python</span>
             <span class="card-tag">Groq API</span>
-            <span class="card-tag">OpenRouter</span>
             <span class="card-tag">LLM evaluation</span>
+            <span class="card-tag">Benchmarking</span>
           </div>
         </div>
 
-        <div class="card fade-up" style="animation-delay:0.18s">
+        <!-- Smart Waste -->
+        <div class="card fade-up" style="animation-delay:0.23s">
           <div class="card-header">
             <div class="card-title">Smart Waste Management System</div>
             <span class="badge badge-sole">academic collab</span>
           </div>
           <div class="card-meta">2026 · Python, spaCy, Deep Learning</div>
-          <p class="card-desc">Contributed NLP module to a DL-based waste classification system. Built a natural
-            language querying interface using spaCy so non-technical users could query classification results in plain
-            language. Optimized multi-label classification for mixed waste streams.</p>
+          <p class="card-desc">Contributed NLP module to a DL-based waste classification system. Built a natural language querying interface using spaCy so non-technical users could query classification results in plain language. Optimised multi-label architecture for mixed waste streams.</p>
           <div class="card-tags">
             <span class="card-tag">spaCy</span>
             <span class="card-tag">Deep Learning</span>
@@ -977,14 +526,14 @@
           </div>
         </div>
 
-        <div class="card fade-up" style="animation-delay:0.2s">
+        <!-- Chai Lovers -->
+        <div class="card fade-up" style="animation-delay:0.26s">
           <div class="card-header">
-            <div class="card-title">Chai Lovers -Static Business Website</div>
+            <div class="card-title">Chai Lovers — Dynamic Business Website</div>
             <span class="badge badge-live">delivered</span>
           </div>
           <div class="card-meta">2025 · HTML, CSS, JavaScript · Client Project</div>
-          <p class="card-desc">Built and delivered a static website for a local café -a neighbour's small business.
-            Menu, location, contact. First real client delivery from brief to live site.</p>
+          <p class="card-desc">Built and delivered a dynamic website for a local café — menu, location, contact, and interactive elements. From brief to live site, solo. First real client delivery.</p>
           <div class="card-tags">
             <span class="card-tag">HTML/CSS</span>
             <span class="card-tag">JavaScript</span>
@@ -997,81 +546,75 @@
       <section id="research">
         <div class="section-label">Research &amp; Publications</div>
 
+        <!-- Capitulation Problem -->
         <div class="research-card fade-up">
           <div class="card-header" style="margin-bottom:4px">
             <div class="research-title">The Capitulation Problem: A Conditional Optimization Framework</div>
             <span class="badge badge-paper">sole author</span>
           </div>
-          <div class="research-meta">2026 · Independent Research · IIT Roorkee</div>
-          <p class="research-desc">500-trial behavioral experiment using Gemma 4B as a controlled proxy for
-            decision-making under social pressure -5 domains × 5 pressure variants. LLM-as-Judge methodology (Claude as
-            judge) for automated capitulation classification. Validated against blind human coding on a 36-trial
-            stratified sample (Cohen's κ = 0.43).</p>
-          <div class="research-finding">Key finding: 9.6% combined capitulation rate -far below the 39–52% hypothesized
-            from human literature. Factual domain most vulnerable (19%). Moral dilemmas most resistant (3.1%).</div>
+          <div class="research-meta">2026 · Independent Research · IIT Roorkee · 484 trials</div>
+          <p class="research-desc">Behavioral experiment using Gemma 4B (Ollama) as a controlled proxy — 5 domains × 5 pressure variants. LLM-as-Judge methodology with automated capitulation classification. Validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework.</p>
+          <div class="research-finding">Key finding: 42.8% combined capitulation — within the 39–52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% — the Compliance Paradox.</div>
         </div>
 
+        <!-- LLM Architectures -->
         <div class="research-card fade-up" style="animation-delay:0.05s">
           <div class="card-header" style="margin-bottom:4px">
-            <div class="research-title">Dual-Transformer Cross-Attention Multimodal Emotion Recognition</div>
-            <span class="badge badge-paper">co-author</span>
+            <div class="research-title">Specialist, Generalist, and Hybrid LLM Architectures for Algorithmic Code Generation</div>
+            <span class="badge badge-paper">sole author</span>
           </div>
-          <div class="research-meta">2026 · IIT Roorkee · Electrical Engineering Department</div>
-          <p class="research-desc">HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS
-            corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated
-            across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and
-            authored the complete paper.</p>
+          <div class="research-meta">2026 · Independent Research · IIT Roorkee · 75 problems + 4 adversarial probes</div>
+          <p class="research-desc">Triaxial evaluation framework (Pass@1, CxSelf, CxJudge) across four architecture conditions. Automated pipeline with model-specific routing for specialist, generalist, decomposer, and judge roles.</p>
+          <div class="research-finding">Generalist leads execution (Pass@1: 0.911 vs 0.862); specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.</div>
         </div>
 
+        <!-- Dual-Transformer -->
         <div class="research-card fade-up" style="animation-delay:0.1s">
           <div class="card-header" style="margin-bottom:4px">
-            <div class="research-title">Physics-Guided Diffusion Models for Synthetic Power Flow Data Generation</div>
-            <span class="badge badge-paper">co-author</span>
+            <div class="research-title">Dual-Transformer Cross-Attention Multimodal Emotion Recognition</div>
+            <span class="badge badge-sole">co-author</span>
           </div>
-          <div class="research-meta">2025 · IIT Roorkee · Electrical Engineering Department</div>
-          <p class="research-desc">Physics-guided DDPM framework enforcing AC power flow feasibility via
-            manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline.
-            Dynamic normalization and variable decoupling (p↔θ, q↔v) -two independent denoisers. Evaluated on PJM 5-bus
-            and IEEE bus systems; Wasserstein-1 distance reduced from 0.71 to 0.48.</p>
+          <div class="research-meta">2026 · IIT Roorkee · Electrical Engineering Department</div>
+          <p class="research-desc">HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and authored the complete paper.</p>
         </div>
 
+        <!-- Physics-Guided -->
         <div class="research-card fade-up" style="animation-delay:0.15s">
           <div class="card-header" style="margin-bottom:4px">
-            <div class="research-title">Phonological Fidelity and Convergent Preservation in Indo-European Languages
-            </div>
+            <div class="research-title">Physics-Guided Diffusion Models for Synthetic Power Flow Data Generation</div>
+            <span class="badge badge-sole">co-author</span>
+          </div>
+          <div class="research-meta">2025 · IIT Roorkee · Electrical Engineering Department</div>
+          <p class="research-desc">Physics-guided DDPM framework enforcing AC power flow feasibility via manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline. Dynamic normalisation and variable decoupling (p↔θ, q↔v) — two independent denoisers. Evaluated on PJM 5-bus and IEEE bus systems; Wasserstein-1 distance reduced from 0.71 to 0.48.</p>
+        </div>
+
+        <!-- Phonological Fidelity -->
+        <div class="research-card fade-up" style="animation-delay:0.2s">
+          <div class="card-header" style="margin-bottom:4px">
+            <div class="research-title">Phonological Fidelity and Convergent Preservation in Indo-European Languages</div>
             <span class="badge badge-paper">sole author · open access</span>
           </div>
           <div class="research-meta">2026 · Published open-access · Zenodo DOI: 10.5281/zenodo.19885744</div>
-          <p class="research-desc">Developed the Phonological Fidelity Index (PFI) -a quantitative measure of consonant
-            retention from Proto-Indo-European roots across French, Hindi/Sanskrit, and English under Grimm's Law. Built
-            and analyzed a curated Swadesh-based dataset; proposed Convergent Preservation and Phonetic Triangulation as
-            cross-branch comparison methods.</p>
+          <p class="research-desc">Developed the Phonological Fidelity Index (PFI) — a quantitative measure of consonant retention from Proto-Indo-European roots across French, Hindi/Sanskrit, and English under Grimm's Law. Built and analysed a curated Swadesh-based dataset; proposed Convergent Preservation and Phonetic Triangulation as cross-branch comparison methods.</p>
         </div>
       </section>
 
       <!-- UX BATTLES -->
       <section id="ux-battles">
         <div class="section-label">UX Battles</div>
-        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">I pick apps
-          solving the same problem and break down every UX and business decision -why they made it, who wins, what I'd
-          fix.</p>
+        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">I pick apps solving the same problem and break down every UX and business decision — why they made it, who wins, what I'd fix.</p>
 
         <div class="battle fade-up">
-          <div class="battle-title">Battle 01 -Food Delivery</div>
+          <div class="battle-title">Battle 01 — Food Delivery</div>
           <div class="battle-sub">Swiggy · Zomato · EatSure · Domino's · KFC</div>
-          <p class="battle-insight">Found the <em>framing effect</em>, <em>emotional onboarding</em>, <em>progressive
-              disclosure</em>, the <em>say-do gap</em> -and a deliberate anchoring exploit in Zomato's Food Rescue
-            screen that inflated perceived savings from ₹49 to ₹119.</p>
+          <p class="battle-insight">Found the <em>framing effect</em>, <em>emotional onboarding</em>, <em>progressive disclosure</em>, the <em>say-do gap</em> — and a deliberate anchoring exploit in Zomato's Food Rescue screen that inflated perceived savings by ₹70.</p>
           <table class="insight-table">
             <thead>
-              <tr>
-                <th>observation</th>
-                <th>concept</th>
-              </tr>
+              <tr><th>observation</th><th>concept</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td>Swiggy UI feels congested -too much competing for attention</td>
+                <td>Swiggy UI feels congested — too much competing for attention</td>
                 <td><span class="concept">information hierarchy failure</span></td>
               </tr>
               <tr>
@@ -1079,45 +622,37 @@
                 <td><span class="concept">emotional onboarding</span></td>
               </tr>
               <tr>
-                <td>'₹120 off above ₹199' outperforms '60% off upto ₹120' -same money</td>
-                <td><span class="concept">framing effect -Kahneman</span></td>
+                <td>'₹120 off above ₹199' outperforms '60% off upto ₹120' — same money, better conversion</td>
+                <td><span class="concept">framing effect — Kahneman</span></td>
               </tr>
               <tr>
                 <td>I'd still pick Zomato over EatSure despite knowing better</td>
                 <td><span class="concept">say-do gap</span></td>
               </tr>
               <tr>
-                <td>₹36 gap between Domino's direct app and Zomato -never communicated</td>
+                <td>₹36 gap between Domino's direct app and Zomato — never communicated</td>
                 <td><span class="concept">missed competitive advantage</span></td>
               </tr>
               <tr>
                 <td>KFC app feels exactly like the store</td>
-                <td><span class="concept">brand cohesion -done right</span></td>
+                <td><span class="concept">brand cohesion — done right</span></td>
               </tr>
               <tr>
                 <td>Domino's app has zero personality</td>
-                <td><span class="concept">brand inconsistency -product suicide</span></td>
+                <td><span class="concept">brand inconsistency — product suicide</span></td>
               </tr>
             </tbody>
           </table>
-          <p style="font-size:13.5px;color:var(--muted);">Key insight: both Domino's and KFC built their own apps to
-            escape Zomato's 25–30% commission. KFC won because their app feels like KFC. Domino's forgot to make theirs
-            feel like anything.</p>
+          <p style="font-size:13.5px;color:var(--muted);">Key insight: both Domino's and KFC built their own apps to escape Zomato's 25–30% commission. KFC won because their app feels like KFC. Domino's forgot to make theirs feel like anything.</p>
         </div>
 
         <div class="battle fade-up" style="animation-delay:0.05s">
-          <div class="battle-title">Battle 02 -Payments</div>
+          <div class="battle-title">Battle 02 — Payments</div>
           <div class="battle-sub">Google Pay · PhonePe · Paytm</div>
-          <p class="battle-insight">Paytm showed me a name for an unsaved contact. I paid the wrong Rajkumar. Classic
-            <em>false confidence</em>. The refund process was deliberately painful -<em>deliberate friction</em>, not
-            an accident.
-          </p>
+          <p class="battle-insight">Paytm showed me a name for an unsaved contact. I paid the wrong Rajkumar. Classic <em>false confidence</em>. The refund process was deliberately painful — <em>deliberate friction</em>, not an accident.</p>
           <table class="insight-table">
             <thead>
-              <tr>
-                <th>observation</th>
-                <th>concept</th>
-              </tr>
+              <tr><th>observation</th><th>concept</th></tr>
             </thead>
             <tbody>
               <tr>
@@ -1125,25 +660,23 @@
                 <td><span class="concept">stickiness gap</span></td>
               </tr>
               <tr>
-                <td>PhonePe has stocks, gold, insurance -a reason to stay open</td>
+                <td>PhonePe has stocks, gold, insurance — a reason to stay open</td>
                 <td><span class="concept">retention by design</span></td>
               </tr>
               <tr>
-                <td>Paytm showed a name for an unsaved contact -I paid the wrong person</td>
-                <td><span class="concept">usability failure -false confidence</span></td>
+                <td>Paytm showed a name for an unsaved contact — I paid the wrong person</td>
+                <td><span class="concept">usability failure — false confidence</span></td>
               </tr>
               <tr>
                 <td>Paytm refund took 7 screens and a waiting period</td>
-                <td><span class="concept">deliberate friction -business over user</span></td>
+                <td><span class="concept">deliberate friction — business over user</span></td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div class="battle" style="opacity:0.45;">
-          <div class="battle-title">Battle 03 -Dating Apps <span
-              style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);font-weight:300;margin-left:8px;">coming
-              soon</span></div>
+          <div class="battle-title">Battle 03 — Dating Apps <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);font-weight:300;margin-left:8px;">coming soon</span></div>
           <div class="battle-sub">Bumble · Tinder · Hinge · Boo</div>
         </div>
       </section>
@@ -1151,48 +684,45 @@
       <!-- DARK PATTERNS -->
       <section id="dark-patterns">
         <div class="section-label">Dark Patterns Spotted</div>
-        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">Deliberate
-          design decisions made against users to protect business metrics. All examples from Indian apps -and most from
-          personal experience.</p>
+        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">Deliberate design decisions made against users to protect business metrics. All examples from Indian apps — most from personal experience.</p>
 
         <div class="dp-card fade-up">
           <div class="dp-name">Roach Motel</div>
           <div class="dp-title">Easy in. Impossible out.</div>
-          <p class="dp-desc">Signup takes 30 seconds. Cancelling takes 7 screens, a call, and a waiting period. The
-            friction is intentionally asymmetric -exactly what I experienced with Paytm's refund flow.</p>
+          <p class="dp-desc">Signup takes 30 seconds. Cancelling takes 7 screens, a call, and a waiting period. The friction is intentionally asymmetric — exactly what I experienced with Paytm's refund flow.</p>
           <div class="dp-example">spotted in: Paytm refunds · Indian telecom portals · OTT cancellations</div>
         </div>
 
         <div class="dp-card fade-up" style="animation-delay:0.05s">
+          <div class="dp-name">Unverifiable Refund</div>
+          <div class="dp-title">₹1,600 displayed. ₹600 processed.</div>
+          <p class="dp-desc">MakeMyTrip showed a refund amount at the start of the cancellation flow. The actual amount processed was ₹1,000 less with no itemised breakdown. You only discover the gap after completing the cancellation — too late to back out.</p>
+          <div class="dp-example">spotted in: MakeMyTrip cancellation · 4-step IVR designed for drop-off · AI agent deployed as human</div>
+        </div>
+
+        <div class="dp-card fade-up" style="animation-delay:0.08s">
           <div class="dp-name">Hidden Costs</div>
           <div class="dp-title">The price that only appears at the last step.</div>
-          <p class="dp-desc">Four screens of checkout. Everything looks fine. Final screen: platform fee ₹5, convenience
-            charge ₹12, GST ₹18. By step 4 you're already committed -and they know it.</p>
+          <p class="dp-desc">Four screens of checkout. Everything looks fine. Final screen: platform fee ₹5, convenience charge ₹12, GST ₹18. By step 4 you're already committed — and they know it.</p>
           <div class="dp-example">spotted in: BookMyShow · MakeMyTrip · every Indian ticketing platform</div>
         </div>
 
-        <div class="dp-card fade-up" style="animation-delay:0.1s">
+        <div class="dp-card fade-up" style="animation-delay:0.11s">
           <div class="dp-name">Fake Scarcity</div>
           <div class="dp-title">Countdown timers that reset. "Only 2 left" that never runs out.</div>
-          <p class="dp-desc">Refresh after 10 minutes -still 3 rooms, timer reset. Manufactured scarcity to trigger
-            loss aversion. You're not going to miss out. They just need you to feel like you might.</p>
+          <p class="dp-desc">Refresh after 10 minutes — still 3 rooms, timer reset. Manufactured scarcity to trigger loss aversion. You're not going to miss out. They just need you to feel like you might.</p>
           <div class="dp-example">spotted in: MakeMyTrip · Goibibo · Flipkart sale pages</div>
         </div>
 
-        <div class="dp-card fade-up" style="animation-delay:0.15s">
+        <div class="dp-card fade-up" style="animation-delay:0.14s">
           <div class="dp-name">Confirmshaming</div>
           <div class="dp-title">Making the "no" feel like shame.</div>
-          <p class="dp-desc">One button: "Yes, continue." The other: "No thanks, I don't want to save money." The choice
-            is real. The framing is manipulation.</p>
-          <div class="dp-example">spotted in: subscription apps · food delivery premium plans · e-commerce flash sales
-          </div>
+          <p class="dp-desc">One button: "Yes, continue." The other: "No thanks, I don't want to save money." The choice is real. The framing is manipulation.</p>
+          <div class="dp-example">spotted in: subscription apps · food delivery premium plans · e-commerce flash sales</div>
         </div>
 
-        <div
-          style="margin-top:1rem;padding:1rem 1.3rem;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:7px;font-size:14px;color:#7a3010;line-height:1.7;">
-          <strong>Not all friction is a dark pattern.</strong> Paytm's cancellation flow is one -designed to make you
-          give up. Zomato's cancellation warning is borderline -it informs you of a real consequence. The difference is
-          intent: does the friction protect the user or exploit them?
+        <div style="margin-top:1rem;padding:1rem 1.3rem;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:7px;font-size:14px;color:#7a3010;line-height:1.7;">
+          <strong>Not all friction is a dark pattern.</strong> Paytm's cancellation flow is one — designed to make you give up. Zomato's cancellation warning is borderline — it informs you of a real consequence. The difference is intent: does the friction protect the user or exploit them?
         </div>
       </section>
 
@@ -1206,45 +736,44 @@
           </div>
           <div class="skill-block">
             <div class="skill-label">Backend / DB</div>
-            <div class="skill-items">Supabase (PostgreSQL), RLS policies, auth systems, OTP flows, session management
-            </div>
-          </div>
-          <div class="skill-block">
-            <div class="skill-label">AI &amp; LLMs</div>
-            <div class="skill-items">Prompt engineering, LLM evaluation, LLM-as-Judge, API integration (Claude, GPT-4,
-              Gemini, Qwen, Groq)</div>
-          </div>
-          <div class="skill-block">
-            <div class="skill-label">Research &amp; Analysis</div>
-            <div class="skill-items">Experimental design, heuristic UX evaluation, competitive analysis, behavioral
-              economics, requirements gathering</div>
+            <div class="skill-items">MongoDB, authentication systems, OTP flows, session management, REST API design</div>
           </div>
           <div class="skill-block">
             <div class="skill-label">Integrations &amp; Deploy</div>
-            <div class="skill-items">MSG91, Resend, Groq API, OpenRouter, Vercel, Python scripting &amp; data pipelines
-            </div>
+            <div class="skill-items">Groq API, Google Places, MSG91, Resend, Aviasales, IRCTC, OpenRouter, Vercel</div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-label">AI &amp; LLMs</div>
+            <div class="skill-items">Prompt engineering, LLM evaluation pipelines, LLM-as-Judge methodology, model benchmarking</div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-label">Research &amp; UX</div>
+            <div class="skill-items">Heuristic evaluation, competitive analysis, behavioral economics, dark pattern analysis, UX research</div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-label">Data &amp; BA</div>
+            <div class="skill-items">Excel Power Query, Python scripting &amp; data pipelines, business analytics, root cause analysis</div>
           </div>
           <div class="skill-block">
             <div class="skill-label">Other</div>
-            <div class="skill-items">LaTeX, Excel Power Query, Arduino (C++), academic writing, Figma (basics)</div>
+            <div class="skill-items">LaTeX, MCP server development, academic writing, C++ (Arduino), Figma (basics)</div>
           </div>
         </div>
       </section>
 
       <!-- BRIEF -->
       <section id="brief">
-        <div class="section-label">Consulting -Brief</div>
+        <div class="section-label">Consulting — Brief</div>
         <div class="brief-box fade-up">
           <div class="brief-name">Brief · BA + UX Consulting</div>
           <div class="brief-title">Requirements &amp; Research for Founders</div>
-          <div class="brief-sub">Discovery · Analysis · BRD<br />You're building. I translate what you need to build
-            into structured outputs your team can act on.</div>
+          <div class="brief-sub">Discovery · Analysis · BRD<br />You're building. I translate what you need to build into structured outputs your team can act on.</div>
           <div class="brief-delivers">
-            <div class="brief-item">Process flows -as-is vs to-be</div>
+            <div class="brief-item">Process flows — as-is vs to-be</div>
             <div class="brief-item">Business Requirements Documents (BRD)</div>
             <div class="brief-item">Customer journey maps with emotional overlay</div>
-            <div class="brief-item">User stories -developer-ready</div>
-            <div class="brief-item">UX audit reports -structured, actionable</div>
+            <div class="brief-item">User stories — developer-ready</div>
+            <div class="brief-item">UX audit reports — structured, actionable</div>
             <div class="brief-item">Stakeholder maps &amp; gap analysis</div>
           </div>
           <a class="brief-cta"
@@ -1258,24 +787,66 @@
         <div class="section-label">Certifications</div>
         <div class="cert-row">
           <div>
+            <div class="cert-name">MongoDB Overview: Core Concepts and Architecture</div>
+            <div class="cert-by">MongoDB, Inc.</div>
+          </div>
+          <span class="cert-status cert-done">Jun 2026</span>
+        </div>
+        <div class="cert-row">
+          <div>
+            <div class="cert-name">AI Product Management Course</div>
+            <div class="cert-by">Simplilearn SkillUP</div>
+          </div>
+          <span class="cert-status cert-done">Jun 2026</span>
+        </div>
+        <div class="cert-row">
+          <div>
+            <div class="cert-name">Business Analytics with Excel</div>
+            <div class="cert-by">Simplilearn SkillUP</div>
+          </div>
+          <span class="cert-status cert-done">Jun 2026</span>
+        </div>
+        <div class="cert-row">
+          <div>
+            <div class="cert-name">Business Analysis Basics</div>
+            <div class="cert-by">Simplilearn SkillUP</div>
+          </div>
+          <span class="cert-status cert-done">Jun 2026</span>
+        </div>
+        <div class="cert-row">
+          <div>
+            <div class="cert-name">Google Ads for Beginners</div>
+            <div class="cert-by">Coursera</div>
+          </div>
+          <span class="cert-status cert-done">Mar 2026</span>
+        </div>
+        <div class="cert-row">
+          <div>
+            <div class="cert-name">Web Developer Program</div>
+            <div class="cert-by">Hiring Bazaar</div>
+          </div>
+          <span class="cert-status cert-done">2025</span>
+        </div>
+        <div class="cert-row">
+          <div>
             <div class="cert-name">Google UX Design Professional Certificate</div>
             <div class="cert-by">Google · Coursera</div>
           </div>
-          <span class="cert-status cert-empty">in progress</span>
+          <span class="cert-status cert-progress">in progress</span>
         </div>
         <div class="cert-row">
           <div>
             <div class="cert-name">Google Data Analytics Professional Certificate</div>
             <div class="cert-by">Google · Coursera</div>
           </div>
-          <span class="cert-status cert-empty">in progress</span>
+          <span class="cert-status cert-progress">in progress</span>
         </div>
         <div class="cert-row">
           <div>
             <div class="cert-name">IBM Business Analyst Professional Certificate</div>
             <div class="cert-by">IBM · Coursera</div>
           </div>
-          <span class="cert-status cert-empty">in progress</span>
+          <span class="cert-status cert-progress">in progress</span>
         </div>
       </section>
 
@@ -1283,21 +854,18 @@
       <section id="achievements">
         <div class="section-label">Achievements</div>
         <ul class="ach-list">
-          <li>All India Rank 23,496 -JEE Advanced 2023 &nbsp;<span
-              style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">(top ~1% of all engineering
-              aspirants)</span></li>
-          <li>Telangana EAPCET Rank 2,614 -2023</li>
-          <li>Offered Machine Learning Trainee position -R.K. Interlliserve</li>
-          <li>NCC Cadet -National Cadet Corps, IIT Roorkee (Oct 2023 – Apr 2024)</li>
-          <li>Class XII -94.20% · Telangana State Board &nbsp;|&nbsp; Class X -95.60% · CBSE</li>
+          <li>All India Rank 23,496 — JEE Advanced 2023 &nbsp;<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">(top ~1% of all engineering aspirants)</span></li>
+          <li>Telangana EAPCET Rank 2,614 — 2023</li>
+          <li>Offered Machine Learning Trainee position — R.K. Interlliserve</li>
+          <li>NCC Cadet — National Cadet Corps, IIT Roorkee (Oct 2023 – Apr 2024)</li>
+          <li>Class XII — 94.20% · Telangana State Board &nbsp;|&nbsp; Class X — 95.60% · CBSE</li>
         </ul>
       </section>
 
     </main>
   </div>
 
-  <footer>Tharun Rathod · IIT Roorkee · 2026 · Tharunrathod2005@gmail.com</footer>
+  <footer>Tharun Rathod · IIT Roorkee · 2026 · tharun_rb@ee.iitr.ac.in · +91 8074091839</footer>
 
 </body>
-
 </html>
