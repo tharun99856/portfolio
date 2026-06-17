@@ -1,728 +1,922 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tharun Rathod – IIT Roorkee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap"
-    rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f9f8f5;--surface:#f3f1ec;--text:#1a1a18;--muted:#7a7a72;--faint:#b0aea6;
+      --border:#e2dfd8;--accent:#2a5a3b;--accent-light:#e6efe9;--accent-mid:#4a8a63;
+      --tag-bg:#edebe4;--tag-text:#5a5850;--warn:#c4622d;--warn-bg:#fdf2eb;
+      --warn-border:#f0c8a8;--card-hover:#f1efe8;--blue:#2a6a8a;--blue-bg:#e8f4f8;
+      --blue-border:#b8d8e8;--purple:#4a3a7a;--purple-bg:#f0edfa;--purple-border:#ccc4e8;
+      --amber:#8a6a10;--amber-bg:#fef8ec;--amber-border:#e8d898;
     }
+    html{scroll-behavior:smooth}
+    body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--text);font-size:17px;line-height:1.78;-webkit-font-smoothing:antialiased}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .fade-up{animation:fadeUp .55s ease both}
+    .fade-in{animation:fadeIn .6s ease both}
 
-    :root {
-      --bg: #f9f8f5;
-      --surface: #f3f1ec;
-      --text: #1a1a18;
-      --muted: #7a7a72;
-      --faint: #b0aea6;
-      --border: #e2dfd8;
-      --accent: #2a5a3b;
-      --accent-light: #e6efe9;
-      --accent-mid: #4a8a63;
-      --tag-bg: #edebe4;
-      --tag-text: #5a5850;
-      --warn: #c4622d;
-      --warn-bg: #fdf2eb;
-      --warn-border: #f0c8a8;
-      --card-hover: #f1efe8;
-    }
+    nav{position:sticky;top:0;z-index:200;background:rgba(249,248,245,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+    .nav-name{font-family:'EB Garamond',serif;font-size:16px;font-weight:500;color:var(--text);text-decoration:none;letter-spacing:.01em;flex-shrink:0}
+    .nav-links{display:flex;gap:1.4rem;list-style:none}
+    .nav-links a{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:300;letter-spacing:.06em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .18s}
+    .nav-links a:hover{color:var(--accent)}
 
-    html { scroll-behavior: smooth; }
+    .wrapper{max-width:1080px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:210px 1fr;gap:0 3.8rem;align-items:start}
 
-    body {
-      font-family: 'EB Garamond', Georgia, serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 17px;
-      line-height: 1.78;
-      -webkit-font-smoothing: antialiased;
-    }
+    .sidebar{position:sticky;top:72px;padding:3rem 0}
+    .sidebar-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;margin-bottom:1.1rem;border:1px solid var(--border);filter:grayscale(100%)}
+    .sidebar-name{font-size:21px;font-weight:500;line-height:1.25;margin-bottom:3px;letter-spacing:-.01em}
+    .sidebar-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.3rem}
+    .sidebar-bio{font-size:13.5px;line-height:1.65;color:#58574f;margin-bottom:1.6rem}
+    .sidebar-links{list-style:none}
+    .sidebar-links li{margin-bottom:7px}
+    .sidebar-links a{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:7px;transition:color .18s}
+    .sidebar-links a::before{content:'→';font-size:10px}
+    .sidebar-links a:hover{color:var(--accent)}
+    .sidebar-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+    .sidebar-stat{font-size:13px;line-height:1.65;color:var(--muted)}
+    .sidebar-stat strong{color:var(--text);font-weight:500;display:block;font-size:13.5px}
+    .sidebar-stat+.sidebar-stat{margin-top:.9rem}
+    .looking-badge{margin-top:1.5rem;padding:8px 12px;background:var(--accent-light);border:1px solid #c2d9c9;border-radius:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.04em;line-height:1.6}
+    .looking-badge::before{content:'● ';color:var(--accent);font-size:8px}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .fade-up { animation: fadeUp 0.55s ease both; }
-    .fade-in { animation: fadeIn 0.6s ease both; }
+    main{padding:3rem 0 7rem}
+    section{margin-bottom:4.2rem}
+    .section-label{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.3rem;display:flex;align-items:center;gap:12px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .section-desc{font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65}
 
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      background: rgba(249,248,245,0.94);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 52px;
-    }
-    .nav-name {
-      font-family: 'EB Garamond', serif;
-      font-size: 16px; font-weight: 500; color: var(--text);
-      text-decoration: none; letter-spacing: 0.01em;
-    }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px; font-weight: 300; letter-spacing: 0.06em;
-      color: var(--muted); text-decoration: none; text-transform: uppercase;
-      transition: color 0.18s;
-    }
-    .nav-links a:hover { color: var(--accent); }
+    .hero{padding:1.2rem 0 .6rem;margin-bottom:3rem}
+    .hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+    .hero-name{font-size:clamp(32px,4.5vw,50px);font-weight:500;line-height:1.12;letter-spacing:-.025em;margin-bottom:1.2rem}
+    .hero-name em{font-style:italic;color:var(--muted)}
+    .hero-tagline{font-size:17.5px;line-height:1.75;color:#4a4a44;max-width:620px;margin-bottom:.5rem}
+    .hero-subtitle{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.05em;margin-bottom:1.8rem}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.6rem}
+    .hero-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;padding:8px 16px;border-radius:5px;text-decoration:none;transition:all .18s;white-space:nowrap}
+    .hero-cta.primary{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+    .hero-cta.primary:hover{background:#1e4229;border-color:#1e4229}
+    .hero-cta.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .hero-cta.secondary:hover{border-color:var(--accent);color:var(--accent)}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:8px}
+    .hero-pill{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.04em;padding:5px 12px;border-radius:20px;background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--border)}
+    .hero-pill.accent{background:var(--accent-light);color:var(--accent);border-color:#c2d9c9}
 
-    .wrapper {
-      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
-      display: grid; grid-template-columns: 210px 1fr;
-      gap: 0 3.8rem; align-items: start;
-    }
+    .metrics-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:2.4rem;background:var(--border)}
+    .metric-item{flex:1;min-width:90px;background:var(--bg);padding:1rem 1.2rem;display:flex;flex-direction:column}
+    .metric-num{font-size:22px;font-weight:500;color:var(--text);line-height:1.1;letter-spacing:-.02em;margin-bottom:2px}
+    .metric-label{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
 
-    .sidebar {
-      position: sticky; top: 72px;
-      padding: 3rem 0 3rem;
-    }
-    .sidebar-photo {
-      width: 160px; height: 160px; border-radius: 50%;
-      object-fit: cover; margin-bottom: 1.1rem;
-      border: 1px solid var(--border); filter: grayscale(100%);
-    }
-    .sidebar-name { font-size: 21px; font-weight: 500; line-height: 1.25; margin-bottom: 3px; letter-spacing: -0.01em; }
-    .sidebar-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; color: var(--muted); letter-spacing: 0.06em;
-      text-transform: uppercase; margin-bottom: 1.3rem;
-    }
-    .sidebar-bio { font-size: 13.5px; line-height: 1.65; color: #58574f; margin-bottom: 1.6rem; }
-    .sidebar-links { list-style: none; }
-    .sidebar-links li { margin-bottom: 7px; }
-    .sidebar-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 11.5px; color: var(--muted); text-decoration: none;
-      display: flex; align-items: center; gap: 7px; transition: color 0.18s;
-    }
-    .sidebar-links a::before { content: '→'; font-size: 10px; }
-    .sidebar-links a:hover { color: var(--accent); }
-    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-    .sidebar-stat { font-size: 13px; line-height: 1.65; color: var(--muted); }
-    .sidebar-stat strong { color: var(--text); font-weight: 500; display: block; font-size: 13.5px; }
-    .sidebar-stat + .sidebar-stat { margin-top: 0.9rem; }
-    .looking-badge {
-      margin-top: 1.5rem; padding: 8px 12px;
-      background: var(--accent-light); border: 1px solid #c2d9c9; border-radius: 6px;
-      font-family: 'DM Mono', monospace; font-size: 10px;
-      color: var(--accent); letter-spacing: 0.04em; line-height: 1.6;
-    }
-    .looking-badge::before { content: '● '; color: var(--accent); font-size: 8px; }
+    .controls-bar{position:sticky;top:52px;z-index:100;background:rgba(249,248,245,.97);backdrop-filter:blur(8px);padding:12px 0 10px;border-bottom:1px solid var(--border);margin-bottom:2.4rem;display:flex;flex-direction:column;gap:10px}
+    .search-wrap{position:relative}
+    .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none;font-family:'DM Mono',monospace}
+    #search-input{width:100%;font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px 8px 30px;outline:none;transition:border-color .18s}
+    #search-input:focus{border-color:var(--accent)}
+    #search-input::placeholder{color:var(--faint)}
+    .filter-strip{display:flex;flex-wrap:wrap;gap:6px}
+    .filter-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;padding:5px 12px;border-radius:20px;cursor:pointer;background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--border);transition:all .18s}
+    .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-    main { padding: 3rem 0 7rem; }
-    section { margin-bottom: 4.2rem; }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px; font-weight: 400; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1.3rem;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .status-chip{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.05em;padding:3px 9px;border-radius:4px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+    .status-chip::before{content:'●';font-size:7px}
+    .chip-live{background:var(--accent-light);color:var(--accent);border:1px solid #c2d9c9}
+    .chip-production{background:var(--accent-light);color:var(--accent);border:1px solid #c2d9c9}
+    .chip-research{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+    .chip-archived{background:var(--tag-bg);color:var(--muted);border:1px solid var(--border)}
+    .chip-wip{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+    .chip-mcp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+    .chip-ux{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}
+    .chip-paper{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
 
-    .hero { padding: 1.2rem 0 0.6rem; margin-bottom: 3.6rem; }
-    .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem;
-    }
-    .hero-name {
-      font-size: clamp(32px, 4.5vw, 50px); font-weight: 500;
-      line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 1.2rem;
-    }
-    .hero-name em { font-style: italic; color: var(--muted); }
-    .hero-desc { font-size: 17.5px; line-height: 1.75; color: #4a4a44; max-width: 620px; margin-bottom: 1.8rem; }
-    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .hero-pill {
-      font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em;
-      padding: 5px 12px; border-radius: 20px;
-      background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border);
-    }
-    .hero-pill.accent { background: var(--accent-light); color: var(--accent); border-color: #c2d9c9; }
+    .domain-badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.04em;padding:2px 8px;border-radius:3px;white-space:nowrap}
+    .domain-ai{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+    .domain-education{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+    .domain-healthcare{background:#f0faf4;color:#2a6a3b;border:1px solid #b8d8c4}
+    .domain-enterprise{background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--border)}
+    .domain-tools{background:#f8f0e8;color:#7a4a1a;border:1px solid #e8c8a8}
+    .domain-research{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+    .domain-finance{background:#f8f8e0;color:#6a6a10;border:1px solid #d8d880}
+    .domain-saas{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+    .domain-hiring{background:#f0e8f8;color:#5a2a7a;border:1px solid #c8a8e8}
+    .domain-analytics{background:#e8f8f8;color:#1a6a6a;border:1px solid #a8d8d8}
+    .domain-infra{background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--border)}
 
-    .card {
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 1.5rem 1.6rem; margin-bottom: 1rem;
-      background: var(--bg);
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
-      position: relative;
-    }
-    .card:hover { background: var(--card-hover); border-color: #ccc9c0; transform: translateY(-1px); }
-    .card-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 12px; margin-bottom: 0.55rem; flex-wrap: wrap;
-    }
-    .card-title { font-size: 16.5px; font-weight: 500; line-height: 1.35; letter-spacing: -0.005em; }
-    .card-meta { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 0.55rem; }
-    .card-desc { font-size: 15px; line-height: 1.7; color: #4e4e48; margin-bottom: 1rem; }
-    .card-bullets { margin: 0.6rem 0 1rem 1.1rem; font-size: 14px; line-height: 1.75; color: #4e4e48; }
-    .card-bullets li { margin-bottom: 3px; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .card-tag {
-      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.03em;
-      padding: 3px 9px; border-radius: 4px;
-      background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border);
-    }
+    .stack-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:.9rem}
+    .stack-pill{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.02em;padding:3px 9px;border-radius:4px;background:var(--tag-bg);color:var(--tag-text);border:1px solid var(--border)}
+    .card-domains{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.5rem}
+    .card-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border);align-items:center}
+    .card-link{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .18s}
+    .card-link:hover{color:var(--accent)}
+    .card-link.private{color:var(--faint);cursor:default}
+    .card-link.private:hover{color:var(--faint)}
 
-    .badge {
-      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.05em;
-      padding: 3px 9px; border-radius: 4px; white-space: nowrap;
-    }
-    .badge-live { background: #e6efe9; color: var(--accent); border: 1px solid #c2d9c9; }
-    .badge-wip { background: #fef8ec; color: #8a6a10; border: 1px solid #e8d898; }
-    .badge-paper { background: #f0edfa; color: #4a3a7a; border: 1px solid #ccc4e8; }
-    .badge-sole { background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border); }
-    .badge-mcp { background: #e8f4f8; color: #2a6a8a; border: 1px solid #b8d8e8; }
-    .badge-ux { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border); }
+    .card{border:1px solid var(--border);border-radius:8px;padding:1.5rem 1.6rem;margin-bottom:1rem;background:var(--bg);transition:background .2s,border-color .2s,transform .2s;position:relative;overflow:visible}
+    .card:hover{background:var(--card-hover);border-color:#ccc9c0;transform:translateY(-1px)}
+    .card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:.55rem;flex-wrap:wrap}
+    .card-title{font-size:16.5px;font-weight:500;line-height:1.35;letter-spacing:-.005em}
+    .card-meta{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.03em;margin-bottom:.55rem}
+    .card-desc{font-size:15px;line-height:1.7;color:#4e4e48;margin-bottom:.8rem}
+    .card-bullets{margin:.5rem 0 .8rem 1.1rem;font-size:14px;line-height:1.75;color:#4e4e48}
+    .card-bullets li{margin-bottom:3px}
 
-    .research-card {
-      border-left: 3px solid var(--border);
-      padding: 1rem 0 1rem 1.4rem; margin-bottom: 1.3rem;
-      transition: border-color 0.2s;
-    }
-    .research-card:hover { border-left-color: var(--accent); }
-    .research-title { font-size: 15.5px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
-    .research-meta { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); margin-bottom: 0.55rem; }
-    .research-desc { font-size: 14px; line-height: 1.7; color: #555550; }
-    .research-finding { margin-top: 0.5rem; font-size: 13px; font-style: italic; color: var(--accent); }
+    .card-reveal{position:absolute;bottom:-1px;left:-1px;right:-1px;background:rgba(249,248,245,.97);border:1px solid #ccc9c0;border-radius:0 0 8px 8px;padding:10px 16px;transform:translateY(100%);opacity:0;transition:transform .22s ease,opacity .22s;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.04em;z-index:10;pointer-events:none}
+    .card:hover .card-reveal{opacity:1;transform:translateY(0)}
+    .card-reveal-item{display:flex;gap:5px}
+    .card-reveal-item b{color:var(--text);font-weight:400}
 
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 1px; border: 1px solid var(--border); border-radius: 8px;
-      overflow: hidden; background: var(--border);
-    }
-    .skill-block { background: var(--bg); padding: 1.1rem 1.3rem; }
-    .skill-block:last-child:nth-child(odd) { grid-column: span 2; }
-    .skill-label {
-      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
-    }
-    .skill-items { font-size: 14px; line-height: 1.65; color: #3a3a36; }
+    .flagship-card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;margin-bottom:1.4rem;background:var(--bg);transition:background .2s,border-color .2s,transform .2s}
+    .flagship-card:hover{background:var(--card-hover);border-color:#bbb8ae;border-left-color:var(--accent);transform:translateY(-1px)}
+    .flagship-inner{padding:1.7rem 1.8rem 1rem}
+    .flagship-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+    .flagship-title{font-size:20px;font-weight:500;line-height:1.2;letter-spacing:-.01em;margin-bottom:.3rem}
+    .flagship-hook{font-size:14.5px;color:var(--muted);margin-bottom:1rem;font-style:italic}
+    .flagship-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:.4rem}
+    .flagship-stats{display:flex;flex-wrap:wrap;gap:1px;margin:1rem 0;background:var(--border);border-radius:6px;overflow:hidden}
+    .flagship-stat{flex:1;min-width:80px;background:var(--bg);padding:.7rem 1rem;transition:background .2s}
+    .flagship-card:hover .flagship-stat{background:var(--card-hover)}
+    .flagship-stat-num{font-size:17px;font-weight:500;color:var(--text);line-height:1.1}
+    .flagship-stat-label{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+    .flagship-desc{font-size:15px;line-height:1.7;color:#4e4e48;margin-bottom:.9rem}
+    .flagship-insight{font-size:14px;line-height:1.75;color:#4a4a44;padding:.8rem 1rem;background:var(--surface);border-left:2px solid var(--accent-mid);border-radius:0 4px 4px 0;margin-bottom:1rem}
+    .flagship-insight strong{color:var(--accent)}
 
-    .battle {
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 1.4rem 1.6rem; margin-bottom: 1.1rem; background: var(--bg);
-    }
-    .battle-title { font-size: 16px; font-weight: 500; margin-bottom: 3px; }
-    .battle-sub { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 0.8rem; }
-    .battle-insight { font-size: 14.5px; line-height: 1.7; color: #4e4e48; margin-bottom: 1rem; }
-    .insight-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 0.8rem; }
-    .insight-table th {
-      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted);
-      border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; font-weight: 400;
-    }
-    .insight-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); line-height: 1.55; color: #4a4a44; }
-    .insight-table tr:last-child td { border-bottom: none; }
-    .concept {
-      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.03em;
-      color: var(--accent); background: var(--accent-light); padding: 2px 7px; border-radius: 3px;
-    }
+    .expand-btn{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:5px;transition:color .18s}
+    .expand-btn:hover{color:var(--accent)}
+    .expand-icon{display:inline-block;transition:transform .3s;font-size:13px;line-height:1}
+    .expand-btn.open .expand-icon{transform:rotate(45deg)}
+    .case-study{max-height:0;overflow:hidden;transition:max-height .5s ease}
+    .case-study.open{max-height:3500px}
+    .case-study-inner{padding:1.6rem 1.8rem;background:var(--surface);border-top:1px solid var(--border)}
+    .cs-section{margin-bottom:1.4rem}
+    .cs-section:last-child{margin-bottom:0}
+    .cs-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+    .cs-text{font-size:14.5px;line-height:1.75;color:#4e4e48}
+    .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1.2rem}
+    .cs-item{padding:.8rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:6px}
+    .cs-item-label{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+    .cs-item-val{font-size:14px;color:var(--text);line-height:1.5}
 
-    .dp-card {
-      border: 1px solid var(--warn-border); border-radius: 8px;
-      padding: 1.3rem 1.5rem; margin-bottom: 1rem; background: var(--warn-bg);
-    }
-    .dp-name {
-      font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--warn); margin-bottom: 4px;
-    }
-    .dp-title { font-size: 16px; font-weight: 500; margin-bottom: 0.55rem; }
-    .dp-desc { font-size: 14.5px; line-height: 1.7; color: #4e4e48; margin-bottom: 0.6rem; }
-    .dp-example { font-family: 'DM Mono', monospace; font-size: 10.5px; color: #9a5030; letter-spacing: 0.02em; }
+    .timeline-year-block{margin-bottom:2rem}
+    .timeline-year-label{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text);letter-spacing:.06em;padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;display:inline-block;margin-bottom:1rem}
+    .timeline-entries{padding-left:1rem;border-left:2px solid var(--border)}
+    .timeline-entry{position:relative;padding:.35rem 0 .35rem 1.2rem;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+    .timeline-entry::before{content:'';position:absolute;left:-5px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--border);border:1px solid var(--faint)}
+    .timeline-entry.hl::before{background:var(--accent);border-color:var(--accent-mid)}
+    .timeline-entry-name{font-size:14.5px;color:var(--text);text-decoration:none;transition:color .18s}
+    a.timeline-entry-name:hover{color:var(--accent)}
+    .timeline-entry-desc{font-size:13px;color:var(--muted)}
+    .tl-tag{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.04em;padding:1px 7px;border-radius:3px;background:var(--tag-bg);color:var(--muted);border:1px solid var(--border)}
+    .tl-tag.flagship{background:var(--accent-light);color:var(--accent);border-color:#c2d9c9}
+    .tl-tag.research{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
+    .tl-tag.ai{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+    .tl-tag.tools{background:#f8f0e8;color:#7a4a1a;border-color:#e8c8a8}
 
-    .brief-box { border: 1px solid var(--border); border-radius: 8px; padding: 1.8rem 2rem; background: var(--surface); }
-    .brief-name { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
-    .brief-title { font-size: 20px; font-weight: 500; margin-bottom: 6px; }
-    .brief-sub { font-size: 14.5px; line-height: 1.65; color: #5a5a54; margin-bottom: 1.4rem; }
-    .brief-delivers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; margin-bottom: 1.6rem; }
-    .brief-item { font-size: 14px; color: #4a4a44; display: flex; align-items: flex-start; gap: 7px; }
-    .brief-item::before { content: '—'; color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 2px; }
-    .brief-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.04em;
-      color: var(--accent); text-decoration: none;
-      border: 1px solid var(--accent); padding: 8px 18px; border-radius: 5px;
-      transition: background 0.18s, color 0.18s;
-    }
-    .brief-cta:hover { background: var(--accent); color: #fff; }
+    .research-card{border-left:3px solid var(--border);padding:1rem 0 1rem 1.4rem;margin-bottom:1.3rem;transition:border-color .2s}
+    .research-card:hover{border-left-color:var(--accent)}
+    .research-title{font-size:15.5px;font-weight:500;line-height:1.4;margin-bottom:4px}
+    .research-meta{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:.55rem}
+    .research-desc{font-size:14px;line-height:1.7;color:#555550}
+    .research-finding{margin-top:.5rem;font-size:13px;font-style:italic;color:var(--accent)}
 
-    .cert-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; padding: 0.75rem 0; border-bottom: 1px solid var(--border);
-    }
-    .cert-row:last-child { border-bottom: none; }
-    .cert-name { font-size: 15px; font-weight: 500; }
-    .cert-by { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 2px; }
-    .cert-status {
-      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.05em;
-      padding: 3px 10px; border-radius: 4px; white-space: nowrap;
-    }
-    .cert-done { background: var(--accent-light); color: var(--accent); border: 1px solid #c2d9c9; }
-    .cert-progress { background: var(--tag-bg); color: var(--muted); border: 1px solid var(--border); }
+    .archive-card{border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;margin-bottom:.8rem;background:var(--bg);opacity:.7;transition:opacity .2s,border-color .2s,transform .2s;position:relative}
+    .archive-card:hover{opacity:1;border-color:#ccc9c0;transform:translateY(-1px)}
+    .archive-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase;margin-bottom:4px}
+    .archive-title{font-size:15.5px;font-weight:500;margin-bottom:3px}
+    .archive-meta{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:.5rem}
+    .archive-desc{font-size:14.5px;line-height:1.65;color:#606058;margin-bottom:.7rem}
 
-    .ach-list { list-style: none; }
-    .ach-list li {
-      font-size: 15px; line-height: 1.65; color: #4a4a44;
-      padding: 0.6rem 0; border-bottom: 1px solid var(--border);
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .ach-list li:last-child { border-bottom: none; }
-    .ach-list li::before { content: '—'; color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 3px; }
+    .battle{border:1px solid var(--border);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:1.1rem;background:var(--bg);transition:background .2s,border-color .2s}
+    .battle:hover{background:var(--card-hover);border-color:#ccc9c0}
+    .battle-title{font-size:16px;font-weight:500;margin-bottom:3px}
+    .battle-sub{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.03em;margin-bottom:.8rem}
+    .battle-insight{font-size:14.5px;line-height:1.7;color:#4e4e48;margin-bottom:1rem}
+    .insight-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:.8rem}
+    .insight-table th{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);padding:6px 8px;text-align:left;font-weight:400}
+    .insight-table td{padding:7px 8px;border-bottom:1px solid var(--border);line-height:1.55;color:#4a4a44}
+    .insight-table tr:last-child td{border-bottom:none}
+    .concept{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.03em;color:var(--accent);background:var(--accent-light);padding:2px 7px;border-radius:3px}
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem; font-family: 'DM Mono', monospace;
-      font-size: 11px; color: var(--muted); letter-spacing: 0.04em; text-align: center;
-    }
+    .dp-card{border:1px solid var(--warn-border);border-radius:8px;padding:1.3rem 1.5rem;margin-bottom:1rem;background:var(--warn-bg)}
+    .dp-name{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:4px}
+    .dp-title{font-size:16px;font-weight:500;margin-bottom:.55rem}
+    .dp-desc{font-size:14.5px;line-height:1.7;color:#4e4e48;margin-bottom:.6rem}
+    .dp-example{font-family:'DM Mono',monospace;font-size:10.5px;color:#9a5030;letter-spacing:.02em}
 
-    @media (max-width: 780px) {
-      .wrapper { grid-template-columns: 1fr; gap: 0; }
-      .sidebar { position: static; padding: 2rem 0 0; }
-      nav { padding: 0 1rem; }
-      .nav-links { gap: 1rem; }
-      .hero-name { font-size: 34px; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .brief-delivers { grid-template-columns: 1fr; }
-      main { padding-bottom: 4rem; }
+    .philosophy-box{border:1px solid var(--border);border-radius:8px;padding:2rem 2.2rem;background:var(--surface);position:relative}
+    .philosophy-box::before{content:'"';font-family:'EB Garamond',serif;font-size:90px;font-style:italic;color:var(--border);position:absolute;top:-16px;left:18px;line-height:1;pointer-events:none}
+    .philosophy-text{font-size:17.5px;line-height:1.85;color:#3a3a36;font-style:italic}
+    .philosophy-attr{margin-top:1.2rem;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.05em}
+
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--border)}
+    .skill-block{background:var(--bg);padding:1.1rem 1.3rem}
+    .skill-block:last-child:nth-child(odd){grid-column:span 2}
+    .skill-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+    .skill-items{font-size:14px;line-height:1.65;color:#3a3a36}
+
+    .brief-box{border:1px solid var(--border);border-radius:8px;padding:1.8rem 2rem;background:var(--surface)}
+    .brief-name{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+    .brief-title{font-size:20px;font-weight:500;margin-bottom:6px}
+    .brief-sub{font-size:14.5px;line-height:1.65;color:#5a5a54;margin-bottom:1.4rem}
+    .brief-delivers{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-bottom:1.6rem}
+    .brief-item{font-size:14px;color:#4a4a44;display:flex;align-items:flex-start;gap:7px}
+    .brief-item::before{content:'—';color:var(--accent);font-size:13px;flex-shrink:0;margin-top:2px}
+    .brief-cta{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--accent);text-decoration:none;border:1px solid var(--accent);padding:8px 18px;border-radius:5px;transition:background .18s,color .18s}
+    .brief-cta:hover{background:var(--accent);color:#fff}
+
+    .cert-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:.75rem 0;border-bottom:1px solid var(--border)}
+    .cert-row:last-child{border-bottom:none}
+    .cert-name{font-size:15px;font-weight:500}
+    .cert-by{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px}
+    .cert-status{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:3px 10px;border-radius:4px;white-space:nowrap}
+    .cert-done{background:var(--accent-light);color:var(--accent);border:1px solid #c2d9c9}
+    .cert-prog{background:var(--tag-bg);color:var(--muted);border:1px solid var(--border)}
+
+    .ach-list{list-style:none}
+    .ach-list li{font-size:15px;line-height:1.65;color:#4a4a44;padding:.6rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
+    .ach-list li:last-child{border-bottom:none}
+    .ach-list li::before{content:'—';color:var(--accent);font-size:13px;flex-shrink:0;margin-top:3px}
+
+    .no-results{display:none;text-align:center;padding:3rem 1rem;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.04em}
+    .no-results.visible{display:block}
+
+    footer{border-top:1px solid var(--border);padding:2rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em;text-align:center}
+
+    @media(max-width:780px){
+      .wrapper{grid-template-columns:1fr;gap:0}
+      .sidebar{position:static;padding:2rem 0 0}
+      nav{padding:0 1rem}
+      .nav-links{gap:.9rem}
+      .nav-links li:nth-child(n+6){display:none}
+      .hero-name{font-size:34px}
+      .skills-grid{grid-template-columns:1fr}
+      .brief-delivers{grid-template-columns:1fr}
+      .cs-grid{grid-template-columns:1fr}
+      .flagship-stats{flex-direction:column}
+      main{padding-bottom:4rem}
+      .controls-bar{position:static}
+      .metric-item{min-width:calc(50% - 1px)}
     }
   </style>
+<base target="_blank">
 </head>
-
-<body>
-
-  <!-- NAV -->
-  <nav>
+<body>  <nav>
     <a class="nav-name" href="#">Tharun Rathod</a>
     <ul class="nav-links">
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="#featured">Flagship</a></li>
+      <li><a href="#timeline">Timeline</a></li>
       <li><a href="#research">Research</a></li>
-      <li><a href="#ux-battles">UX</a></li>
+      <li><a href="#ux">UX</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#brief">Consult</a></li>
-      <li><a href="mailto:tharun_rb@ee.iitr.ac.in">Email</a></li>
+      <li><a href="mailto:tharunrathod2005@gmail.com">Email</a></li>
     </ul>
   </nav>
 
   <div class="wrapper">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar fade-in">
       <img src="my-image.jpeg" alt="Tharun Rathod" class="sidebar-photo" />
       <div class="sidebar-name">Bhukke Tharun<br />Rathod</div>
       <div class="sidebar-tag">IIT Roorkee · EE · 2027</div>
-      <p class="sidebar-bio">
-        Solo founder, full-stack engineer, and independent researcher. I build products, publish papers, and break down UX — all from IIT Roorkee.
-      </p>
+      <p class="sidebar-bio">Solo founder, software engineer, and independent researcher from IIT Roorkee — building scalable backend systems, AI products, developer tooling, and workflow automation platforms across education, healthcare, hiring, and enterprise domains.</p>
       <ul class="sidebar-links">
-        <li><a href="mailto:tharun_rb@ee.iitr.ac.in">tharun_rb@ee.iitr.ac.in</a></li>
+        <li><a href="mailto:tharunrathod2005@gmail.com">tharunrathod2005@gmail.com</a></li>
         <li><a href="https://linkedin.com/in/tharun-rathod" target="_blank">linkedin</a></li>
-        <li><a href="https://github.com/edcore2025-ctrl" target="_blank">github</a></li>
+        <li><a href="https://github.com/tharun99856" target="_blank">github</a></li>
         <li><a href="https://zenodo.org/doi/10.5281/zenodo.19885744" target="_blank">zenodo paper</a></li>
         <li><a href="https://edcore.tech" target="_blank">edcore.tech</a></li>
+        <li><a href="https://portfolio-tharun-gray.vercel.app/" target="_blank">portfolio</a></li>
       </ul>
       <hr class="sidebar-divider" />
-      <div class="sidebar-stat">
-        <strong>4 products shipped</strong>
-        Edcore · Wayfound · TravelChecker · Chai Lovers
-      </div>
-      <div class="sidebar-stat">
-        <strong>6 papers pub / in-progress</strong>
-        2 sole-authored, 2 co-authored + more
-      </div>
-      <div class="sidebar-stat">
-        <strong>500 trials</strong>
-        Empirical LLM study (2026)
-      </div>
-      <div class="sidebar-stat">
-        <strong>2,000+ colleges</strong>
-        Original dataset, 25 fields
-      </div>
+      <div class="sidebar-stat"><strong>10+ production systems</strong>Edcore · artAsset · IITR Nexus · Canopy · Signal + more</div>
+      <div class="sidebar-stat"><strong>5 papers pub / in-progress</strong>2 sole-authored, 2 co-authored + 1 independent</div>
+      <div class="sidebar-stat"><strong>484 empirical trials</strong>Capitulation Study (2026)</div>
+      <div class="sidebar-stat"><strong>2,000+ colleges</strong>Original dataset, 25 fields</div>
       <hr class="sidebar-divider" />
       <div class="sidebar-stat">+91 8074091839</div>
       <div class="looking-badge">Open to internships — Full-Stack · BA / UX · AI Research</div>
     </aside>
 
-    <!-- MAIN -->
     <main>
-
-      <!-- HERO -->
       <div class="hero fade-up">
         <div class="hero-eyebrow">B.Tech Electrical Engineering · 3rd Year · IIT Roorkee</div>
         <h1 class="hero-name">Engineer.<br />Founder. <em>Researcher.</em></h1>
-        <p class="hero-desc">
-          IIT Roorkee engineer, solo founder, and independent researcher — four shipped products, six published/in-progress papers, and a 500-trial empirical AI study. Full-stack across Next.js + MongoDB; strong in UX research, business analysis, and LLM evaluation.
-        </p>
+        <p class="hero-tagline">Building production-grade software systems, AI products, and developer tools that solve real operational problems.</p>
+        <p class="hero-subtitle">Education · Healthcare · Hiring · Developer Tools · Enterprise Systems · Research</p>
+        <div class="hero-ctas">
+          <a href="#featured" class="hero-cta primary">View Flagship Work</a>
+          <a href="#research" class="hero-cta secondary">Research</a>
+          <a href="#" class="hero-cta secondary">Resume ↗</a>
+          <a href="https://github.com/tharun99856" target="_blank" class="hero-cta secondary">GitHub ↗</a>
+          <a href="mailto:tharunrathod2005@gmail.com" class="hero-cta secondary">Contact</a>
+        </div>
         <div class="hero-pills">
           <span class="hero-pill accent">Full-Stack Dev</span>
-          <span class="hero-pill accent">AI Research</span>
-          <span class="hero-pill accent">UX Analysis</span>
+          <span class="hero-pill accent">AI Systems</span>
+          <span class="hero-pill accent">Independent Researcher</span>
+          <span class="hero-pill accent">Solo Founder</span>
           <span class="hero-pill">Next.js · MongoDB</span>
+          <span class="hero-pill">MCP Servers</span>
           <span class="hero-pill">LLM Evaluation</span>
           <span class="hero-pill">Business Analysis</span>
-          <span class="hero-pill">MCP Servers</span>
-          <span class="hero-pill">CGPA: 5.7 · JEE AIR 23,496</span>
+          <span class="hero-pill">JEE AIR 23,496</span>
         </div>
       </div>
 
-      <!-- PROJECTS -->
-      <section id="projects">
-        <div class="section-label">Projects</div>
+      <div class="metrics-strip fade-up" style="animation-delay:.06s">
+        <div class="metric-item"><div class="metric-num">10+</div><div class="metric-label">Production Systems</div></div>
+        <div class="metric-item"><div class="metric-num">5</div><div class="metric-label">Research Papers</div></div>
+        <div class="metric-item"><div class="metric-num">4</div><div class="metric-label">Edcore Modules</div></div>
+        <div class="metric-item"><div class="metric-num">Solo</div><div class="metric-label">Founder</div></div>
+        <div class="metric-item"><div class="metric-num">2k+</div><div class="metric-label">College Dataset</div></div>
+        <div class="metric-item"><div class="metric-num">2023</div><div class="metric-label">IIT Roorkee</div></div>
+      </div>
 
-        <!-- Edcore -->
-        <div class="card fade-up" style="animation-delay:0.05s">
-          <div class="card-header">
-            <div class="card-title">Edcore — Full-Stack EdTech Platform</div>
-            <span class="badge badge-live">live · in dev</span>
+      <div class="controls-bar">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="search-input" placeholder="Search by project, stack, domain — e.g. mongodb, healthcare, ai, typescript" autocomplete="off" />
+        </div>
+        <div class="filter-strip">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="flagship">Flagship</button>
+          <button class="filter-btn" data-filter="ai">AI</button>
+          <button class="filter-btn" data-filter="tools">Dev Tools</button>
+          <button class="filter-btn" data-filter="infra">Infrastructure</button>
+          <button class="filter-btn" data-filter="product">Product</button>
+          <button class="filter-btn" data-filter="ux">UX</button>
+          <button class="filter-btn" data-filter="research">Research</button>
+          <button class="filter-btn" data-filter="archive">Experiments</button>
+        </div>
+      </div>
+      <div class="no-results" id="no-results">No projects match that search.</div>
+
+      <!-- FLAGSHIP -->
+      <section id="featured" data-section="featured">
+        <div class="section-label">🚀 Flagship Systems</div>
+        <p class="section-desc">Five production-grade systems built solo, from schema design to deployment. Each one eliminates a real operational problem.</p>
+
+        <div id="proj-edcore" class="flagship-card fade-up" data-categories="flagship product education saas" data-search="edcore education saas next.js typescript mongodb nextauth resend msg91 vercel otp auth college tracker exam notification tutorix nexttalk examnotifi collegetracker students india production rank prediction crm lead management">
+          <div class="flagship-inner">
+            <div class="flagship-eyebrow">▲ Flagship · Education OS · Solo Founder</div>
+            <div class="flagship-header"><div class="flagship-title">Edcore</div><span class="status-chip chip-live">🟢 Live · In Dev</span></div>
+            <div class="flagship-hook">A unified education operating system for Indian students — four integrated modules, one shared platform.</div>
+            <div class="flagship-stats">
+              <div class="flagship-stat"><div class="flagship-stat-num">4</div><div class="flagship-stat-label">Modules</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">2k+</div><div class="flagship-stat-label">Colleges</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">25</div><div class="flagship-stat-label">Fields / College</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">Solo</div><div class="flagship-stat-label">Built</div></div>
+            </div>
+            <p class="flagship-desc">ExamNotifi, CollegeTracker, Tutorix, NextTalk — four modules sharing unified authentication, CRM, OTP flows, demo booking, and a notification engine. Not four websites. One cohesive platform with state-aware workflows and shared MongoDB schema designed for Indian students navigating college choice and career guidance.</p>
+            <div class="flagship-insight"><strong>Engineering insight:</strong> The 2,000+ college dataset across 25 fields (hostel vibe, coding culture, campus life, placements, city tier) is the platform's moat. Hand-curated at a depth no competitor offers in one place. The dataset is harder to replicate than the product itself.</div>
+            <div class="card-domains"><span class="domain-badge domain-education">Education</span><span class="domain-badge domain-saas">SaaS</span></div>
+            <div class="stack-pills"><span class="stack-pill">Next.js 16</span><span class="stack-pill">TypeScript</span><span class="stack-pill">MongoDB</span><span class="stack-pill">NextAuth</span><span class="stack-pill">MSG91</span><span class="stack-pill">Resend</span><span class="stack-pill">Vercel</span></div>
+            <div class="card-links">
+              <a href="https://edcore.tech" target="_blank" class="card-link">🌐 edcore.tech</a>
+              <span class="card-link private">🔒 Private Repository</span>
+              <button class="expand-btn" data-target="cs-edcore"><span class="expand-icon">+</span> Case Study</button>
+            </div>
           </div>
-          <div class="card-meta">2025 – Present · Solo Founder &amp; Developer · Next.js 16, TypeScript, MongoDB, Vercel, MSG91, Resend · edcore.tech</div>
-          <p class="card-desc">Four modules — ExamNotifi, CollegeTracker, Tutorix, NextTalk — built end-to-end by one person, zero team, zero funding. The platform carries a 2,000+ college dataset across 25 fields that no competitor offers: hostel vibe, coding culture, campus life, placements.</p>
-          <ul class="card-bullets">
-            <li>Built end-to-end solo — MongoDB schema design, OTP auth using crypto.randomInt(), REST APIs, and route protection middleware deployed on Vercel</li>
-            <li>Manually collected and structured 2,000+ colleges across 25 fields (placements, hostel vibe, coding culture, campus life) — original dataset at a depth no competitor offers in one place</li>
-          </ul>
-          <div class="card-tags">
-            <span class="card-tag">Next.js 16</span>
-            <span class="card-tag">TypeScript</span>
-            <span class="card-tag">MongoDB</span>
-            <span class="card-tag">REST APIs</span>
-            <span class="card-tag">Auth systems</span>
-            <span class="card-tag">Solo build</span>
+          <div class="case-study" id="cs-edcore">
+            <div class="case-study-inner">
+              <div class="cs-section"><div class="cs-label">The Problem</div><p class="cs-text">Indian students navigating competitive exams operate across 5+ disconnected platforms — exam alerts on one, college rankings on another, tutoring on a third, career guidance elsewhere. No unified account. No cross-module intelligence. Every platform treats them as a new user with no history.</p></div>
+              <div class="cs-section"><div class="cs-label">Why Existing Solutions Failed</div><p class="cs-text">CollegeDunia, Shiksha and similar platforms provide information but not tools. No rank prediction engine, no OTP-protected booking, no integrated workflow. They are content sites, not operating systems.</p></div>
+              <div class="cs-section"><div class="cs-label">Architecture</div><p class="cs-text">Single Next.js codebase with shared MongoDB instance. Unified user schema across all four modules. OTP authentication via crypto.randomInt() — chosen over Firebase Auth to reduce latency on Indian mobile networks. MSG91 for WhatsApp OTP, Resend for transactional email. Middleware-based route protection on all API routes.</p></div>
+              <div class="cs-section"><div class="cs-label">Key Engineering Decision</div><p class="cs-text">Chose a single Next.js monolith over a monorepo or microservices. Deployment stays atomic, inter-service latency is zero, shared auth and DB connections are trivial. The solo constraint made this the correct call — operational simplicity compounds when you are the only engineer.</p></div>
+              <div class="cs-grid">
+                <div class="cs-item"><div class="cs-item-label">Role</div><div class="cs-item-val">Solo Founder & Full-Stack Engineer</div></div>
+                <div class="cs-item"><div class="cs-item-label">Status</div><div class="cs-item-val">Live · In active development</div></div>
+                <div class="cs-item"><div class="cs-item-label">Duration</div><div class="cs-item-val">2025 – Present</div></div>
+                <div class="cs-item"><div class="cs-item-label">Domain</div><div class="cs-item-val">Education · SaaS · India</div></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Wayfound -->
-        <div class="card fade-up" style="animation-delay:0.08s">
-          <div class="card-header">
-            <div class="card-title">Wayfound — AI Trip Planner for Hyderabad</div>
-            <span class="badge badge-live">shipped</span>
+        <div id="proj-artasset" class="flagship-card fade-up" style="animation-delay:.05s" data-categories="flagship infra enterprise" data-search="artasset enterprise asset management mongodb rbac qr code audit logs warehouse inventory reservation double booking atomic serializable production approval admin">
+          <div class="flagship-inner">
+            <div class="flagship-eyebrow">▲ Flagship · Enterprise Infrastructure</div>
+            <div class="flagship-header"><div class="flagship-title">artAsset</div><span class="status-chip chip-production">🟢 Production</span></div>
+            <div class="flagship-hook">Enterprise asset management — 56+ assets, zero double-bookings, full audit trail. Replaces paper logbooks entirely.</div>
+            <div class="flagship-stats">
+              <div class="flagship-stat"><div class="flagship-stat-num">56+</div><div class="flagship-stat-label">Assets Tracked</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">0</div><div class="flagship-stat-label">Double-Bookings</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">QR</div><div class="flagship-stat-label">Issue / Return</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">RBAC</div><div class="flagship-stat-label">Permissions</div></div>
+            </div>
+            <p class="flagship-desc">Replaces paper logbooks for warehouse-scale asset tracking. Date-window availability validation ensures no two reservations overlap. Atomic inventory updates and serializable approval logic prevent race conditions under concurrent booking. QR-based issue and return creates a frictionless audit trail. Analytics dashboard, role-based access control, and full warehouse workflow management.</p>
+            <div class="flagship-insight"><strong>Engineering insight:</strong> The double-booking prevention lives at the database layer, not the UI. Serializable transactions in MongoDB prevent conflicts under concurrent write pressure — the kind of gap that paper logbooks and naive first-come-first-served systems cannot close. Operational consistency has to be enforced at the data layer or it is not enforced at all.</div>
+            <div class="card-domains"><span class="domain-badge domain-enterprise">Enterprise</span><span class="domain-badge domain-infra">Infrastructure</span></div>
+            <div class="stack-pills"><span class="stack-pill">Next.js</span><span class="stack-pill">TypeScript</span><span class="stack-pill">MongoDB</span><span class="stack-pill">RBAC</span><span class="stack-pill">QR Code</span><span class="stack-pill">Vercel</span></div>
+            <div class="card-links">
+              <span class="card-link private">🔒 Private Repository</span>
+              <button class="expand-btn" data-target="cs-artasset"><span class="expand-icon">+</span> Case Study</button>
+            </div>
           </div>
-          <div class="card-meta">2026 · IIT Roorkee Open Competition · Groq API, Google Places API</div>
-          <p class="card-desc">Users input group size, budget, and vibe → AI generates a full curated outing plan with real venues, timings, and routing. Built and shipped as a live public entry for IIT Roorkee's open hackathon.</p>
-          <ul class="card-bullets">
-            <li>Integrated Groq for natural-language trip planning with Google Places for real-time venue discovery</li>
-            <li>Handled prompt engineering for structured JSON output → rendered itinerary UI</li>
-          </ul>
-          <div class="card-tags">
-            <span class="card-tag">Groq API</span>
-            <span class="card-tag">Google Places API</span>
-            <span class="card-tag">Prompt engineering</span>
-            <span class="card-tag">Hackathon</span>
+          <div class="case-study" id="cs-artasset">
+            <div class="case-study-inner">
+              <div class="cs-section"><div class="cs-label">The Problem</div><p class="cs-text">Enterprise asset tracking at scale fails with paper logbooks — no conflict detection, no audit trail, no visibility into who has what or when. Double-bookings are discovered only after the damage is done, often mid-operation.</p></div>
+              <div class="cs-section"><div class="cs-label">Architecture</div><p class="cs-text">Normalized schema separating assets, reservations, and users. Date-window queries use compound indexes on (assetId, startDate, endDate) to detect overlapping reservations in O(log n). Atomic updates via MongoDB transactions prevent TOCTOU race conditions. QR codes map to asset+reservation records for instant scan-to-log workflows.</p></div>
+              <div class="cs-section"><div class="cs-label">Key Engineering Decision</div><p class="cs-text">Approval logic is serializable — no two approvals for the same asset window can succeed simultaneously. The tradeoff is slightly higher write latency, acceptable for a booking system where correctness is non-negotiable.</p></div>
+              <div class="cs-grid">
+                <div class="cs-item"><div class="cs-item-label">Role</div><div class="cs-item-val">Solo Founder & Engineer</div></div>
+                <div class="cs-item"><div class="cs-item-label">Status</div><div class="cs-item-val">Production</div></div>
+                <div class="cs-item"><div class="cs-item-label">Duration</div><div class="cs-item-val">2026</div></div>
+                <div class="cs-item"><div class="cs-item-label">Domain</div><div class="cs-item-val">Enterprise · Infrastructure</div></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- TravelChecker -->
-        <div class="card fade-up" style="animation-delay:0.11s">
-          <div class="card-header">
-            <div class="card-title">TravelChecker — Multi-Modal Travel Comparison Engine</div>
-            <span class="badge badge-mcp">MCP server</span>
+        <div id="proj-nexus" class="flagship-card fade-up" style="animation-delay:.10s" data-categories="flagship ai tools education" data-search="iitr nexus campus intelligence mcp servers intent detection parallel retrieval grounded responses confidence scores open library claude ai typescript hallucination resistance education iit roorkee">
+          <div class="flagship-inner">
+            <div class="flagship-eyebrow">▲ Flagship · Campus AI · MCP Architecture</div>
+            <div class="flagship-header"><div class="flagship-title">IITR Nexus</div><span class="status-chip chip-production">🟢 Production</span></div>
+            <div class="flagship-hook">Unified campus intelligence — one query routes across academics, library, dining, events, and notices via parallel MCP retrieval.</div>
+            <div class="flagship-stats">
+              <div class="flagship-stat"><div class="flagship-stat-num">5+</div><div class="flagship-stat-label">Data Sources</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">MCP</div><div class="flagship-stat-label">Architecture</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">Parallel</div><div class="flagship-stat-label">Retrieval</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">Grounded</div><div class="flagship-stat-label">Responses</div></div>
+            </div>
+            <p class="flagship-desc">Campus information lives across 10+ disconnected systems. IITR Nexus routes a single query across academics, library, dining, events, and notices using multiple MCP servers in parallel. Intent classification determines which servers to query. Confidence scoring ensures grounded responses — if the system is uncertain, it surfaces the source, not a guess. Reasoning panel visible to users.</p>
+            <div class="flagship-insight"><strong>Engineering insight:</strong> Intent classification before routing reduces wrong-server queries significantly. The hallucination resistance mechanism is the key design choice — when confidence drops below threshold, the system returns a source reference instead of synthesizing an answer, preserving trust at the cost of convenience.</div>
+            <div class="card-domains"><span class="domain-badge domain-education">Education</span><span class="domain-badge domain-ai">AI</span><span class="domain-badge domain-tools">MCP</span></div>
+            <div class="stack-pills"><span class="stack-pill">TypeScript</span><span class="stack-pill">MCP</span><span class="stack-pill">Claude API</span><span class="stack-pill">Intent Detection</span><span class="stack-pill">Vector Search</span></div>
+            <div class="card-links">
+              <span class="card-link private">🔒 Private Repository</span>
+              <button class="expand-btn" data-target="cs-nexus"><span class="expand-icon">+</span> Case Study</button>
+            </div>
           </div>
+          <div class="case-study" id="cs-nexus">
+            <div class="case-study-inner">
+              <div class="cs-section"><div class="cs-label">The Problem</div><p class="cs-text">IIT Roorkee students navigate 10+ disconnected portals for academics, library, dining, events, and notices. Simple questions like "is the library open?" require navigating separate systems with separate logins. The fragmentation is the problem, not the information itself.</p></div>
+              <div class="cs-section"><div class="cs-label">Architecture</div><p class="cs-text">Multiple MCP servers each owning one domain. Intent classifier routes the query to relevant servers. Parallel retrieval fetches simultaneously. Synthesis layer merges results and computes confidence. When confidence is below threshold, response surfaces the source URL instead of generating an answer — explicit hallucination resistance.</p></div>
+              <div class="cs-section"><div class="cs-label">Key Engineering Decision</div><p class="cs-text">Parallel retrieval over sequential routing. Sequential would add latency proportional to number of servers queried. Parallel keeps response time bounded regardless — critical for a chat interface where latency directly affects perceived quality.</p></div>
+              <div class="cs-grid">
+                <div class="cs-item"><div class="cs-item-label">Role</div><div class="cs-item-val">Solo Builder</div></div>
+                <div class="cs-item"><div class="cs-item-label">Status</div><div class="cs-item-val">Production</div></div>
+                <div class="cs-item"><div class="cs-item-label">Duration</div><div class="cs-item-val">2026</div></div>
+                <div class="cs-item"><div class="cs-item-label">Domain</div><div class="cs-item-val">Education · AI · MCP</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="proj-canopy" class="flagship-card fade-up" style="animation-delay:.15s" data-categories="flagship tools" data-search="canopy repository dependency visualization github python javascript typescript react flow gemini md5 caching dark forest developer tools no clone ast parsing imports">
+          <div class="flagship-inner">
+            <div class="flagship-eyebrow">▲ Flagship · Developer Tool</div>
+            <div class="flagship-header"><div class="flagship-title">Canopy</div><span class="status-chip chip-live">🔵 Live</span></div>
+            <div class="flagship-hook">Repo dependency visualization — parses Python and JS/TS imports via GitHub API. No cloning. No local setup.</div>
+            <div class="flagship-stats">
+              <div class="flagship-stat"><div class="flagship-stat-num">2</div><div class="flagship-stat-label">Languages Parsed</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">0</div><div class="flagship-stat-label">Clones Required</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">MD5</div><div class="flagship-stat-label">Cache Layer</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">Gemini</div><div class="flagship-stat-label">Summaries</div></div>
+            </div>
+            <p class="flagship-desc">Canopy parses Python and JS/TS import statements directly from GitHub — no cloning, no local execution, no CI setup. Builds an interactive React Flow dependency graph with Gemini-generated module summaries. MD5 caching prevents redundant parses. Dark forest UI for extended analysis sessions.</p>
+            <div class="flagship-insight"><strong>Engineering insight:</strong> Parsing imports without executing code requires careful alias resolution — TypeScript path aliases, Python relative imports, and dynamic requires all break naive string matching. The parser handles edge cases before graph construction, because a dependency graph with silent resolution failures is worse than none.</div>
+            <div class="card-domains"><span class="domain-badge domain-tools">Developer Tools</span></div>
+            <div class="stack-pills"><span class="stack-pill">Next.js</span><span class="stack-pill">React Flow</span><span class="stack-pill">Gemini API</span><span class="stack-pill">GitHub API</span><span class="stack-pill">TypeScript</span></div>
+            <div class="card-links">
+              <span class="card-link private">🔒 Private Repository</span>
+              <button class="expand-btn" data-target="cs-canopy"><span class="expand-icon">+</span> Case Study</button>
+            </div>
+          </div>
+          <div class="case-study" id="cs-canopy">
+            <div class="case-study-inner">
+              <div class="cs-section"><div class="cs-label">The Problem</div><p class="cs-text">Onboarding to a new codebase takes days. Existing tools require cloning locally, running scanners, generating static output. No instant, shareable, interactive view of what depends on what.</p></div>
+              <div class="cs-section"><div class="cs-label">Why Existing Solutions Failed</div><p class="cs-text">Tools like Madge or dependency-cruiser are local-only, produce static SVG, require the full repo on disk. Unsuitable for PR analysis or cross-team onboarding. Canopy works entirely from a GitHub URL — no setup, no install, shareable link.</p></div>
+              <div class="cs-section"><div class="cs-label">Architecture</div><p class="cs-text">GitHub API fetches file trees without cloning. AST-based import parser handles Python and JS/TS. MD5 hash of file content as cache key — parsed results reused when content has not changed. React Flow renders interactively. Gemini generates one-sentence summaries per module from docstrings and imports.</p></div>
+              <div class="cs-grid">
+                <div class="cs-item"><div class="cs-item-label">Role</div><div class="cs-item-val">Solo Builder</div></div>
+                <div class="cs-item"><div class="cs-item-label">Status</div><div class="cs-item-val">Live</div></div>
+                <div class="cs-item"><div class="cs-item-label">Duration</div><div class="cs-item-val">2026</div></div>
+                <div class="cs-item"><div class="cs-item-label">Domain</div><div class="cs-item-val">Developer Tools</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="proj-signal" class="flagship-card fade-up" style="animation-delay:.20s" data-categories="flagship product enterprise hiring" data-search="signal ai hiring communication ats candidate ghosting sla tracking recruiter dashboard timeline ashby greenhouse lever personalized updates production enterprise hiring">
+          <div class="flagship-inner">
+            <div class="flagship-eyebrow">▲ Flagship · AI · Hiring OS</div>
+            <div class="flagship-header"><div class="flagship-title">Signal</div><span class="status-chip chip-production">🟢 Production</span></div>
+            <div class="flagship-hook">AI-powered hiring communication OS — sits on top of any ATS, sends personalized candidate updates, eliminates ghosting.</div>
+            <div class="flagship-stats">
+              <div class="flagship-stat"><div class="flagship-stat-num">0</div><div class="flagship-stat-label">Candidate Ghosting</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">SLA</div><div class="flagship-stat-label">Tracking</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">3</div><div class="flagship-stat-label">ATS Integrations</div></div>
+              <div class="flagship-stat"><div class="flagship-stat-num">AI</div><div class="flagship-stat-label">Personalisation</div></div>
+            </div>
+            <p class="flagship-desc">75% of candidates are ghosted during hiring. Signal sits on top of existing ATS systems (Ashby, Greenhouse, Lever) and automatically generates personalized candidate updates at every stage transition. Recruiter dashboard tracks SLA breaches in real time. Candidate timeline view is public-facing. Zero change to recruiter workflow.</p>
+            <div class="flagship-insight"><strong>Engineering insight:</strong> Built on top of existing ATS via webhooks rather than replacing them. Adoption friction kills B2B tools — Signal asks for zero process change. Plugging into Greenhouse/Ashby/Lever via webhook means deployment is a one-time setup, not an ongoing commitment.</div>
+            <div class="card-domains"><span class="domain-badge domain-hiring">Hiring</span><span class="domain-badge domain-enterprise">Enterprise</span><span class="domain-badge domain-ai">AI</span></div>
+            <div class="stack-pills"><span class="stack-pill">Next.js</span><span class="stack-pill">TypeScript</span><span class="stack-pill">PostgreSQL</span><span class="stack-pill">ATS Webhooks</span><span class="stack-pill">AI Personalization</span></div>
+            <div class="card-links">
+              <span class="card-link private">🔒 Private Repository</span>
+              <button class="expand-btn" data-target="cs-signal"><span class="expand-icon">+</span> Case Study</button>
+            </div>
+          </div>
+          <div class="case-study" id="cs-signal">
+            <div class="case-study-inner">
+              <div class="cs-section"><div class="cs-label">The Problem</div><p class="cs-text">Candidate ghosting is a coordination failure. Recruiters lose context between pipeline stages, ATS systems do not surface candidate-facing timelines, manual updates do not scale. The candidate experience breaks not because companies do not care, but because the tooling does not surface the right action at the right moment.</p></div>
+              <div class="cs-section"><div class="cs-label">Architecture</div><p class="cs-text">ATS webhook → Signal ingestion API → event classification → AI template selection and personalization → candidate update dispatch. SLA engine on a background job monitors stage-to-stage elapsed time against configurable thresholds. Breached SLAs surface in recruiter dashboard. Candidate timeline is public-facing, no login required.</p></div>
+              <div class="cs-section"><div class="cs-label">Key Engineering Decision</div><p class="cs-text">Active rather than passive: Signal reaches out when something changes, with context derived directly from the ATS event that triggered it — not a generic drip campaign that fires on a schedule regardless of what has happened.</p></div>
+              <div class="cs-grid">
+                <div class="cs-item"><div class="cs-item-label">Role</div><div class="cs-item-val">Solo Founder & Engineer</div></div>
+                <div class="cs-item"><div class="cs-item-label">Status</div><div class="cs-item-val">Production</div></div>
+                <div class="cs-item"><div class="cs-item-label">Duration</div><div class="cs-item-val">2026</div></div>
+                <div class="cs-item"><div class="cs-item-label">Domain</div><div class="cs-item-val">Hiring · Enterprise · AI</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section id="timeline">
+        <div class="section-label">Timeline</div>
+        <p class="section-desc">From a cafe website to a 10+ system portfolio in under two years. The archived experiments matter — they prove continuous momentum, not failed starts.</p>
+        <div class="timeline-year-block">
+          <div class="timeline-year-label">2025</div>
+          <div class="timeline-entries">
+            <div class="timeline-entry"><span class="timeline-entry-name">Chai Lovers</span><span class="timeline-entry-desc">— First real client delivery. HTML/CSS/JS cafe site.</span><span class="tl-tag">first client</span></div>
+            <div class="timeline-entry"><span class="timeline-entry-name">Physics Preprint</span><span class="timeline-entry-desc">— Geometric Decoherence Theorem published on Zenodo.</span><span class="tl-tag research">research</span></div>
+            <div class="timeline-entry hl"><a href="#proj-edcore" class="timeline-entry-name">Edcore</a><span class="timeline-entry-desc">— Solo founder begins building the education OS.</span><span class="tl-tag flagship">flagship</span></div>
+          </div>
+        </div>
+        <div class="timeline-year-block">
+          <div class="timeline-year-label">2026</div>
+          <div class="timeline-entries">
+            <div class="timeline-entry"><a href="#proj-travel" class="timeline-entry-name">TravelChecker</a><span class="timeline-entry-desc">— Multi-modal travel comparison MCP server.</span><span class="tl-tag tools">tools</span></div>
+            <div class="timeline-entry"><a href="#proj-wayfound" class="timeline-entry-name">Wayfound</a><span class="timeline-entry-desc">— AI trip planner, IIT Roorkee hackathon entry.</span><span class="tl-tag">experiment</span></div>
+            <div class="timeline-entry hl"><a href="#proj-canopy" class="timeline-entry-name">Canopy</a><span class="timeline-entry-desc">— Repo dependency visualization, no clone required.</span><span class="tl-tag flagship">flagship</span></div>
+            <div class="timeline-entry hl"><a href="#proj-nexus" class="timeline-entry-name">IITR Nexus</a><span class="timeline-entry-desc">— Campus intelligence platform with MCP architecture.</span><span class="tl-tag flagship">flagship</span></div>
+            <div class="timeline-entry hl"><a href="#proj-signal" class="timeline-entry-name">Signal</a><span class="timeline-entry-desc">— AI hiring OS, ATS webhook integration.</span><span class="tl-tag flagship">flagship</span></div>
+            <div class="timeline-entry"><a href="#proj-phc" class="timeline-entry-name">PHC Queue</a><span class="timeline-entry-desc">— Rural healthcare queue system on Raspberry Pi, zero cloud cost.</span><span class="tl-tag ai">ai</span></div>
+            <div class="timeline-entry"><a href="#proj-momentra" class="timeline-entry-name">Momentra</a><span class="timeline-entry-desc">— AI event photo SaaS, face recognition at scale.</span><span class="tl-tag ai">ai</span></div>
+            <div class="timeline-entry hl"><a href="#proj-artasset" class="timeline-entry-name">artAsset</a><span class="timeline-entry-desc">— Enterprise asset management, serializable booking engine.</span><span class="tl-tag flagship">flagship</span></div>
+            <div class="timeline-entry"><a href="#proj-nifty" class="timeline-entry-name">NIFTY-50 Intelligence</a><span class="timeline-entry-desc">— 21 years of market data, HMM + XGBoost + SHAP.</span><span class="tl-tag ai">ai</span></div>
+            <div class="timeline-entry"><a href="#proj-surge" class="timeline-entry-name">SurgeScope</a><span class="timeline-entry-desc">— Dynamic pricing analytics and simulation platform.</span><span class="tl-tag tools">tools</span></div>
+            <div class="timeline-entry"><a href="#proj-llm" class="timeline-entry-name">LLM Benchmark</a><span class="timeline-entry-desc">— Triaxial evaluation of Specialist vs Generalist architectures.</span><span class="tl-tag research">research</span></div>
+            <div class="timeline-entry"><a href="#proj-cap" class="timeline-entry-name">Capitulation Study</a><span class="timeline-entry-desc">— 484-trial behavioral AI study, 42.8% capitulation rate.</span><span class="tl-tag research">research</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI & ML -->
+      <section id="ai" data-section="ai">
+        <div class="section-label">🤖 AI & Machine Learning</div>
+        <p class="section-desc">Five AI systems solving real operational problems across healthcare, finance, events, and research methodology.</p>
+
+        <div id="proj-phc" class="card fade-up" data-categories="ai healthcare infra" data-search="phc queue healthcare rural clinic raspberry pi zero cost monte carlo wait estimation doctor inactivity detection dynamic python fastapi healthcare infrastructure production">
+          <div class="card-header"><div class="card-title">PHC Queue Management System</div><span class="status-chip chip-production">🟢 Production</span></div>
+          <div class="card-meta">2026 · Solo Build · Python, Raspberry Pi, FastAPI</div>
+          <div class="card-domains"><span class="domain-badge domain-healthcare">Healthcare</span><span class="domain-badge domain-infra">Infrastructure</span></div>
+          <p class="card-desc">Queue management for rural primary health centres — runs on Raspberry Pi, zero cloud cost. Dynamic wait time estimation using rolling consultation averages. Doctor inactivity detection prevents queue stagnation. Monte Carlo simulation validates wait estimates. Designed around the infrastructure constraints of rural Indian clinics where internet and budget are both near zero.</p>
+          <ul class="card-bullets">
+            <li>Rolling consultation average updates dynamically as each patient is seen, giving accurate estimates even during high-variance sessions</li>
+            <li>Monte Carlo validation runs 10k trials on historical session data to calibrate confidence intervals</li>
+            <li>Inactivity detection triggers queue pause and notifies waiting patients — prevents silent failures when doctors step out</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">Raspberry Pi</span><span class="stack-pill">MQTT</span><span class="stack-pill">Monte Carlo</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Built: <b>Solo</b></div>
+            <div class="card-reveal-item">Duration: <b>2026</b></div>
+            <div class="card-reveal-item">Domain: <b>Healthcare · Infrastructure</b></div>
+          </div>
+        </div>
+
+        <div id="proj-momentra" class="card fade-up" style="animation-delay:.05s" data-categories="ai saas product" data-search="momentra ai event photo saas face recognition cloudinary multi tenant rbac search notifications social media optimization production selfie photo finder deepface">
+          <div class="card-header"><div class="card-title">Momentra — AI Event Photo SaaS</div><span class="status-chip chip-production">🟢 Production</span></div>
+          <div class="card-meta">2026 · Solo Build · Next.js, Python, DeepFace, Cloudinary, MongoDB</div>
+          <div class="card-domains"><span class="domain-badge domain-ai">AI</span><span class="domain-badge domain-saas">SaaS</span></div>
+          <p class="card-desc">Upload one selfie at event check-in. Momentra automatically finds every photo of you across the entire event gallery using face recognition. Multi-tenant architecture supports multiple concurrent events. RBAC controls photographer vs attendee vs admin access. Cloudinary for media optimization and CDN delivery. Social sharing and notification system for newly found photos.</p>
+          <ul class="card-bullets">
+            <li>DeepFace embedding pipeline runs at upload time, not query time — search stays fast regardless of gallery size</li>
+            <li>Multi-tenant isolation ensures event galleries never cross-contaminate; each event has scoped storage and role definitions</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Next.js</span><span class="stack-pill">Python</span><span class="stack-pill">DeepFace</span><span class="stack-pill">Cloudinary</span><span class="stack-pill">MongoDB</span><span class="stack-pill">RBAC</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Built: <b>Solo</b></div>
+            <div class="card-reveal-item">Domain: <b>AI · SaaS</b></div>
+          </div>
+        </div>
+
+        <div id="proj-nifty" class="card fade-up" style="animation-delay:.10s" data-categories="ai finance ml" data-search="nifty50 investment intelligence hidden markov models hmm xgboost bull bear detection portfolio optimization shap explainability risk analytics finance machine learning python scikit-learn plotly 21 years data">
+          <div class="card-header"><div class="card-title">NIFTY-50 Investment Intelligence</div><span class="status-chip chip-research">🟣 Research</span></div>
+          <div class="card-meta">2026 · Solo Build · Python, scikit-learn, XGBoost, hmmlearn, Plotly</div>
+          <div class="card-domains"><span class="domain-badge domain-ai">AI / ML</span><span class="domain-badge domain-finance">Finance</span></div>
+          <p class="card-desc">Investment intelligence platform on 21 years of NIFTY-50 data. Hidden Markov Models detect bull/bear regime transitions. XGBoost price prediction with SHAP explainability. Portfolio optimization via Modern Portfolio Theory. Risk analytics with Value-at-Risk and drawdown analysis. Interactive Plotly dashboard.</p>
+          <ul class="card-bullets">
+            <li>HMM trained on return distributions detects regime shifts 3-5 days before they are visually apparent on price charts</li>
+            <li>SHAP values surface which features (RSI, MACD, volume delta) drove each prediction — explainability built in, not bolted on</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Python</span><span class="stack-pill">hmmlearn</span><span class="stack-pill">XGBoost</span><span class="stack-pill">SHAP</span><span class="stack-pill">Plotly</span><span class="stack-pill">scikit-learn</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Built: <b>Solo</b></div>
+            <div class="card-reveal-item">Data: <b>21 Years</b></div>
+            <div class="card-reveal-item">Domain: <b>AI · Finance · ML</b></div>
+          </div>
+        </div>
+
+        <div id="proj-llm" class="card fade-up" style="animation-delay:.15s" data-categories="ai research" data-search="llm benchmark specialist generalist hybrid architecture algorithmic code generation pass@1 cxself cxjudge adversarial probes groq api python evaluation pipeline 75 problems research">
+          <div class="card-header"><div class="card-title">LLM Benchmark Pipeline — Specialist vs Generalist Architectures</div><span class="status-chip chip-research">🟣 Research</span></div>
+          <div class="card-meta">2026 · Independent Research · Python, Groq API · Published Paper</div>
+          <div class="card-domains"><span class="domain-badge domain-ai">AI</span><span class="domain-badge domain-research">Research</span></div>
+          <p class="card-desc">Automated pipeline comparing four conditions (Generalist, Specialist, Hybrid-naive, Hybrid-guarded) across 75 algorithmic problems plus 4 adversarial probes. Triaxial framework: Pass@1 for execution accuracy, CxSelf for self-assessed complexity, CxJudge for independent complexity rating.</p>
+          <ul class="card-bullets">
+            <li>Generalist leads execution (Pass@1 0.911 vs 0.862); Specialist leads complexity awareness — a trade-off invisible to single-axis evaluation</li>
+            <li>Naive Hybrid regresses 0.133 from baseline; guarded variant recovers 87% — routing heuristics are load-bearing</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Python</span><span class="stack-pill">Groq API</span><span class="stack-pill">LLM-as-Judge</span><span class="stack-pill">Automated Eval</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span><a href="#research" class="card-link">📄 See Research Section</a></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Problems: <b>75 + 4 adversarial</b></div>
+            <div class="card-reveal-item">Domain: <b>AI · Research</b></div>
+          </div>
+        </div>
+
+        <div id="proj-cap" class="card fade-up" style="animation-delay:.20s" data-categories="ai research" data-search="capitulation problem behavioral ai llm pressure social pushback conditional optimization authority effects 484 trials gemma ollama llm as judge 5 domains 5 pressure variants compliance paradox">
+          <div class="card-header"><div class="card-title">The Capitulation Experiment</div><span class="status-chip chip-research">🟣 Research</span></div>
+          <div class="card-meta">2026 · Independent Research · 484 trials · Gemma 4B via Ollama</div>
+          <div class="card-domains"><span class="domain-badge domain-ai">AI</span><span class="domain-badge domain-research">Research</span></div>
+          <p class="card-desc">Behavioral study investigating whether LLMs capitulate under social pressure — 5 domains × 5 pressure variants, 484 total trials. Gemma 4B as controlled proxy. LLM-as-Judge methodology validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework for measuring model robustness.</p>
+          <ul class="card-bullets">
+            <li>42.8% combined capitulation rate — within the 39-52% human-predicted range, validating the experimental design</li>
+            <li>P4 anomaly (Compliance Paradox): direct challenge triggered 64.6% hard reversals; expert authority pressure triggered 0% — opposite of what authority-compliance theory predicts</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Python</span><span class="stack-pill">Ollama</span><span class="stack-pill">Gemma 4B</span><span class="stack-pill">LLM-as-Judge</span><span class="stack-pill">Statistical Analysis</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span><a href="#research" class="card-link">📄 See Research Section</a></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Trials: <b>484</b></div>
+            <div class="card-reveal-item">Domain: <b>AI · Behavioral Research</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOOLS -->
+      <section id="tools" data-section="tools">
+        <div class="section-label">🛠 Developer Tools & Infrastructure</div>
+        <p class="section-desc">Tools built for developers — one runs natively inside Claude and Cursor, one analyzes pricing at the system level.</p>
+
+        <div id="proj-travel" class="card fade-up" data-categories="tools" data-search="travelchecker multi modal travel comparison engine mcp server typescript google maps aviasales irctc flights trains buses cabs claude cursor developer tools khammam delhi composite route">
+          <div class="card-header"><div class="card-title">TravelChecker — Multi-Modal Travel Comparison Engine</div><span class="status-chip chip-mcp">🔵 MCP Server</span></div>
           <div class="card-meta">2026 · TypeScript · MCP Server · Google Maps, Aviasales, IRCTC APIs</div>
-          <p class="card-desc">Compares flights, trains, buses, cabs, and self-drive with live data from Google Maps, Aviasales, and IRCTC — e.g. 'Khammam to Delhi' returns the optimal route (cab to Vijayawada airport → flight) with cost and comfort factored in.</p>
+          <div class="card-domains"><span class="domain-badge domain-tools">Developer Tools</span></div>
+          <p class="card-desc">Compares flights, trains, buses, cabs, and self-drive across live API data. 'Khammam to Delhi' returns the optimal composite route (cab to Vijayawada airport → flight to IGI) with total cost, travel time, and comfort trade-offs. Built as a Model Context Protocol server — runs natively inside Claude and Cursor as a callable tool.</p>
           <ul class="card-bullets">
-            <li>Built as a Model Context Protocol (MCP) server so Claude and Cursor can call it as a native tool</li>
-            <li>Includes rate-limit handling across three free-tier API providers</li>
+            <li>Rate-limit handling across three free-tier API providers with exponential backoff and local result caching</li>
+            <li>Composite route detection assembles multi-leg journeys no single API returns — cab+flight is one query, one response</li>
           </ul>
-          <div class="card-tags">
-            <span class="card-tag">TypeScript</span>
-            <span class="card-tag">MCP Server</span>
-            <span class="card-tag">Google Maps API</span>
-            <span class="card-tag">Aviasales</span>
-            <span class="card-tag">IRCTC API</span>
+          <div class="stack-pills"><span class="stack-pill">TypeScript</span><span class="stack-pill">MCP</span><span class="stack-pill">Google Maps API</span><span class="stack-pill">Aviasales</span><span class="stack-pill">IRCTC API</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Built: <b>Solo</b></div>
+            <div class="card-reveal-item">Domain: <b>Developer Tools · MCP</b></div>
           </div>
         </div>
 
-        <!-- MakeMyTrip UX Analysis -->
-        <div class="card fade-up" style="animation-delay:0.14s">
-          <div class="card-header">
-            <div class="card-title">MakeMyTrip UX Analysis — Dark Patterns in Cancellation Flows</div>
-            <span class="badge badge-ux">UX / BA</span>
+        <div id="proj-surge" class="card fade-up" style="animation-delay:.05s" data-categories="tools analytics" data-search="surgescope dynamic pricing analytics forecasting simulation demand analysis ride hailing surge pricing decision support python pandas plotly excel interactive visualization analytics">
+          <div class="card-header"><div class="card-title">SurgeScope — Dynamic Pricing Analytics Platform</div><span class="status-chip chip-live">🔵 Live</span></div>
+          <div class="card-meta">2026 · Python, Pandas, Plotly, Excel · Analytics</div>
+          <div class="card-domains"><span class="domain-badge domain-analytics">Analytics</span><span class="domain-badge domain-tools">Tools</span></div>
+          <p class="card-desc">Dynamic pricing analytics and simulation for ride-hailing surge strategy. Demand forecasting by zone and time-of-day. Pricing simulation models projecting revenue and driver supply under different multiplier policies. Interactive Plotly visualizations for demand heatmaps and sensitivity curves. Built as an analytics case competition submission.</p>
+          <ul class="card-bullets">
+            <li>Python analysis scripts built to human-engineer standards — documented, modular, reproducible</li>
+            <li>Excel unit economics workbook with scenario modelling for pricing policy comparison</li>
+          </ul>
+          <div class="stack-pills"><span class="stack-pill">Python</span><span class="stack-pill">Pandas</span><span class="stack-pill">Plotly</span><span class="stack-pill">Excel</span><span class="stack-pill">Forecasting</span></div>
+          <div class="card-links"><span class="card-link private">🔒 Private Repository</span></div>
+          <div class="card-reveal">
+            <div class="card-reveal-item">Built: <b>Solo</b></div>
+            <div class="card-reveal-item">Domain: <b>Analytics · Pricing</b></div>
           </div>
+        </div>
+      </section>
+      <!-- UX -->
+      <section id="ux" data-section="ux">
+        <div class="section-label">📱 Product & UX Case Studies</div>
+        <p class="section-desc">I pick real apps, break down every UX and business decision, and name what I'd fix. These are discipline exercises — not complaints.</p>
+
+        <div class="card fade-up" data-categories="ux product" data-search="makemytrip ux dark patterns cancellation refund ivr ai agent heuristic evaluation consumer rights unverifiable refund 1600 600 ccpa">
+          <div class="card-header"><div class="card-title">MakeMyTrip — Dark Patterns in Cancellation Flows</div><span class="status-chip chip-ux">UX Audit</span></div>
           <div class="card-meta">May 2026 · Self-Initiated · Heuristic Evaluation, Dark Pattern Analysis</div>
-          <p class="card-desc">Identified 3 compounding dark patterns in MakeMyTrip's cancellation and refund flow — each individually defensible, collectively predatory.</p>
+          <p class="card-desc">Three compounding dark patterns in MakeMyTrip's cancellation and refund flow — each individually defensible, collectively predatory. Unverifiable refund (Rs.1,600 displayed, Rs.600 processed — Rs.1,000 gap, no breakdown), a 4-step IVR optimised for drop-off rather than resolution, and an undisclosed AI agent deployed where a human was implied. Documented with CCPA escalation paths.</p>
           <ul class="card-bullets">
-            <li>Unverifiable refund: ₹1,600 displayed vs ₹600 actually processed — a ₹1,000 discrepancy with no breakdown</li>
-            <li>4-step IVR optimised for drop-off, not resolution — each step adds friction to an already frustrated user</li>
-            <li>Undisclosed AI agent deployed where a human was implied — documented with CCPA escalation paths</li>
+            <li>The refund discrepancy is only discoverable after completing cancellation — the point of no return is crossed before the true number appears</li>
+            <li>IVR friction is architectural, not accidental — each step is calibrated to increase abandonment</li>
           </ul>
-          <div class="card-tags">
-            <span class="card-tag">Heuristic evaluation</span>
-            <span class="card-tag">Dark patterns</span>
-            <span class="card-tag">Consumer rights</span>
-            <span class="card-tag">UX audit</span>
-          </div>
+          <div class="stack-pills"><span class="stack-pill">Heuristic Evaluation</span><span class="stack-pill">Dark Patterns</span><span class="stack-pill">Consumer Rights</span><span class="stack-pill">UX Audit</span></div>
+          <div class="card-reveal"><div class="card-reveal-item">Type: <b>Self-Initiated Research</b></div><div class="card-reveal-item">Domain: <b>UX · Product</b></div></div>
         </div>
 
-        <!-- Ola Mini Business Analysis -->
-        <div class="card fade-up" style="animation-delay:0.17s">
-          <div class="card-header">
-            <div class="card-title">Ola Mini Business Analysis — Supply &amp; Experience Failure</div>
-            <span class="badge badge-ux">BA / Platform</span>
-          </div>
+        <div class="card fade-up" style="animation-delay:.05s" data-categories="ux product" data-search="ola mini business analysis supply operations data integrity pricing policy trust safety rapido uber platform economics root cause analysis competitive">
+          <div class="card-header"><div class="card-title">Ola Mini — 6-Layer Supply & Experience Failure</div><span class="status-chip chip-ux">BA / Platform</span></div>
           <div class="card-meta">Jun 2026 · Self-Initiated · Root Cause Analysis, Platform Economics</div>
-          <p class="card-desc">Mapped a 6-layer booking cascade across supply operations, data integrity, pricing policy, and trust &amp; safety — with competitive impact vs Rapido and Uber.</p>
+          <p class="card-desc">Mapped a 6-layer booking cascade across supply operations, data integrity, pricing policy, and trust &amp; safety — with competitive impact vs Rapido and Uber. Thin supply → wrong vehicle dispatched → driver condition-cancels → Rs.75 penalty → 50% surge on rebooking → user churns to Rapido. A systemic misalignment across four business domains, not a single bug.</p>
           <ul class="card-bullets">
-            <li>Cascade: thin supply → wrong vehicle category dispatched → driver condition-cancels → ₹75 penalty → 50% surge on rebooking → user churns to Rapido</li>
-            <li>Root cause analysis traced the failure across four business domains — not a single bug, a systemic misalignment</li>
+            <li>Root cause: the penalty policy punishes the user for a supply failure they did not cause</li>
+            <li>Rapido wins this moment not because it is cheaper, but because it does not penalise the user for Ola's supply problem</li>
           </ul>
-          <div class="card-tags">
-            <span class="card-tag">Root cause analysis</span>
-            <span class="card-tag">Platform economics</span>
-            <span class="card-tag">Competitive analysis</span>
-            <span class="card-tag">Supply ops</span>
-          </div>
+          <div class="stack-pills"><span class="stack-pill">Root Cause Analysis</span><span class="stack-pill">Platform Economics</span><span class="stack-pill">Competitive Analysis</span><span class="stack-pill">Supply Ops</span></div>
+          <div class="card-reveal"><div class="card-reveal-item">Type: <b>Self-Initiated Research</b></div><div class="card-reveal-item">Domain: <b>BA · Platform · UX</b></div></div>
         </div>
 
-        <!-- LLM Benchmark -->
-        <div class="card fade-up" style="animation-delay:0.20s">
-          <div class="card-header">
-            <div class="card-title">LLM Benchmark — Specialist vs Generalist vs Hybrid Architectures</div>
-            <span class="badge badge-sole">independent research</span>
+        <div class="battle fade-up" style="animation-delay:.08s" data-categories="ux product" data-search="ux battle food delivery swiggy zomato eatsure dominos kfc framing effect anchoring emotional onboarding say do gap brand cohesion">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.5rem">
+            <div class="battle-title">UX Battle 01 — Food Delivery</div>
+            <span class="status-chip chip-ux">UX Analysis</span>
           </div>
-          <div class="card-meta">2026 · Python, Groq API · Published paper (see Research section)</div>
-          <p class="card-desc">Built an automated pipeline evaluating 4 conditions (Generalist, Specialist, Hybrid-naive, Hybrid-guarded) across 75 problems + 4 adversarial probes using a triaxial framework: Pass@1, CxSelf, CxJudge.</p>
-          <ul class="card-bullets">
-            <li>Key result: generalist leads execution (0.911 vs 0.862); specialist leads complexity awareness — a trade-off invisible to single-axis evaluation</li>
-            <li>Naive Hybrid regresses 0.133, guarded variant recovers 87% — architecture choice matters as much as model choice</li>
-          </ul>
-          <div class="card-tags">
-            <span class="card-tag">Python</span>
-            <span class="card-tag">Groq API</span>
-            <span class="card-tag">LLM evaluation</span>
-            <span class="card-tag">Benchmarking</span>
-          </div>
+          <div class="battle-sub">Swiggy · Zomato · EatSure · Domino's · KFC</div>
+          <p class="battle-insight">Found the <em>framing effect</em>, <em>emotional onboarding</em>, <em>progressive disclosure</em>, the <em>say-do gap</em> — and a deliberate anchoring exploit in Zomato's Food Rescue screen that inflated perceived savings by Rs.70.</p>
+          <table class="insight-table">
+            <thead><tr><th>Observation</th><th>Concept</th></tr></thead>
+            <tbody>
+              <tr><td>Swiggy UI feels congested — too much competing for attention</td><td><span class="concept">information hierarchy failure</span></td></tr>
+              <tr><td>Zomato opens with a quote, not a menu</td><td><span class="concept">emotional onboarding</span></td></tr>
+              <tr><td>'Rs.120 off above Rs.199' outperforms '60% off upto Rs.120' — same money, better conversion</td><td><span class="concept">framing effect — Kahneman</span></td></tr>
+              <tr><td>I'd still pick Zomato over EatSure despite knowing better</td><td><span class="concept">say-do gap</span></td></tr>
+              <tr><td>Rs.36 gap between Domino's direct app and Zomato — never communicated</td><td><span class="concept">missed competitive advantage</span></td></tr>
+              <tr><td>KFC app feels exactly like the store</td><td><span class="concept">brand cohesion — done right</span></td></tr>
+              <tr><td>Domino's app has zero personality</td><td><span class="concept">brand inconsistency — product suicide</span></td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13.5px;color:var(--muted)">Both Domino's and KFC built their own apps to escape Zomato's 25-30% commission. KFC won because their app feels like KFC. Domino's forgot to make theirs feel like anything.</p>
         </div>
 
-        <!-- Smart Waste -->
-        <div class="card fade-up" style="animation-delay:0.23s">
-          <div class="card-header">
-            <div class="card-title">Smart Waste Management System</div>
-            <span class="badge badge-sole">academic collab</span>
+        <div class="battle fade-up" style="animation-delay:.11s" data-categories="ux product" data-search="ux battle payments google pay phonepe paytm false confidence deliberate friction stickiness retention design usability failure refund">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.5rem">
+            <div class="battle-title">UX Battle 02 — Payments</div>
+            <span class="status-chip chip-ux">UX Analysis</span>
           </div>
-          <div class="card-meta">2026 · Python, spaCy, Deep Learning</div>
-          <p class="card-desc">Contributed NLP module to a DL-based waste classification system. Built a natural language querying interface using spaCy so non-technical users could query classification results in plain language. Optimised multi-label architecture for mixed waste streams.</p>
-          <div class="card-tags">
-            <span class="card-tag">spaCy</span>
-            <span class="card-tag">Deep Learning</span>
-            <span class="card-tag">NLP</span>
-            <span class="card-tag">Multi-label classification</span>
-          </div>
+          <div class="battle-sub">Google Pay · PhonePe · Paytm</div>
+          <p class="battle-insight">Paytm showed me a name for an unsaved contact. I paid the wrong Rajkumar. Classic <em>false confidence</em>. The refund process was deliberately painful — not an accident.</p>
+          <table class="insight-table">
+            <thead><tr><th>Observation</th><th>Concept</th></tr></thead>
+            <tbody>
+              <tr><td>Google Pay is the cleanest but I always close it immediately</td><td><span class="concept">stickiness gap</span></td></tr>
+              <tr><td>PhonePe has stocks, gold, insurance — a reason to stay open</td><td><span class="concept">retention by design</span></td></tr>
+              <tr><td>Paytm showed a name for an unsaved contact — I paid the wrong person</td><td><span class="concept">usability failure — false confidence</span></td></tr>
+              <tr><td>Paytm refund took 7 screens and a waiting period</td><td><span class="concept">deliberate friction — business over user</span></td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- Chai Lovers -->
-        <div class="card fade-up" style="animation-delay:0.26s">
-          <div class="card-header">
-            <div class="card-title">Chai Lovers — Dynamic Business Website</div>
-            <span class="badge badge-live">delivered</span>
+        <div class="battle" style="opacity:.4">
+          <div class="battle-title">UX Battle 03 — Dating Apps <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:8px">coming soon</span></div>
+          <div class="battle-sub">Bumble · Tinder · Hinge · Boo</div>
+        </div>
+
+        <div style="margin-top:2rem">
+          <div class="section-label" style="margin-bottom:1rem">Dark Patterns Spotted</div>
+          <p class="section-desc">Deliberate design decisions made against users to protect business metrics. All from personal experience with Indian apps.</p>
+
+          <div class="dp-card fade-up" data-categories="ux product" data-search="dark pattern roach motel signup easy cancellation hard friction paytm telecom ott subscription asymmetric">
+            <div class="dp-name">Roach Motel</div>
+            <div class="dp-title">Easy in. Impossible out.</div>
+            <p class="dp-desc">Signup takes 30 seconds. Cancelling takes 7 screens, a call, and a waiting period. The friction is intentionally asymmetric — exactly what I experienced with Paytm's refund flow.</p>
+            <div class="dp-example">spotted in: Paytm refunds · Indian telecom portals · OTT cancellations</div>
           </div>
-          <div class="card-meta">2025 · HTML, CSS, JavaScript · Client Project</div>
-          <p class="card-desc">Built and delivered a dynamic website for a local café — menu, location, contact, and interactive elements. From brief to live site, solo. First real client delivery.</p>
-          <div class="card-tags">
-            <span class="card-tag">HTML/CSS</span>
-            <span class="card-tag">JavaScript</span>
-            <span class="card-tag">Client work</span>
+
+          <div class="dp-card fade-up" style="animation-delay:.04s" data-categories="ux product" data-search="dark pattern unverifiable refund makemytrip 1600 600 cancellation no breakdown discrepancy">
+            <div class="dp-name">Unverifiable Refund</div>
+            <div class="dp-title">Rs.1,600 displayed. Rs.600 processed.</div>
+            <p class="dp-desc">MakeMyTrip showed a refund amount at the start of the cancellation flow. The actual amount processed was Rs.1,000 less with no itemised breakdown. You only discover the gap after completing cancellation — too late to back out.</p>
+            <div class="dp-example">spotted in: MakeMyTrip cancellation · 4-step IVR designed for drop-off · AI agent deployed as human</div>
+          </div>
+
+          <div class="dp-card fade-up" style="animation-delay:.08s" data-categories="ux product" data-search="dark pattern hidden costs platform fee convenience charge gst bookmyshow checkout last step commitment">
+            <div class="dp-name">Hidden Costs</div>
+            <div class="dp-title">The price that only appears at the last step.</div>
+            <p class="dp-desc">Four screens of checkout. Everything looks fine. Final screen: platform fee Rs.5, convenience charge Rs.12, GST Rs.18. By step 4 you are already committed — and they know it.</p>
+            <div class="dp-example">spotted in: BookMyShow · MakeMyTrip · every Indian ticketing platform</div>
+          </div>
+
+          <div class="dp-card fade-up" style="animation-delay:.12s" data-categories="ux product" data-search="dark pattern fake scarcity countdown timer only 2 left reset loss aversion makemytrip goibibo flipkart">
+            <div class="dp-name">Fake Scarcity</div>
+            <div class="dp-title">Countdown timers that reset. "Only 2 left" that never runs out.</div>
+            <p class="dp-desc">Refresh after 10 minutes — still 3 rooms, timer reset. Manufactured scarcity to trigger loss aversion. You are not going to miss out. They just need you to feel like you might.</p>
+            <div class="dp-example">spotted in: MakeMyTrip · Goibibo · Flipkart sale pages</div>
+          </div>
+
+          <div class="dp-card fade-up" style="animation-delay:.16s" data-categories="ux product" data-search="dark pattern confirmshaming no thanks i dont want to save money manipulation framing subscription flash sale">
+            <div class="dp-name">Confirmshaming</div>
+            <div class="dp-title">Making the "no" feel like shame.</div>
+            <p class="dp-desc">One button: "Yes, continue." The other: "No thanks, I don't want to save money." The choice is real. The framing is manipulation.</p>
+            <div class="dp-example">spotted in: subscription apps · food delivery premium plans · e-commerce flash sales</div>
+          </div>
+
+          <div style="margin-top:1rem;padding:1rem 1.3rem;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:7px;font-size:14px;color:#7a3010;line-height:1.7">
+            <strong>Not all friction is a dark pattern.</strong> Paytm's cancellation flow is one — designed to make you give up. Zomato's cancellation warning is borderline — it informs you of a real consequence. The difference is intent: does the friction protect the user or exploit them?
           </div>
         </div>
       </section>
 
       <!-- RESEARCH -->
-      <section id="research">
-        <div class="section-label">Research &amp; Publications</div>
+      <section id="research" data-section="research">
+        <div class="section-label">🎓 Research & Publications</div>
+        <p class="section-desc">Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access.</p>
 
-        <!-- Capitulation Problem -->
-        <div class="research-card fade-up">
-          <div class="card-header" style="margin-bottom:4px">
+        <div class="research-card fade-up" data-categories="research ai" data-search="capitulation problem conditional optimization framework behavioral ai llm pressure social pushback 484 trials gemma judge methodology compliance paradox p4 anomaly sole author">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px">
             <div class="research-title">The Capitulation Problem: A Conditional Optimization Framework</div>
-            <span class="badge badge-paper">sole author</span>
+            <span class="status-chip chip-paper">Sole Author</span>
           </div>
           <div class="research-meta">2026 · Independent Research · IIT Roorkee · 484 trials</div>
           <p class="research-desc">Behavioral experiment using Gemma 4B (Ollama) as a controlled proxy — 5 domains × 5 pressure variants. LLM-as-Judge methodology with automated capitulation classification. Validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework.</p>
-          <div class="research-finding">Key finding: 42.8% combined capitulation — within the 39–52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% — the Compliance Paradox.</div>
+          <div class="research-finding">Key finding: 42.8% combined capitulation — within the 39-52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% — the Compliance Paradox.</div>
         </div>
 
-        <!-- LLM Architectures -->
-        <div class="research-card fade-up" style="animation-delay:0.05s">
-          <div class="card-header" style="margin-bottom:4px">
+        <div class="research-card fade-up" style="animation-delay:.05s" data-categories="research ai" data-search="specialist generalist hybrid llm architectures algorithmic code generation pass@1 cxself cxjudge triaxial evaluation framework adversarial probes groq groq api sole author benchmark">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px">
             <div class="research-title">Specialist, Generalist, and Hybrid LLM Architectures for Algorithmic Code Generation</div>
-            <span class="badge badge-paper">sole author</span>
+            <span class="status-chip chip-paper">Sole Author</span>
           </div>
           <div class="research-meta">2026 · Independent Research · IIT Roorkee · 75 problems + 4 adversarial probes</div>
           <p class="research-desc">Triaxial evaluation framework (Pass@1, CxSelf, CxJudge) across four architecture conditions. Automated pipeline with model-specific routing for specialist, generalist, decomposer, and judge roles.</p>
-          <div class="research-finding">Generalist leads execution (Pass@1: 0.911 vs 0.862); specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.</div>
+          <div class="research-finding">Generalist leads execution (Pass@1: 0.911 vs 0.862); Specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.</div>
         </div>
 
-        <!-- Dual-Transformer -->
-        <div class="research-card fade-up" style="animation-delay:0.1s">
-          <div class="card-header" style="margin-bottom:4px">
+        <div class="research-card fade-up" style="animation-delay:.10s" data-categories="research ai" data-search="dual transformer cross attention multimodal emotion recognition hubert vivit bidirectional ravdess walrus optimizer snr noise musan 1536 dimensional co-author electrical engineering">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px">
             <div class="research-title">Dual-Transformer Cross-Attention Multimodal Emotion Recognition</div>
-            <span class="badge badge-sole">co-author</span>
+            <span class="status-chip chip-paper" style="background:var(--tag-bg);color:var(--tag-text);border-color:var(--border)">Co-Author</span>
           </div>
           <div class="research-meta">2026 · IIT Roorkee · Electrical Engineering Department</div>
           <p class="research-desc">HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and authored the complete paper.</p>
         </div>
 
-        <!-- Physics-Guided -->
-        <div class="research-card fade-up" style="animation-delay:0.15s">
-          <div class="card-header" style="margin-bottom:4px">
+        <div class="research-card fade-up" style="animation-delay:.15s" data-categories="research" data-search="physics guided diffusion models synthetic power flow data generation ddpm ac power flow feasibility manifold constrained gradient guidance pjm ieee bus wasserstein co-author electrical engineering">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px">
             <div class="research-title">Physics-Guided Diffusion Models for Synthetic Power Flow Data Generation</div>
-            <span class="badge badge-sole">co-author</span>
+            <span class="status-chip chip-paper" style="background:var(--tag-bg);color:var(--tag-text);border-color:var(--border)">Co-Author</span>
           </div>
           <div class="research-meta">2025 · IIT Roorkee · Electrical Engineering Department</div>
-          <p class="research-desc">Physics-guided DDPM framework enforcing AC power flow feasibility via manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline. Dynamic normalisation and variable decoupling (p↔θ, q↔v) — two independent denoisers. Evaluated on PJM 5-bus and IEEE bus systems; Wasserstein-1 distance reduced from 0.71 to 0.48.</p>
+          <p class="research-desc">Physics-guided DDPM framework enforcing AC power flow feasibility via manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline. Dynamic normalisation and variable decoupling (p/theta, q/v) — two independent denoisers. Wasserstein-1 distance reduced from 0.71 to 0.48 on PJM 5-bus and IEEE bus systems.</p>
         </div>
 
-        <!-- Phonological Fidelity -->
-        <div class="research-card fade-up" style="animation-delay:0.2s">
-          <div class="card-header" style="margin-bottom:4px">
+        <div class="research-card fade-up" style="animation-delay:.20s" data-categories="research" data-search="phonological fidelity convergent preservation indo european languages proto pfi phonological fidelity index grimm law swadesh french hindi sanskrit english open access zenodo sole author linguistics">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px">
             <div class="research-title">Phonological Fidelity and Convergent Preservation in Indo-European Languages</div>
-            <span class="badge badge-paper">sole author · open access</span>
+            <span class="status-chip chip-paper">Sole Author · Open Access</span>
           </div>
           <div class="research-meta">2026 · Published open-access · Zenodo DOI: 10.5281/zenodo.19885744</div>
           <p class="research-desc">Developed the Phonological Fidelity Index (PFI) — a quantitative measure of consonant retention from Proto-Indo-European roots across French, Hindi/Sanskrit, and English under Grimm's Law. Built and analysed a curated Swadesh-based dataset; proposed Convergent Preservation and Phonetic Triangulation as cross-branch comparison methods.</p>
+          <div class="research-finding">
+            <a href="https://zenodo.org/doi/10.5281/zenodo.19885744" target="_blank" style="color:var(--accent);font-family:'DM Mono',monospace;font-size:11px">→ Read on Zenodo</a>
+          </div>
         </div>
       </section>
 
-      <!-- UX BATTLES -->
-      <section id="ux-battles">
-        <div class="section-label">UX Battles</div>
-        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">I pick apps solving the same problem and break down every UX and business decision — why they made it, who wins, what I'd fix.</p>
+      <!-- ARCHIVE -->
+      <section id="archive" data-section="archive">
+        <div class="section-label">🧪 Experiments & Archive</div>
+        <p class="section-desc">Earlier prototypes and experiments. Not hidden — they are proof that this portfolio was built, not conjured. The Chai Lovers → Edcore arc tells a more honest story than any polished flagship card alone.</p>
 
-        <div class="battle fade-up">
-          <div class="battle-title">Battle 01 — Food Delivery</div>
-          <div class="battle-sub">Swiggy · Zomato · EatSure · Domino's · KFC</div>
-          <p class="battle-insight">Found the <em>framing effect</em>, <em>emotional onboarding</em>, <em>progressive disclosure</em>, the <em>say-do gap</em> — and a deliberate anchoring exploit in Zomato's Food Rescue screen that inflated perceived savings by ₹70.</p>
-          <table class="insight-table">
-            <thead>
-              <tr><th>observation</th><th>concept</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Swiggy UI feels congested — too much competing for attention</td>
-                <td><span class="concept">information hierarchy failure</span></td>
-              </tr>
-              <tr>
-                <td>Zomato opens with a quote, not a menu</td>
-                <td><span class="concept">emotional onboarding</span></td>
-              </tr>
-              <tr>
-                <td>'₹120 off above ₹199' outperforms '60% off upto ₹120' — same money, better conversion</td>
-                <td><span class="concept">framing effect — Kahneman</span></td>
-              </tr>
-              <tr>
-                <td>I'd still pick Zomato over EatSure despite knowing better</td>
-                <td><span class="concept">say-do gap</span></td>
-              </tr>
-              <tr>
-                <td>₹36 gap between Domino's direct app and Zomato — never communicated</td>
-                <td><span class="concept">missed competitive advantage</span></td>
-              </tr>
-              <tr>
-                <td>KFC app feels exactly like the store</td>
-                <td><span class="concept">brand cohesion — done right</span></td>
-              </tr>
-              <tr>
-                <td>Domino's app has zero personality</td>
-                <td><span class="concept">brand inconsistency — product suicide</span></td>
-              </tr>
-            </tbody>
-          </table>
-          <p style="font-size:13.5px;color:var(--muted);">Key insight: both Domino's and KFC built their own apps to escape Zomato's 25–30% commission. KFC won because their app feels like KFC. Domino's forgot to make theirs feel like anything.</p>
+        <div id="proj-wayfound" class="archive-card fade-up" data-categories="archive" data-search="wayfound ai trip planner hyderabad groq google places api hackathon iit roorkee open competition archived experiment">
+          <div class="archive-label">🧪 Experiment · 2026</div>
+          <div class="archive-title">Wayfound — AI Trip Planner for Hyderabad</div>
+          <div class="archive-meta">2026 · IIT Roorkee Open Competition · Groq API, Google Places API</div>
+          <p class="archive-desc">Group size, budget, vibe in → AI generates a full curated outing plan with real venues, timings, and routing. Built and shipped as a live public entry for IIT Roorkee's open hackathon. Integrated Groq for natural-language trip planning with Google Places for real-time venue discovery.</p>
+          <div class="stack-pills"><span class="stack-pill">Groq API</span><span class="stack-pill">Google Places</span><span class="stack-pill">Prompt Engineering</span><span class="stack-pill">Hackathon</span></div>
         </div>
 
-        <div class="battle fade-up" style="animation-delay:0.05s">
-          <div class="battle-title">Battle 02 — Payments</div>
-          <div class="battle-sub">Google Pay · PhonePe · Paytm</div>
-          <p class="battle-insight">Paytm showed me a name for an unsaved contact. I paid the wrong Rajkumar. Classic <em>false confidence</em>. The refund process was deliberately painful — <em>deliberate friction</em>, not an accident.</p>
-          <table class="insight-table">
-            <thead>
-              <tr><th>observation</th><th>concept</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Google Pay is the cleanest but I always close it immediately</td>
-                <td><span class="concept">stickiness gap</span></td>
-              </tr>
-              <tr>
-                <td>PhonePe has stocks, gold, insurance — a reason to stay open</td>
-                <td><span class="concept">retention by design</span></td>
-              </tr>
-              <tr>
-                <td>Paytm showed a name for an unsaved contact — I paid the wrong person</td>
-                <td><span class="concept">usability failure — false confidence</span></td>
-              </tr>
-              <tr>
-                <td>Paytm refund took 7 screens and a waiting period</td>
-                <td><span class="concept">deliberate friction — business over user</span></td>
-              </tr>
-            </tbody>
-          </table>
+        <div id="proj-chai" class="archive-card fade-up" style="animation-delay:.05s" data-categories="archive" data-search="chai lovers dynamic business website html css javascript client project cafe delivered first client 2025 archived">
+          <div class="archive-label">🧪 First Client · 2025</div>
+          <div class="archive-title">Chai Lovers — Dynamic Business Website</div>
+          <div class="archive-meta">2025 · HTML, CSS, JavaScript · First Client Project</div>
+          <p class="archive-desc">Built and delivered a dynamic website for a local cafe — menu, location, contact, and interactive elements. From brief to live site, solo. First real client delivery. The start of everything.</p>
+          <div class="stack-pills"><span class="stack-pill">HTML/CSS</span><span class="stack-pill">JavaScript</span><span class="stack-pill">Client Work</span></div>
         </div>
 
-        <div class="battle" style="opacity:0.45;">
-          <div class="battle-title">Battle 03 — Dating Apps <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);font-weight:300;margin-left:8px;">coming soon</span></div>
-          <div class="battle-sub">Bumble · Tinder · Hinge · Boo</div>
+        <div class="archive-card fade-up" style="animation-delay:.10s" data-categories="archive" data-search="smart waste management system python spacy deep learning nlp multi label classification natural language querying academic collab archived">
+          <div class="archive-label">🧪 Academic Collab · 2026</div>
+          <div class="archive-title">Smart Waste Management System</div>
+          <div class="archive-meta">2026 · Python, spaCy, Deep Learning</div>
+          <p class="archive-desc">Contributed NLP module to a DL-based waste classification system. Built a natural language querying interface using spaCy so non-technical users could query classification results in plain language. Optimised multi-label architecture for mixed waste streams.</p>
+          <div class="stack-pills"><span class="stack-pill">spaCy</span><span class="stack-pill">Deep Learning</span><span class="stack-pill">NLP</span><span class="stack-pill">Multi-label</span></div>
         </div>
       </section>
 
-      <!-- DARK PATTERNS -->
-      <section id="dark-patterns">
-        <div class="section-label">Dark Patterns Spotted</div>
-        <p style="font-size:15px;color:var(--muted);margin-bottom:1.8rem;max-width:580px;line-height:1.65;">Deliberate design decisions made against users to protect business metrics. All examples from Indian apps — most from personal experience.</p>
-
-        <div class="dp-card fade-up">
-          <div class="dp-name">Roach Motel</div>
-          <div class="dp-title">Easy in. Impossible out.</div>
-          <p class="dp-desc">Signup takes 30 seconds. Cancelling takes 7 screens, a call, and a waiting period. The friction is intentionally asymmetric — exactly what I experienced with Paytm's refund flow.</p>
-          <div class="dp-example">spotted in: Paytm refunds · Indian telecom portals · OTT cancellations</div>
-        </div>
-
-        <div class="dp-card fade-up" style="animation-delay:0.05s">
-          <div class="dp-name">Unverifiable Refund</div>
-          <div class="dp-title">₹1,600 displayed. ₹600 processed.</div>
-          <p class="dp-desc">MakeMyTrip showed a refund amount at the start of the cancellation flow. The actual amount processed was ₹1,000 less with no itemised breakdown. You only discover the gap after completing the cancellation — too late to back out.</p>
-          <div class="dp-example">spotted in: MakeMyTrip cancellation · 4-step IVR designed for drop-off · AI agent deployed as human</div>
-        </div>
-
-        <div class="dp-card fade-up" style="animation-delay:0.08s">
-          <div class="dp-name">Hidden Costs</div>
-          <div class="dp-title">The price that only appears at the last step.</div>
-          <p class="dp-desc">Four screens of checkout. Everything looks fine. Final screen: platform fee ₹5, convenience charge ₹12, GST ₹18. By step 4 you're already committed — and they know it.</p>
-          <div class="dp-example">spotted in: BookMyShow · MakeMyTrip · every Indian ticketing platform</div>
-        </div>
-
-        <div class="dp-card fade-up" style="animation-delay:0.11s">
-          <div class="dp-name">Fake Scarcity</div>
-          <div class="dp-title">Countdown timers that reset. "Only 2 left" that never runs out.</div>
-          <p class="dp-desc">Refresh after 10 minutes — still 3 rooms, timer reset. Manufactured scarcity to trigger loss aversion. You're not going to miss out. They just need you to feel like you might.</p>
-          <div class="dp-example">spotted in: MakeMyTrip · Goibibo · Flipkart sale pages</div>
-        </div>
-
-        <div class="dp-card fade-up" style="animation-delay:0.14s">
-          <div class="dp-name">Confirmshaming</div>
-          <div class="dp-title">Making the "no" feel like shame.</div>
-          <p class="dp-desc">One button: "Yes, continue." The other: "No thanks, I don't want to save money." The choice is real. The framing is manipulation.</p>
-          <div class="dp-example">spotted in: subscription apps · food delivery premium plans · e-commerce flash sales</div>
-        </div>
-
-        <div style="margin-top:1rem;padding:1rem 1.3rem;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:7px;font-size:14px;color:#7a3010;line-height:1.7;">
-          <strong>Not all friction is a dark pattern.</strong> Paytm's cancellation flow is one — designed to make you give up. Zomato's cancellation warning is borderline — it informs you of a real consequence. The difference is intent: does the friction protect the user or exploit them?
+      <!-- PHILOSOPHY -->
+      <section id="philosophy">
+        <div class="section-label">On Building</div>
+        <div class="philosophy-box fade-up">
+          <p class="philosophy-text">I enjoy building systems where software replaces operational friction rather than adding another dashboard. Most of my work sits at the intersection of AI, infrastructure, and product design, with an emphasis on solving real workflow problems instead of showcasing technology for its own sake.</p>
+          <div class="philosophy-attr">— Tharun Rathod · IIT Roorkee · 2026</div>
         </div>
       </section>
 
@@ -736,38 +930,38 @@
           </div>
           <div class="skill-block">
             <div class="skill-label">Backend / DB</div>
-            <div class="skill-items">MongoDB, authentication systems, OTP flows, session management, REST API design</div>
+            <div class="skill-items">MongoDB, PostgreSQL, authentication systems, OTP flows, session management, REST API design</div>
           </div>
           <div class="skill-block">
-            <div class="skill-label">Integrations &amp; Deploy</div>
-            <div class="skill-items">Groq API, Google Places, MSG91, Resend, Aviasales, IRCTC, OpenRouter, Vercel</div>
+            <div class="skill-label">Integrations & Deploy</div>
+            <div class="skill-items">Groq API, Google Places, MSG91, Resend, Aviasales, IRCTC, Cloudinary, Vercel</div>
           </div>
           <div class="skill-block">
-            <div class="skill-label">AI &amp; LLMs</div>
-            <div class="skill-items">Prompt engineering, LLM evaluation pipelines, LLM-as-Judge methodology, model benchmarking</div>
+            <div class="skill-label">AI & LLMs</div>
+            <div class="skill-items">Prompt engineering, LLM evaluation pipelines, LLM-as-Judge methodology, MCP server development, model benchmarking</div>
           </div>
           <div class="skill-block">
-            <div class="skill-label">Research &amp; UX</div>
-            <div class="skill-items">Heuristic evaluation, competitive analysis, behavioral economics, dark pattern analysis, UX research</div>
+            <div class="skill-label">Research & UX</div>
+            <div class="skill-items">Heuristic evaluation, competitive analysis, behavioral economics, dark pattern analysis, UX research, academic writing</div>
           </div>
           <div class="skill-block">
-            <div class="skill-label">Data &amp; BA</div>
-            <div class="skill-items">Excel Power Query, Python scripting &amp; data pipelines, business analytics, root cause analysis</div>
+            <div class="skill-label">Data & BA</div>
+            <div class="skill-items">Excel Power Query, Python scripting and data pipelines, business analytics, root cause analysis, statistical modelling</div>
           </div>
           <div class="skill-block">
             <div class="skill-label">Other</div>
-            <div class="skill-items">LaTeX, MCP server development, academic writing, C++ (Arduino), Figma (basics)</div>
+            <div class="skill-items">LaTeX, C++ (Arduino), Figma (basics), spaCy, scikit-learn, XGBoost, hmmlearn, Plotly</div>
           </div>
         </div>
       </section>
 
-      <!-- BRIEF -->
+      <!-- BRIEF / CONSULTING -->
       <section id="brief">
         <div class="section-label">Consulting — Brief</div>
         <div class="brief-box fade-up">
           <div class="brief-name">Brief · BA + UX Consulting</div>
           <div class="brief-title">Requirements &amp; Research for Founders</div>
-          <div class="brief-sub">Discovery · Analysis · BRD<br />You're building. I translate what you need to build into structured outputs your team can act on.</div>
+          <div class="brief-sub">Discovery · Analysis · BRD<br />You are building. I translate what you need to build into structured outputs your team can act on.</div>
           <div class="brief-delivers">
             <div class="brief-item">Process flows — as-is vs to-be</div>
             <div class="brief-item">Business Requirements Documents (BRD)</div>
@@ -776,85 +970,29 @@
             <div class="brief-item">UX audit reports — structured, actionable</div>
             <div class="brief-item">Stakeholder maps &amp; gap analysis</div>
           </div>
-          <a class="brief-cta"
-            href="https://docs.google.com/forms/d/e/1FAIpQLSeLdPhya4o3q1zTTKDd_OwcMAtbndD8T-w4ORTxuKYu3L22zw/viewform?usp=publish-editor"
-            target="_blank">Start with a discovery call →</a>
+          <a class="brief-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSeLdPhya4o3q1zTTKDd_OwcMAtbndD8T-w4ORTxuKYu3L22zw/viewform?usp=publish-editor" target="_blank">Start with a discovery call →</a>
         </div>
       </section>
 
       <!-- CERTIFICATIONS -->
       <section id="certs">
         <div class="section-label">Certifications</div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">MongoDB Overview: Core Concepts and Architecture</div>
-            <div class="cert-by">MongoDB, Inc.</div>
-          </div>
-          <span class="cert-status cert-done">Jun 2026</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">AI Product Management Course</div>
-            <div class="cert-by">Simplilearn SkillUP</div>
-          </div>
-          <span class="cert-status cert-done">Jun 2026</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Business Analytics with Excel</div>
-            <div class="cert-by">Simplilearn SkillUP</div>
-          </div>
-          <span class="cert-status cert-done">Jun 2026</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Business Analysis Basics</div>
-            <div class="cert-by">Simplilearn SkillUP</div>
-          </div>
-          <span class="cert-status cert-done">Jun 2026</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Google Ads for Beginners</div>
-            <div class="cert-by">Coursera</div>
-          </div>
-          <span class="cert-status cert-done">Mar 2026</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Web Developer Program</div>
-            <div class="cert-by">Hiring Bazaar</div>
-          </div>
-          <span class="cert-status cert-done">2025</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Google UX Design Professional Certificate</div>
-            <div class="cert-by">Google · Coursera</div>
-          </div>
-          <span class="cert-status cert-progress">in progress</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">Google Data Analytics Professional Certificate</div>
-            <div class="cert-by">Google · Coursera</div>
-          </div>
-          <span class="cert-status cert-progress">in progress</span>
-        </div>
-        <div class="cert-row">
-          <div>
-            <div class="cert-name">IBM Business Analyst Professional Certificate</div>
-            <div class="cert-by">IBM · Coursera</div>
-          </div>
-          <span class="cert-status cert-progress">in progress</span>
-        </div>
+        <div class="cert-row"><div><div class="cert-name">MongoDB Overview: Core Concepts and Architecture</div><div class="cert-by">MongoDB, Inc.</div></div><span class="cert-status cert-done">Jun 2026</span></div>
+        <div class="cert-row"><div><div class="cert-name">AI Product Management Course</div><div class="cert-by">Simplilearn SkillUP</div></div><span class="cert-status cert-done">Jun 2026</span></div>
+        <div class="cert-row"><div><div class="cert-name">Business Analytics with Excel</div><div class="cert-by">Simplilearn SkillUP</div></div><span class="cert-status cert-done">Jun 2026</span></div>
+        <div class="cert-row"><div><div class="cert-name">Business Analysis Basics</div><div class="cert-by">Simplilearn SkillUP</div></div><span class="cert-status cert-done">Jun 2026</span></div>
+        <div class="cert-row"><div><div class="cert-name">Google Ads for Beginners</div><div class="cert-by">Coursera</div></div><span class="cert-status cert-done">Mar 2026</span></div>
+        <div class="cert-row"><div><div class="cert-name">Web Developer Program</div><div class="cert-by">Hiring Bazaar</div></div><span class="cert-status cert-done">2025</span></div>
+        <div class="cert-row"><div><div class="cert-name">Google UX Design Professional Certificate</div><div class="cert-by">Google · Coursera</div></div><span class="cert-status cert-prog">in progress</span></div>
+        <div class="cert-row"><div><div class="cert-name">Google Data Analytics Professional Certificate</div><div class="cert-by">Google · Coursera</div></div><span class="cert-status cert-prog">in progress</span></div>
+        <div class="cert-row"><div><div class="cert-name">IBM Business Analyst Professional Certificate</div><div class="cert-by">IBM · Coursera</div></div><span class="cert-status cert-prog">in progress</span></div>
       </section>
 
       <!-- ACHIEVEMENTS -->
       <section id="achievements">
         <div class="section-label">Achievements</div>
         <ul class="ach-list">
-          <li>All India Rank 23,496 — JEE Advanced 2023 &nbsp;<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">(top ~1% of all engineering aspirants)</span></li>
+          <li>All India Rank 23,496 — JEE Advanced 2023 &nbsp;<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">(top ~1% of all engineering aspirants)</span></li>
           <li>Telangana EAPCET Rank 2,614 — 2023</li>
           <li>Offered Machine Learning Trainee position — R.K. Interlliserve</li>
           <li>NCC Cadet — National Cadet Corps, IIT Roorkee (Oct 2023 – Apr 2024)</li>
@@ -865,7 +1003,69 @@
     </main>
   </div>
 
-  <footer>Tharun Rathod · IIT Roorkee · 2026 · tharun_rb@ee.iitr.ac.in · +91 8074091839</footer>
+  <footer>Tharun Rathod · IIT Roorkee · 2026 · tharunrathod2005@gmail.com · +91 8074091839</footer>
 
+  <script>
+    (function() {
+      const searchInput = document.getElementById('search-input');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const noResults = document.getElementById('no-results');
+      let activeFilter = 'all';
+
+      function updateVisibility() {
+        const q = searchInput.value.toLowerCase().trim();
+        const allCards = document.querySelectorAll('[data-categories]');
+        const sections = document.querySelectorAll('[data-section]');
+        const sectionVisible = {};
+        sections.forEach(s => { sectionVisible[s.dataset.section] = false; });
+
+        let anyVisible = false;
+        allCards.forEach(card => {
+          const cats = (card.dataset.categories || '').split(' ');
+          const searchText = (card.dataset.search || '').toLowerCase();
+          const titleEl = card.querySelector('.flagship-title, .card-title, .archive-title, .research-title, .battle-title');
+          const titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
+
+          const matchesFilter = activeFilter === 'all' || cats.includes(activeFilter);
+          const matchesSearch = !q || searchText.includes(q) || titleText.includes(q);
+          const visible = matchesFilter && matchesSearch;
+
+          card.style.display = visible ? '' : 'none';
+          if (visible) {
+            anyVisible = true;
+            const sec = card.closest('[data-section]');
+            if (sec) sectionVisible[sec.dataset.section] = true;
+          }
+        });
+
+        sections.forEach(s => {
+          s.style.display = sectionVisible[s.dataset.section] ? '' : 'none';
+        });
+
+        noResults.classList.toggle('visible', !anyVisible);
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          activeFilter = this.dataset.filter;
+          updateVisibility();
+        });
+      });
+
+      searchInput.addEventListener('input', updateVisibility);
+
+      document.querySelectorAll('.expand-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const target = document.getElementById(this.dataset.target);
+          if (!target) return;
+          const isOpen = target.classList.contains('open');
+          target.classList.toggle('open', !isOpen);
+          this.classList.toggle('open', !isOpen);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
