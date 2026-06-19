@@ -1,5 +1,5 @@
 {
-  "version": "1.9.0",
+  "version": "1.11.0",
   "environment": "production",
   "createdAt": "2026-06-19T19:07:05",
   "settings": {
@@ -7,5 +7,5 @@
     "timeout": 5000,
     "rateLimitPerMinute": 60
   },
-  "updatedAt": "2026-06-19T22:35:22"
+  "updatedAt": "2026-06-19T23:44:23"
 }
