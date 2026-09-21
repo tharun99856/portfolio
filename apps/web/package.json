@@ -1,19 +1,15 @@
-{
-	"name": "monorepo",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"setup": "npm install",
-		"dev": "concurrently --kill-others --raw \"npm run dev --prefix apps/web\"",
-		"build": "concurrently --raw \"npm run build --prefix apps/web\"",
-		"start": "concurrently --kill-others --raw",
-		"lint": "concurrently --raw \"npm run lint --prefix apps/web\""
-	},
-	"devDependencies": {
-		"concurrently": "^10.0.4",
-		"knip": "^6.32.1"
-	},
-	"workspaces": [
-		"apps/*"
-	]
-}
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+});
