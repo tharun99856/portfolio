@@ -461,28 +461,33 @@ const DARK_PATTERNS = [{
 }];
 
 const RESEARCH = [{
+  id: 'capitulation-paper',
   title: 'The Capitulation Problem: A Conditional Optimization Framework',
   status: 'Sole author',
   meta: '2026 · Independent research · IIT Roorkee · 484 trials',
   description: 'Behavioral experiment using Gemma 4B (Ollama) as a controlled proxy — 5 domains × 5 pressure variants. LLM-as-Judge methodology with automated capitulation classification. Validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework.',
   finding: '42.8% combined capitulation — within the 39-52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% — the Compliance Paradox.'
 }, {
+  id: 'codegen-paper',
   title: 'Specialist, Generalist, and Hybrid LLM Architectures for Algorithmic Code Generation',
   status: 'Sole author',
   meta: '2026 · Independent research · IIT Roorkee · 75 problems + 4 adversarial probes',
   description: 'Triaxial evaluation framework (Pass@1, CxSelf, CxJudge) across four architecture conditions. Automated pipeline with model-specific routing for specialist, generalist, decomposer, and judge roles.',
   finding: 'Generalist leads execution (Pass@1: 0.911 vs 0.862); Specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.'
 }, {
+  id: 'emotion-recognition',
   title: 'Dual-Transformer Cross-Attention Multimodal Emotion Recognition',
   status: 'Co-author',
   meta: '2026 · IIT Roorkee · Electrical Engineering Department',
   description: 'HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and authored the complete paper.'
 }, {
+  id: 'power-flow-diffusion',
   title: 'Physics-Guided Diffusion Models for Synthetic Power Flow Data Generation',
   status: 'Co-author',
   meta: '2025 · IIT Roorkee · Electrical Engineering Department',
   description: 'Physics-guided DDPM framework enforcing AC power flow feasibility via manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline. Dynamic normalisation and variable decoupling (p/theta, q/v) — two independent denoisers. Wasserstein-1 distance reduced from 0.71 to 0.48 on PJM 5-bus and IEEE bus systems.'
 }, {
+  id: 'phonological-fidelity',
   title: 'Phonological Fidelity and Convergent Preservation in Indo-European Languages',
   status: 'Sole author · Open access',
   meta: '2026 · Published open access · Zenodo DOI: 10.5281/zenodo.19885744',
@@ -633,6 +638,220 @@ const ACHIEVEMENTS = [{
   detail: 'Telangana State Board · CBSE'
 }];
 
+const FILTERS = ['All', 'Flagship', 'AI', 'Dev Tools', 'Infrastructure', 'Product', 'UX', 'Research', 'Experiments'];
+
+// Every project, paper and case study on the page. `to` is the anchor of its
+// write-up. Add a row here whenever you add a new project.
+const ALL_PROJECTS = [{
+  title: 'Edcore',
+  blurb: 'Education operating system — four modules on one platform, 2,000+ college dataset.',
+  year: '2025',
+  status: 'Live · In development',
+  cats: ['Flagship', 'Product'],
+  to: 'edcore',
+  keywords: 'education saas students admissions next.js nextjs typescript mongodb nextauth msg91 resend vercel'
+}, {
+  title: 'SmartAsset',
+  blurb: 'Asset management with QR issue/return and database-level double-booking prevention.',
+  year: '2026',
+  status: 'Production',
+  cats: ['Flagship', 'Infrastructure'],
+  to: 'smartasset',
+  keywords: 'enterprise warehouse next.js nextjs typescript prisma postgresql jwt qr rbac'
+}, {
+  title: 'IITR Nexus',
+  blurb: 'Campus intelligence — one query routed across five sources via parallel MCP retrieval.',
+  year: '2026',
+  status: 'Production',
+  cats: ['Flagship', 'AI'],
+  to: 'iitr-nexus',
+  keywords: 'education campus mcp next.js nextjs typescript groq llama intent detection'
+}, {
+  title: 'Canopy',
+  blurb: 'Repo dependency graphs straight from the GitHub API — no cloning, no local setup.',
+  year: '2026',
+  status: 'Live',
+  cats: ['Flagship', 'Dev Tools'],
+  to: 'canopy',
+  keywords: 'developer tools next.js nextjs react flow gemini github api typescript'
+}, {
+  title: 'Signal',
+  blurb: 'Hiring communication layer on top of any ATS — personalized candidate updates, SLA tracking.',
+  year: '2026',
+  status: 'Production',
+  cats: ['Flagship', 'AI', 'Product'],
+  to: 'signal',
+  keywords: 'hiring enterprise recruiting ats greenhouse lever ashby webhooks next.js nextjs typescript postgresql'
+}, {
+  title: 'PHC Queue Management System',
+  blurb: 'Token and wait-time system for Primary Health Centres, piloted at a clinic in Hyderabad.',
+  year: '2026',
+  status: 'Hackathon submission',
+  cats: ['Infrastructure'],
+  to: 'phc-queue-management-system',
+  keywords: 'healthcare clinic python fastapi sqlite raspberry pi queue public service'
+}, {
+  title: 'Momentra',
+  blurb: 'Photo and video sharing for college clubs — client-side compression, watermark at download.',
+  year: '2026',
+  status: 'Competition submission',
+  cats: ['Product'],
+  to: 'momentra',
+  keywords: 'full-stack saas react vite express postgresql prisma sharp photos clubs'
+}, {
+  title: 'NIFTY-50 Investment Intelligence',
+  blurb: 'Regime detection, XGBoost with SHAP, and portfolio optimization on 21 years of data.',
+  year: '2026',
+  status: 'Research',
+  cats: ['AI', 'Research'],
+  to: 'nifty-50-investment-intelligence',
+  keywords: 'finance python streamlit hmmlearn markov xgboost shap scikit-learn portfolio'
+}, {
+  title: 'LLM Benchmark Pipeline',
+  blurb: 'Triaxial evaluation of Specialist, Generalist and Hybrid code-generation architectures.',
+  year: '2026',
+  status: 'Published paper',
+  cats: ['AI', 'Research'],
+  to: 'llm-benchmark-pipeline',
+  keywords: 'llm python groq judge evaluation pass@1 benchmark'
+}, {
+  title: 'The Capitulation Experiment',
+  blurb: '484-trial study of LLM capitulation under social pressure — 42.8% combined rate.',
+  year: '2026',
+  status: 'Research',
+  cats: ['AI', 'Research'],
+  to: 'the-capitulation-experiment',
+  keywords: 'llm gemma ollama behavioral judge statistics sycophancy'
+}, {
+  title: 'Rune',
+  blurb: 'Intent-driven algorithm selection compiler with three backends, down to native C++.',
+  year: '2026',
+  status: 'Open source',
+  cats: ['Dev Tools'],
+  to: 'rune',
+  keywords: 'compiler dsl python numba c++ parsing optimization'
+}, {
+  title: 'TravelChecker',
+  blurb: 'MCP server that compares flights, trains, buses and cabs into composite routes.',
+  year: '2026',
+  status: 'MCP server',
+  cats: ['Dev Tools'],
+  to: 'travelchecker',
+  keywords: 'travel mcp typescript google maps aviasales irctc claude cursor'
+}, {
+  title: 'SurgeScope',
+  blurb: 'Surge-pricing analytics and simulation for ride-hailing.',
+  year: '2026',
+  status: 'Live',
+  cats: ['Dev Tools'],
+  to: 'surgescope',
+  keywords: 'analytics pricing python pandas plotly excel forecasting'
+}, {
+  title: 'Edit Journey',
+  blurb: 'Fare-correction flow proposed to Hyderabad Metro — Figma prototype, brief and outreach.',
+  year: '2026',
+  status: 'Self-initiated pitch',
+  cats: ['UX', 'Product'],
+  to: 'edit-journey',
+  keywords: 'figma product strategy metro ticketing prototype stakeholder'
+}, {
+  title: 'MakeMyTrip Dark Pattern Audit',
+  blurb: 'Three compounding dark patterns in the cancellation and refund flow.',
+  year: '2026',
+  status: 'UX audit',
+  cats: ['UX'],
+  to: 'makemytrip',
+  keywords: 'dark patterns heuristic evaluation ivr refund consumer rights ccpa'
+}, {
+  title: 'Ola Mini Failure Analysis',
+  blurb: 'Six-layer root cause analysis of a supply and pricing failure, vs Rapido and Uber.',
+  year: '2026',
+  status: 'BA / Platform',
+  cats: ['UX', 'Product'],
+  to: 'ola-mini',
+  keywords: 'business analysis root cause platform economics ola rapido uber'
+}, {
+  title: 'UX Battle 01 — Food Delivery',
+  blurb: 'Swiggy, Zomato, EatSure, Domino’s and KFC compared.',
+  year: '',
+  status: 'UX analysis',
+  cats: ['UX'],
+  to: 'ux-battle-01',
+  keywords: 'swiggy zomato eatsure dominos kfc framing effect food'
+}, {
+  title: 'UX Battle 02 — Payments',
+  blurb: 'Google Pay, PhonePe and Paytm compared.',
+  year: '',
+  status: 'UX analysis',
+  cats: ['UX'],
+  to: 'ux-battle-02',
+  keywords: 'google pay phonepe paytm usability retention payments upi'
+}, {
+  title: 'Dual-Transformer Emotion Recognition',
+  blurb: 'HuBERT + ViViT cross-attention model on RAVDESS, tested across four noise levels.',
+  year: '2026',
+  status: 'Co-author',
+  cats: ['Research', 'AI'],
+  to: 'emotion-recognition',
+  keywords: 'multimodal speech video transformer hubert vivit ravdess electrical engineering'
+}, {
+  title: 'Physics-Guided Diffusion for Power Flow Data',
+  blurb: 'Diffusion model that generates AC power-flow-feasible synthetic data.',
+  year: '2025',
+  status: 'Co-author',
+  cats: ['Research'],
+  to: 'power-flow-diffusion',
+  keywords: 'electrical engineering power systems ddpm diffusion pjm ieee'
+}, {
+  title: 'Phonological Fidelity in Indo-European Languages',
+  blurb: 'A consonant-retention index across French, Hindi/Sanskrit and English.',
+  year: '2026',
+  status: 'Open access',
+  cats: ['Research'],
+  to: 'phonological-fidelity',
+  keywords: 'linguistics indo-european grimm law zenodo pfi'
+}, {
+  title: 'Physics Preprint — Geometric Decoherence Theorem',
+  blurb: 'Published on Zenodo.',
+  year: '2025',
+  status: 'Preprint',
+  cats: ['Research'],
+  to: 'timeline',
+  keywords: 'physics zenodo decoherence'
+}, {
+  title: 'verified-intent-ir',
+  blurb: 'A small IR so a model’s claims about its own output can be checked, not trusted.',
+  year: '2026',
+  status: 'In-progress research',
+  cats: ['Research', 'Experiments', 'Dev Tools'],
+  to: 'verified-intent-ir',
+  keywords: 'python compiler llm reliability ir verification'
+}, {
+  title: 'Wayfound',
+  blurb: 'AI trip planner for Hyderabad outings — real venues, timings and routing.',
+  year: '2026',
+  status: 'Experiment',
+  cats: ['Experiments', 'AI'],
+  to: 'wayfound',
+  keywords: 'groq google places hackathon trip planning prompt engineering'
+}, {
+  title: 'Chai Lovers',
+  blurb: 'First client project — a dynamic website for a local cafe.',
+  year: '2025',
+  status: 'First client',
+  cats: ['Experiments'],
+  to: 'chai-lovers',
+  keywords: 'html css javascript client cafe website'
+}, {
+  title: 'Smart Waste Management System',
+  blurb: 'Natural-language querying module for a waste-classification system.',
+  year: '2026',
+  status: 'Academic collaboration',
+  cats: ['Experiments', 'AI'],
+  to: 'smart-waste-management-system',
+  keywords: 'python spacy deep learning nlp multi-label'
+}];
+
 const CHANNELS = [{
   region: 'GITHUB — TEN+ PRODUCTION SYSTEMS',
   href: LINKS.github
@@ -652,6 +871,9 @@ const CHANNELS = [{
 /* ------------------------------------------------------------------ */
 
 const isExternal = href => /^https?:\/\//.test(href || '');
+
+// Slug for in-page anchors, so the project index can jump to each write-up
+const toId = str => str.split(' — ')[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 const FramedImage = ({
   src,
@@ -776,7 +998,7 @@ const SubHeading = ({
 const ProjectRow = ({
   item
 }) => <Reveal y={40}>
-        <article className="border-t border-line py-8 md:py-12 lg:py-16">
+        <article id={item.id || toId(item.title)} className="scroll-mt-24 border-t border-line py-8 md:py-12 lg:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                 <div className="lg:col-span-5">
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3">
@@ -815,7 +1037,7 @@ const FlagshipCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   return <Reveal y={40}>
-            <article className="border-t border-line py-10 md:py-14 lg:py-16">
+            <article id={toId(item.name)} className="scroll-mt-24 border-t border-line py-10 md:py-14 lg:py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                     <div className="lg:col-span-5">
                         <p className="label-caps text-xs text-faint mb-3">{item.kicker}</p>
@@ -870,7 +1092,7 @@ const FlagshipCard = ({
 const Battle = ({
   battle
 }) => <Reveal y={40}>
-        <article className="border-t border-line py-8 md:py-12 lg:py-16">
+        <article id={toId(battle.title)} className="scroll-mt-24 border-t border-line py-8 md:py-12 lg:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                 <div className="lg:col-span-5">
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3">
@@ -899,6 +1121,48 @@ const Battle = ({
             </div>
         </article>
     </Reveal>;
+
+const IndexRow = ({
+  project: p
+}) => <a href={`#${p.to}`} className="block border-t border-line py-5 md:py-6 group hover:bg-white/[0.03] transition-colors px-4 -mx-4">
+        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-6">
+            <div>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-light text-foreground group-hover:text-soft transition-colors">
+                    {p.title}
+                </h3>
+                <p className="text-sm text-faint mt-1">{p.blurb}</p>
+                <p className="label-caps text-xs text-dim mt-2">{p.status} · {p.cats.join(' / ')}</p>
+            </div>
+            {p.year && <span className="text-sm text-dim font-display tracking-widest shrink-0">{p.year}</span>}
+        </div>
+    </a>;
+
+// Search + category filter over every project on the page
+const ProjectIndex = () => {
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState('All');
+  const q = query.trim().toLowerCase();
+  const results = ALL_PROJECTS.filter(p => (filter === 'All' || p.cats.includes(filter)) && (!q || `${p.title} ${p.blurb} ${p.status} ${p.cats.join(' ')} ${p.keywords}`.toLowerCase().includes(q)));
+  return <>
+            <div className="mb-8 max-w-2xl">
+                <label htmlFor="project-search" className="sr-only">Search projects</label>
+                <input id="project-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by project, stack, domain — e.g. mongodb, healthcare, ai" className="w-full bg-transparent border-b border-line py-3 text-base lg:text-lg text-foreground placeholder:text-dim focus:outline-none focus:border-soft transition-colors" />
+            </div>
+            <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2 mb-10">
+                {FILTERS.map(f => <button key={f} type="button" onClick={() => setFilter(f)} aria-pressed={filter === f} className={`px-3 py-1 text-xs rounded-full border transition-colors ${filter === f ? 'border-foreground text-foreground' : 'border-line text-faint hover:border-dim'}`}>
+                        {f}
+                    </button>)}
+            </div>
+            <p className="label-caps text-xs text-dim mb-4" aria-live="polite">
+                {results.length} of {ALL_PROJECTS.length} projects
+            </p>
+            <div>
+                {results.map(p => <IndexRow key={p.title} project={p} />)}
+                <div className="border-t border-line" />
+            </div>
+            {!results.length && <p className="text-faint py-8">No projects match. Clear the search or pick another filter.</p>}
+        </>;
+};
 
 /* ------------------------------------------------------------------ */
 /* PAGE                                                                */
@@ -1067,8 +1331,13 @@ const HomePage = () => {
                     </Rows>
                 </Section>
 
+                {/* ALL PROJECTS — searchable / filterable index of everything above and below */}
+                <Section id="all-projects" label="Index" title={<>All<br />Projects</>} intro="Everything I’ve built, in one place. Search by name, stack or domain, or filter by category — each row jumps to its write-up.">
+                    <ProjectIndex />
+                </Section>
+
                 {/* TIMELINE */}
-                <Section id="timeline" label="Timeline" title="Timeline" intro="From a cafe website to a 10+ system portfolio in under two years. The archived experiments matter — they prove continuous momentum, not failed starts.">
+                <Section id="timeline" label="Timeline" title="Timeline" intro="From a cafe website to a 10+ system portfolio in under two years. The archived experiments matter — they prove continuous momentum, not failed starts." panel>
                     <div className="space-y-16 lg:space-y-24">
                         {TIMELINE.map(group => <div key={group.year} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                                 <Reveal y={30} className="lg:col-span-3">
@@ -1093,7 +1362,7 @@ const HomePage = () => {
                 </Section>
 
                 {/* WORK EXPERIENCE */}
-                <Section id="work" label="Career" title={<>Work<br />Experience</>} panel>
+                <Section id="work" label="Career" title={<>Work<br />Experience</>}>
                     <div className="space-y-0">
                         {JOBS.map(job => <Reveal key={job.company} y={40}>
                                 <article className="border-t border-line py-8 md:py-12 lg:py-16 group">
@@ -1126,21 +1395,21 @@ const HomePage = () => {
                 </Section>
 
                 {/* AI & ML */}
-                <Section id="ai" label="AI & Machine Learning" title="AI & ML" intro="Five builds under real constraints — genuine AI/ML where it earns its place (regime detection, LLM evaluation), and disciplined plain engineering where it doesn’t (a queue system that deliberately ships with no ML at all).">
+                <Section id="ai" label="AI & Machine Learning" title="AI & ML" intro="Five builds under real constraints — genuine AI/ML where it earns its place (regime detection, LLM evaluation), and disciplined plain engineering where it doesn’t (a queue system that deliberately ships with no ML at all)." panel>
                     <Rows>
                         {AI_BUILDS.map(item => <ProjectRow key={item.title} item={item} />)}
                     </Rows>
                 </Section>
 
                 {/* DEV TOOLS */}
-                <Section id="tools" label="Developer Tools & Infrastructure" title={<>Dev<br />Tools</>} intro="Tools built for developers — one runs natively inside Claude and Cursor, one compiles intent into algorithms, one analyzes pricing at the system level." panel>
+                <Section id="tools" label="Developer Tools & Infrastructure" title={<>Dev<br />Tools</>} intro="Tools built for developers — one runs natively inside Claude and Cursor, one compiles intent into algorithms, one analyzes pricing at the system level.">
                     <Rows>
                         {DEV_TOOLS.map(item => <ProjectRow key={item.title} item={item} />)}
                     </Rows>
                 </Section>
 
                 {/* PRODUCT & UX */}
-                <Section id="ux" label="Product & UX" title={<>UX Case<br />Studies</>} intro="I pick real apps, break down every UX and business decision, and name what I’d fix. These are discipline exercises — not complaints.">
+                <Section id="ux" label="Product & UX" title={<>UX Case<br />Studies</>} intro="I pick real apps, break down every UX and business decision, and name what I’d fix. These are discipline exercises — not complaints." panel>
                     <Rows>
                         {UX_CASES.map(item => <ProjectRow key={item.title} item={item} />)}
                     </Rows>
@@ -1178,21 +1447,21 @@ const HomePage = () => {
                 </Section>
 
                 {/* RESEARCH */}
-                <Section id="research" label="Papers & Publications" title="Research" intro="Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access." panel>
+                <Section id="research" label="Papers & Publications" title="Research" intro="Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access.">
                     <Rows>
                         {RESEARCH.map(item => <ProjectRow key={item.title} item={item} />)}
                     </Rows>
                 </Section>
 
                 {/* EXPERIMENTS */}
-                <Section id="experiments" label="Archive" title="Experiments" intro="Earlier prototypes and experiments. Not hidden — they are proof that this portfolio was built, not conjured. The Chai Lovers → Edcore arc tells a more honest story than any polished flagship card alone.">
+                <Section id="experiments" label="Archive" title="Experiments" intro="Earlier prototypes and experiments. Not hidden — they are proof that this portfolio was built, not conjured. The Chai Lovers → Edcore arc tells a more honest story than any polished flagship card alone." panel>
                     <Rows>
                         {EXPERIMENTS.map(item => <ProjectRow key={item.title} item={item} />)}
                     </Rows>
                 </Section>
 
                 {/* SKILLS */}
-                <Section id="skills" label="Expertise" title="Skills" panel>
+                <Section id="skills" label="Expertise" title="Skills">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 lg:gap-y-6">
                         {SKILLS.map((skill, i) => <Reveal key={skill} y={24} delay={i * 0.04}>
                                 <div className="border-b border-line pb-4 group">
@@ -1214,7 +1483,7 @@ const HomePage = () => {
                 </Section>
 
                 {/* CONSULTING */}
-                <Section id="consulting" label="BA + UX Consulting" title="Brief">
+                <Section id="consulting" label="BA + UX Consulting" title="Brief" panel>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                         <Reveal y={40} className="lg:col-span-5">
                             <p className="label-caps text-xs text-faint mb-4">
@@ -1239,7 +1508,7 @@ const HomePage = () => {
                 </Section>
 
                 {/* EDUCATION */}
-                <Section id="education" label="Background" title="Education" panel>
+                <Section id="education" label="Background" title="Education">
                     <div className="space-y-16 lg:space-y-24">
                         {EDUCATION.map(entry => <div key={entry.school} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
                                 <Reveal y={40} className={entry.flip ? 'lg:order-2' : ''}>
@@ -1262,14 +1531,14 @@ const HomePage = () => {
                 </Section>
 
                 {/* CERTIFICATIONS */}
-                <Section id="certifications" label="Learning" title="Certifications">
+                <Section id="certifications" label="Learning" title="Certifications" panel>
                     <Rows>
                         {CERTIFICATIONS.map((c, i) => <ListRow key={c.title} {...c} index={i} />)}
                     </Rows>
                 </Section>
 
                 {/* ACHIEVEMENTS */}
-                <Section id="achievements" label="Recognition" title="Achievements" panel>
+                <Section id="achievements" label="Recognition" title="Achievements">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
                         {ACHIEVEMENTS.map((a, i) => <Reveal key={a.title} y={24} delay={Math.min(i, 6) * 0.04}>
                                 <div className="border-t border-line pt-6">
@@ -1281,7 +1550,7 @@ const HomePage = () => {
                 </Section>
 
                 {/* CONTACT */}
-                <section id="contact" className="section-padding">
+                <section id="contact" className="section-padding bg-panel">
                     <div className="max-w-7xl mx-auto">
                         <SectionLabel>Contact</SectionLabel>
                         <Reveal y={60}>
