@@ -1067,7 +1067,7 @@ const HomePage = () => {
               <Reveal y={40}><FramedImage src={IMAGES.build} alt="Code on screen" /></Reveal>
               <Reveal className="flex items-center" y={40} delay={0.1}>
                 <p className="text-base lg:text-lg text-soft leading-relaxed">
-                  The B.Tech is in Electrical Engineering. The real work is building companies. Tharun is a solo founder who ships production systems - from zero to live users - across education (Edcore, 300+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught circuits. The startups taught everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.
+                  My B.Tech is in Electrical Engineering, but the real work is building companies. I'm a solo founder who ships production systems - from zero to live users - across education (Edcore, 300+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught me circuits. The startups taught me everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.
                 </p>
               </Reveal>
             </div>
