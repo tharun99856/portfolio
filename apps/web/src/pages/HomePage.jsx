@@ -5,19 +5,19 @@ import Reveal from '@/components/Reveal';
 import Seo from '@/components/Seo';
 import SideNav from '@/components/portfolio/SideNav';
 import SectionLabel from '@/components/portfolio/SectionLabel';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { Badge } from '@/components/ui/badge';
+import confetti from 'canvas-confetti';
+import { FaRocket, FaCode, FaBrain, FaPalette, FaFlask, FaChartLine, FaLightbulb, FaGraduationCap } from 'react-icons/fa';
 
-// NOTE: `hero` expects "main image.jpeg" in /public. The %20 is the encoded
-// space — rename the file to main-image.jpeg and simplify this to
-// '/main-image.jpeg' if you can.
-// The rest are neutral stock placeholders — replace with real screenshots of
-// Edcore / SmartAsset / IITR Nexus when you have them. Stock images of places
-// you've never been are the one thing on this page that isn't yours.
 const IMAGES = {
   hero: '/main%20image.jpeg',
-  build: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1216&h=896&fit=crop&q=80',
+  build: '/my-image.jpeg', // Your image from public folder
   research: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1216&h=896&fit=crop&q=80',
   systems: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1216&h=896&fit=crop&q=80',
-  campus: 'https://images.unsplash.com/photo-1562774053-701939374585?w=1216&h=896&fit=crop&q=80',
+  campus: '/images.jpg', // IITR campus image
   lecturehall: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1216&h=896&fit=crop&q=80'
 };
 
@@ -26,17 +26,15 @@ const LINKS = {
   linkedin: 'https://linkedin.com/in/tharun-rathod',
   zenodo: 'https://zenodo.org/doi/10.5281/zenodo.19885744',
   edcore: 'https://edcore.tech',
+  rune: 'https://tharun99856.github.io/rune/',
   consulting: 'https://docs.google.com/forms/d/e/1FAIpQLSeLdPhya4o3q1zTTKDd_OwcMAtbndD8T-w4ORTxuKYu3L22zw/viewform?usp=publish-editor',
-  // TODO: paste your resume URL (Drive link, or a PDF in /public). The Resume
-  // link in the hero stays hidden while this is empty.
-  resume: ''
+  // 3 Resume Links - from public folder
+  resume_fullstack: '/Tharun_Rathod_Resume%20(1).pdf', // Software Development Resume
+  resume_research: '/Tharun_Rathod_AI_Research_Resume.pdf', // AI Research Resume
+  resume_ba_ux: '/Tharun_Rathod_PM_Resume%20(1).pdf' // Product Management / Implementation Engineering Resume
 };
 
 const GH = repo => `https://github.com/tharun99856/${repo}`;
-
-/* ------------------------------------------------------------------ */
-/* DATA                                                                */
-/* ------------------------------------------------------------------ */
 
 const DOMAINS = ['Education', 'Healthcare', 'Hiring', 'Developer Tools', 'Enterprise Systems', 'Research'];
 
@@ -51,1570 +49,1410 @@ const STATS = [{
   label: 'Empirical trials'
 }, {
   value: '2,000+',
-  label: 'Colleges, original dataset'
+  label: 'Colleges dataset'
 }];
 
+// 5 FLAGSHIP PROJECTS - DIRECT DISPLAY, NO EXPANDABLE
 const FLAGSHIP = [{
   name: 'Edcore',
-  kicker: 'Education OS · Solo founder',
-  status: 'Live · In development',
-  tagline: 'A unified education operating system for Indian students — four integrated modules, one shared platform.',
-  metrics: [{
-    value: '4',
-    label: 'Modules'
-  }, {
-    value: '2k+',
-    label: 'Colleges'
-  }, {
-    value: '25',
-    label: 'Fields per college'
-  }, {
-    value: 'Solo',
-    label: 'Built'
-  }],
-  description: 'ExamNotifi, CollegeTracker, Tutorix, NextTalk — four modules sharing unified authentication, CRM, OTP flows, demo booking, and a notification engine. Not four websites. One cohesive platform with state-aware workflows and a shared MongoDB schema designed for Indian students navigating college choice and career guidance.',
-  insight: 'The 2,000+ college dataset across 25 fields (hostel vibe, coding culture, campus life, placements, city tier) is the platform’s moat. Hand-curated at a depth no competitor offers in one place. The dataset is harder to replicate than the product itself.',
+  tagline: 'All-in-one education OS for Indian students - live with 300+ users across exam prep, college selection, and career guidance.',
+  description: 'Four production modules under one unified Next.js 16 monolith: ExamNotifi (exam calendar + notifications), CollegeTracker (personalized college shortlisting), Tutorix (mentor matching), and NextTalk (career counseling booking). Shared authentication via NextAuth, unified CRM with Airtable sync, MSG91 OTP flows, demo scheduling, and email automation with Resend. Not four isolated apps - one cohesive platform with cross-module state management, MongoDB schema shared across all features, and a notification engine that tracks user behavior across modules.',
+  insight: 'The real moat isn\'t the code - it\'s the 2,000+ college dataset curated across 25 fields (hostel vibe, coding culture, campus life, placements, city tier, faculty, infrastructure, location advantages). Competitors have college names. Edcore has the depth students actually need to decide. The dataset took months of manual curation and is harder to replicate than the entire platform.',
+  metrics: [
+    { value: '300+', label: 'Active Users' },
+    { value: '4', label: 'Live Modules' },
+    { value: '2k+', label: 'Colleges' },
+    { value: '25', label: 'Data Fields' }
+  ],
   tags: ['Education', 'SaaS', 'Next.js 16', 'TypeScript', 'MongoDB', 'NextAuth', 'MSG91', 'Resend', 'Vercel'],
-  // TODO: add the ExamNotifi module URL here if it has its own page.
-  links: [{
-    label: 'edcore.tech',
-    href: LINKS.edcore
-  }],
-  note: 'Core platform — private'
+  links: [{ label: 'edcore.tech', href: LINKS.edcore }],
+  media: { type: 'video', src: '/projects/edcore recording.mp4' }
 }, {
-  name: 'SmartAsset',
-  kicker: 'Enterprise infrastructure',
-  status: 'Production',
-  tagline: 'Enterprise asset management — 56+ assets, zero double-bookings, full audit trail. Replaces paper logbooks entirely.',
-  metrics: [{
-    value: '56+',
-    label: 'Assets tracked'
-  }, {
-    value: '0',
-    label: 'Double-bookings'
-  }, {
-    value: 'QR',
-    label: 'Issue / return'
-  }, {
-    value: 'RBAC',
-    label: 'Permissions'
-  }],
-  description: 'Replaces paper logbooks for warehouse-scale asset tracking. Date-window availability validation ensures no two reservations overlap. Atomic inventory updates and serializable approval logic prevent race conditions under concurrent booking. QR-based issue and return creates a frictionless audit trail. Analytics dashboard, role-based access control, and full warehouse workflow management.',
-  insight: 'The double-booking prevention lives at the database layer, not the UI. Serializable transactions in PostgreSQL (via Prisma) prevent conflicts under concurrent write pressure — the kind of gap that paper logbooks and naive first-come-first-served systems cannot close. Operational consistency has to be enforced at the data layer or it is not enforced at all.',
-  tags: ['Enterprise', 'Infrastructure', 'Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'JWT Auth', 'QR Code'],
-  links: [{
-    label: 'GitHub',
-    href: GH('SmartAsset')
-  }]
+  name: 'Rune',
+  tagline: 'An optimizing compiler that infers the optimal algorithm from your intent - and formally verifies correctness.',
+  description: 'Write what you want, not how to compute it. Rune parses intent-driven keywords (group, order, take, explore, maximize) and automatically selects the right algorithm: heap vs sort for TOP_K, BFS vs Dijkstra for shortest paths, Kadane\'s algorithm for maximum subarray. Three execution backends (interpreted Python, Numba JIT, native C++ with LLVM) with automatic backend selection based on problem size. Every optimization is verified against a naive baseline using property-based testing - 115 test cases ensure correctness across all optimization paths.',
+  insight: 'The innovation isn\'t one clever optimization - it\'s a repeatable framework for algorithmic selection. TOP_K selection happens at parse time (syntax-driven). BFS vs Dijkstra happens at runtime (graph structure inspection). Kadane detection happens from objective analysis (maximize + contiguous). Three structurally different decisions across three algorithm families, all automatically verified. It\'s proof that intent-level programming can outperform hand-coded solutions while guaranteeing correctness.',
+  metrics: [
+    { value: '3', label: 'Backends' },
+    { value: '115', label: 'Tests' },
+    { value: '5x', label: 'Speedup' },
+    { value: 'Verified', label: 'Correct' }
+  ],
+  tags: ['Compiler', 'DSL', 'Python', 'Numba', 'C++', 'LLVM-JIT', 'Algorithm Selection', 'Verification'],
+  links: [
+    { label: 'Try in Browser', href: LINKS.rune },
+    { label: 'GitHub', href: GH('rune') }
+  ],
+  media: { type: 'video', src: '/projects/rune recording.mp4' }
 }, {
   name: 'IITR Nexus',
-  kicker: 'Campus AI · MCP architecture',
-  status: 'Production',
-  tagline: 'Unified campus intelligence — one query routes across academics, library, dining, events, and notices via parallel MCP retrieval.',
-  metrics: [{
-    value: '5+',
-    label: 'Data sources'
-  }, {
-    value: 'MCP',
-    label: 'Architecture'
-  }, {
-    value: 'Parallel',
-    label: 'Retrieval'
-  }, {
-    value: 'Grounded',
-    label: 'Responses'
-  }],
-  description: 'Campus information lives across 10+ disconnected systems. IITR Nexus routes a single query across academics, library, dining, events, and notices using multiple MCP servers in parallel. Intent classification determines which servers to query. Confidence scoring ensures grounded responses — if the system is uncertain, it surfaces the source, not a guess. Reasoning panel visible to users.',
-  insight: 'Intent classification before routing reduces wrong-server queries significantly. The hallucination resistance mechanism is the key design choice — when confidence drops below threshold, the system returns a source reference instead of synthesizing an answer, preserving trust at the cost of convenience.',
+  tagline: 'Unified campus intelligence - one query routes across academics, library, dining, events, and notices via parallel MCP retrieval.',
+  description: 'Campus information lives across 10+ disconnected systems. IITR Nexus routes a single query across academics, library, dining, events, and notices using multiple MCP servers in parallel. Intent classification determines which servers to query. Confidence scoring ensures grounded responses - if the system is uncertain, it surfaces the source, not a guess. Reasoning panel visible to users.',
+  insight: 'Intent classification before routing reduces wrong-server queries significantly. The hallucination resistance mechanism is the key design choice - when confidence drops below threshold, the system returns a source reference instead of synthesizing an answer, preserving trust at the cost of convenience.',
+  metrics: [
+    { value: '5+', label: 'Data sources' },
+    { value: 'MCP', label: 'Architecture' },
+    { value: 'Parallel', label: 'Retrieval' },
+    { value: 'Grounded', label: 'Responses' }
+  ],
   tags: ['Education', 'AI', 'MCP', 'Next.js', 'TypeScript', 'Groq Llama 3.3 70B', 'Intent Detection'],
-  links: [{
-    label: 'GitHub',
-    href: GH('IITRNEXUS')
-  }]
+  links: [{ label: 'GitHub', href: GH('IITRNEXUS') }],
+  media: { type: 'video', src: '/projects/iitr nexus recording.mp4' }
 }, {
   name: 'Canopy',
-  kicker: 'Developer tool',
-  status: 'Live',
-  tagline: 'Repo dependency visualization — parses Python and JS/TS imports via the GitHub API. No cloning. No local setup.',
-  metrics: [{
-    value: '2',
-    label: 'Languages parsed'
-  }, {
-    value: '0',
-    label: 'Clones required'
-  }, {
-    value: 'MD5',
-    label: 'Cache layer'
-  }, {
-    value: 'Gemini',
-    label: 'Summaries'
-  }],
-  description: 'Canopy parses Python and JS/TS import statements directly from GitHub — no cloning, no local execution, no CI setup. Builds an interactive React Flow dependency graph with Gemini-generated module summaries. MD5 caching prevents redundant parses. Dark forest UI for extended analysis sessions.',
-  insight: 'Parsing imports without executing code requires careful alias resolution — TypeScript path aliases, Python relative imports, and dynamic requires all break naive string matching. The parser handles edge cases before graph construction, because a dependency graph with silent resolution failures is worse than none.',
+  tagline: 'Repo dependency visualization - parses Python and JS/TS imports via the GitHub API. No cloning. No local setup.',
+  description: 'Canopy parses Python and JS/TS import statements directly from GitHub - no cloning, no local execution, no CI setup. Builds an interactive React Flow dependency graph with Gemini-generated module summaries. MD5 caching prevents redundant parses. Dark forest UI for extended analysis sessions.',
+  insight: 'Parsing imports without executing code requires careful alias resolution - TypeScript path aliases, Python relative imports, and dynamic requires all break naive string matching. The parser handles edge cases before graph construction, because a dependency graph with silent resolution failures is worse than none.',
+  metrics: [
+    { value: '2', label: 'Languages' },
+    { value: '0', label: 'Clones' },
+    { value: 'MD5', label: 'Cache' },
+    { value: 'AI', label: 'Summaries' }
+  ],
   tags: ['Developer Tools', 'Next.js', 'React Flow', 'Gemini API', 'GitHub API', 'TypeScript'],
-  links: [],
-  note: 'Private repository'
-}, {
-  name: 'Signal',
-  kicker: 'AI · Hiring OS',
-  status: 'Production',
-  tagline: 'AI-powered hiring communication OS — sits on top of any ATS, sends personalized candidate updates, eliminates ghosting.',
-  metrics: [{
-    value: '0',
-    label: 'Candidate ghosting'
-  }, {
-    value: 'SLA',
-    label: 'Tracking'
-  }, {
-    value: '3',
-    label: 'ATS integrations'
-  }, {
-    value: 'AI',
-    label: 'Personalisation'
-  }],
-  description: '75% of candidates are ghosted during hiring. Signal sits on top of existing ATS systems (Ashby, Greenhouse, Lever) and automatically generates personalized candidate updates at every stage transition. Recruiter dashboard tracks SLA breaches in real time. Candidate timeline view is public-facing. Zero change to recruiter workflow.',
-  insight: 'Built on top of existing ATS via webhooks rather than replacing them. Adoption friction kills B2B tools — Signal asks for zero process change. Plugging into Greenhouse/Ashby/Lever via webhook means deployment is a one-time setup, not an ongoing commitment.',
-  tags: ['Hiring', 'Enterprise', 'AI', 'Next.js', 'TypeScript', 'PostgreSQL', 'ATS Webhooks', 'AI Personalization'],
-  links: [],
-  note: 'Private repository'
+  links: [
+    { label: 'Live App', href: 'https://canopy-gdsc-iitr.vercel.app/' },
+    { label: 'GitHub', href: 'https://github.com/tharun99856/CANOPY-GDSC-IITR' }
+  ],
+  media: { type: 'video', src: '/projects/canopy recording.mp4' }
 }];
 
-const TIMELINE = [{
-  year: '2025',
-  items: [{
-    name: 'Chai Lovers',
-    note: 'First real client delivery. HTML/CSS/JS cafe site.',
-    tag: 'First client'
-  }, {
-    name: 'Physics Preprint',
-    note: 'Geometric Decoherence Theorem published on Zenodo.',
-    tag: 'Research'
-  }, {
-    name: 'Edcore',
-    note: 'Solo founder begins building the education OS.',
-    tag: 'Flagship'
-  }]
+// AI & ML PROJECTS
+const AI_BUILDS = [{
+  title: 'Signal',
+  tagline: 'AI decision engine that automates recruiting workflow decisions - watches workflows, decides when to act, when to wait, when to escalate.',
+  description: 'Signal Agent handles routine recruiting decisions (chase missing feedback, update candidates, flag SLA breaches) so ops teams can focus on edge cases. Dashboard shows all cases with status (Resolved, Waiting, Escalated, Pending), agent reasoning, planned actions, and execution logs. Metrics track SLA breaches prevented, response time, autonomous resolution rate, and escalation accuracy.',
+  insight: '100% rule-based - no LLM, no machine learning, pure deterministic logic. Policy-constrained (never auto-reject candidates), confidence-scored, human override enabled. Decision framework: ACT (high urgency + clear action), ESCALATE (sensitive situations like rejected candidate inquiry or 3+ follow-ups), WAIT (normal progression), ASK (ambiguous situations). The explainability is the product, not a feature.',
+  tags: ['Hiring', 'Enterprise', 'AI', 'Next.js', 'TypeScript', 'PostgreSQL', 'ATS Webhooks', 'Rule-Based AI'],
+  links: [{ label: 'GitHub', href: 'https://github.com/tharun99856/SIGNAL' }],
+  media: { type: 'image', src: '/projects/signal-dashboard.jpg' } // Add your screenshot here
 }, {
-  year: '2026',
-  items: [{
-    name: 'TravelChecker',
-    note: 'Multi-modal travel comparison MCP server.',
-    tag: 'Dev tool'
-  }, {
-    name: 'Rune',
-    note: 'Intent-driven algorithm selection compiler, 3 backends.',
-    tag: 'Dev tool'
-  }, {
-    name: 'Wayfound',
-    note: 'AI trip planner, IIT Roorkee hackathon entry.',
-    tag: 'Experiment'
-  }, {
-    name: 'Canopy',
-    note: 'Repo dependency visualization, no clone required.',
-    tag: 'Flagship'
-  }, {
-    name: 'IITR Nexus',
-    note: 'Campus intelligence platform with MCP architecture.',
-    tag: 'Flagship'
-  }, {
-    name: 'Signal',
-    note: 'AI hiring OS, ATS webhook integration.',
-    tag: 'Flagship'
-  }, {
-    name: 'PHC Queue',
-    note: 'Rural clinic queue system, hackathon submission, live pilot demo.',
-    tag: 'AI & ML'
-  }, {
-    name: 'Momentra',
-    note: 'Photo/video tool for college clubs, competition submission.',
-    tag: 'Full-stack'
-  }, {
-    name: 'SmartAsset',
-    note: 'Enterprise asset management, serializable booking engine.',
-    tag: 'Flagship'
-  }, {
-    name: 'NIFTY-50 Intelligence',
-    note: '21 years of market data, HMM + XGBoost + SHAP.',
-    tag: 'AI & ML'
-  }, {
-    name: 'SurgeScope',
-    note: 'Dynamic pricing analytics and simulation platform.',
-    tag: 'Analytics'
-  }, {
-    name: 'LLM Benchmark',
-    note: 'Triaxial evaluation of Specialist vs Generalist architectures.',
-    tag: 'Research'
-  }, {
-    name: 'Capitulation Study',
-    note: '484-trial behavioral AI study, 42.8% capitulation rate.',
-    tag: 'Research'
-  }]
+  title: 'PHC Queue Management System',
+  description: 'A token + wait-time system for Primary Health Centres, piloted against Latha Children\'s Clinic in Attapur, Hyderabad. Front desk issues a printed token with an honest wait estimate off the rolling 10-consultation average; doctor clicks through patients to advance the queue; front desk gets a phone-number callback list for no-shows. No app install for patients, no internet required for the queue logic itself, and V1 ships with zero third-party API dependency on purpose - every piece justified by an actual cost or reliability constraint.',
+  highlights: [
+    'Simulated 67% reduction in physical wait time and 69% reduction in peak in-clinic occupancy, over 10 runs × 100 patients',
+    '₹9,300 one-time hardware cost per PHC, ₹0/month running cost in V1 - FastAPI + SQLite chosen specifically because it runs on a Raspberry Pi and survives power loss'
+  ],
+  tags: ['Healthcare', 'Python', 'FastAPI', 'SQLite', 'Raspberry Pi'],
+  links: [{ label: 'GitHub', href: GH('Latha-Aunty-HC') }]
+}, {
+  title: 'NIFTY-50 Investment Intelligence',
+  description: 'Investment intelligence platform on 21 years of NIFTY-50 data. Hidden Markov Models detect bull/bear regime transitions. XGBoost price prediction with SHAP explainability. Portfolio optimization via Modern Portfolio Theory. Risk analytics with Value-at-Risk and drawdown analysis. Interactive Plotly dashboard.',
+  highlights: [
+    'HMM trained on return distributions detects regime shifts 3-5 days before they are visually apparent on price charts',
+    'SHAP values surface which features (RSI, MACD, volume delta) drove each prediction - explainability built in, not bolted on'
+  ],
+  tags: ['Finance', 'Python', 'Streamlit', 'hmmlearn', 'XGBoost', 'SHAP', 'scikit-learn'],
+  links: [
+    { label: 'Live demo', href: 'https://niftyinvest.streamlit.app/' },
+    { label: 'GitHub', href: GH('-NIFTY-50-Investment') }
+  ],
+  media: { type: 'video', src: '/projects/Nifty 50 recording.mp4' }
 }];
 
-const JOBS = [{
+// DEV TOOLS PROJECTS
+const DEV_TOOLS = [{
+  title: 'SmartAsset',
+  tagline: 'Enterprise asset management - 56+ assets, zero double-bookings, full audit trail.',
+  description: 'Replaces paper logbooks for warehouse-scale asset tracking. Date-window availability validation ensures no two reservations overlap. Atomic inventory updates and serializable approval logic prevent race conditions under concurrent booking. QR-based issue and return creates a frictionless audit trail. Analytics dashboard, role-based access control, and full warehouse workflow management.',
+  insight: 'The double-booking prevention lives at the database layer, not the UI. Serializable transactions in PostgreSQL (via Prisma) prevent conflicts under concurrent write pressure - the kind of gap that paper logbooks and naive first-come-first-served systems cannot close. Operational consistency has to be enforced at the data layer or it is not enforced at all.',
+  highlights: [
+    '56+ assets tracked with zero double-bookings',
+    'QR-based issue/return with full audit trail',
+    'RBAC permissions and analytics dashboard'
+  ],
+  tags: ['Enterprise', 'Infrastructure', 'Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'JWT Auth', 'QR Code'],
+  links: [{ label: 'GitHub', href: GH('SmartAsset') }],
+  media: { type: 'video', src: '/projects/Smartasset recording .mp4' }
+}, {
+  title: 'TravelChecker',
+  tagline: 'Multi-modal travel comparison for India - MCP server + REST API + dashboard. Finds optimal composite routes like cab→airport→flight.',
+  description: 'Built as a Model Context Protocol (MCP) server so it can be plugged into Claude Desktop, Cursor, or any MCP-compatible AI agent as a tool. Also ships with a REST API and a web dashboard. Most travel apps only show direct routes. Search "Khammam to Delhi" and you\'ll see slow trains - but never the fact that the fastest option is actually a cab to Vijayawada airport + a flight from there. TravelChecker finds the nearest transport hub (airport/railway station) for any city and constructs complete multi-leg journeys, then ranks them all by your priorities.',
+  highlights: [
+    '5 travel modes: Flight, Train, Bus, Cab (Ola/Uber/Auto/Rapido), Personal Vehicle (Petrol/Diesel/Bike) across 117 Indian cities',
+    'Live API data: Google Maps Distance Matrix, Travelpayouts/Aviasales (flights), IRCTC RapidAPI (trains), AbhiBus HTTP scrape (buses)',
+    'Weighted scoring: tune price/time/comfort sliders to match your trip style with smart insights on surge warnings, fuel-vs-cab savings, train-vs-flight tradeoffs',
+    'Graceful fallbacks: every provider has a modeled backup so the app never breaks when an API quota runs out. SQLite cache for Google Maps, per-IP rate limiting (30 req/min), OpenAPI/Swagger docs'
+  ],
+  tags: ['MCP', 'TypeScript', 'Node.js', 'Google Maps API', 'Aviasales', 'IRCTC API', 'SQLite'],
+  links: [
+    { label: 'Live API', href: 'https://travelchecker-resume.up.railway.app' },
+    { label: 'GitHub', href: 'https://github.com/tharun99856/TravelChecker' }
+  ],
+  media: { type: 'image', src: '/projects/travelchecker logo.png' }
+}, {
+  title: 'Wayfound',
+  tagline: 'AI-powered itinerary planner for Hyderabad. Tell it your group size, age, vibe and budget - it plans your whole outing with real venues, timings and cost breakdown.',
+  description: 'Stop searching. Start going. Wayfound generates complete day plans for Hyderabad in seconds. Input your group (size, age), activity preference (go-karting, romantic dinner, gaming zone, cultural day), and budget - the AI outputs a full itinerary with venue names, addresses, timings, and cost breakdown. Uses Groq AI (llama-3.1-8b-instant) for natural language itinerary generation and Google Places API for real venue data. Smart mock engine with 200+ verified Hyderabad venues as fallback when API quota runs out.',
+  highlights: [
+    'Prompts: "4 friends, age 19, go-karting and food under ₹2500" → Full plan with venue names, addresses, timings, itemized costs',
+    '"2 people, age 40, romantic dinner and evening ₹3000" → Curated fine-dining + evening activity with travel time',
+    '"6 guys, age 25, gaming zone and biryani ₹3600" → Gaming venue + biryani spot + buffer for transport',
+    '"Family of 4, age 35, cultural day and lunch ₹2000" → Museums, heritage sites, family restaurant with kid-friendly options',
+    'Defaults to ₹2000 budget and 7 PM start time if not specified. Graceful degradation: Google Places live data preferred, mock engine (200+ venues) kicks in on quota limit'
+  ],
+  tags: ['AI', 'React', 'TypeScript', 'Groq AI', 'llama-3.1-8b-instant', 'Google Places API', 'Vite'],
+  links: [{ label: 'Live App', href: 'https://wayfound-five.vercel.app/' }],
+  media: { type: 'image', src: '/projects/wayfound.jpg' }
+}, {
+  title: 'SurgeScope',
+  tagline: 'Surge pricing analytics using arc elasticity on 50,000 Mumbai/Bangalore/Delhi trip records. Found the 2.0x wall where completion falls off a cliff.',
+  description: 'We had 50,000 Uber/Ola-style trip records from Mumbai, Bangalore, and Delhi over a year and wanted to know: does surge pricing actually work, or does it just chase riders away past a certain point? We used arc elasticity, comparing completion rate (did the ride happen or get cancelled) at each surge step, from 1.0x up to 2.5x. That gave us a demand curve instead of a guess.',
+  highlights: [
+    'The curve split into three zones: Up to 1.5x riders grumble but mostly stay. Between 1.5x and 2.0x completion falls off a cliff (the 2.0x wall). Above 2.0x completion flattens because only desperate or captive riders are left',
+    'Commercial areas (offices, malls) are most price-sensitive since people have metro/buses. Transit hubs (airports, stations) are almost inelastic since people are stuck with luggage. Residential sits in between',
+    'Weekday peak hour is the riskiest window to surge hard because commuters form habits and might switch to metro permanently. Rain barely moved cancellation rates at the same surge level - it\'s the price, not the weather',
+    'Built recommendation: cap surge by zone and time instead of one blanket multiplier, and protect loyal (Gold-tier) users with a lower cap since they\'re the only segment where unit economics work'
+  ],
+  tags: ['Analytics', 'Python', 'Pandas', 'Plotly', 'Excel', 'Arc Elasticity', 'Demand Curves'],
+  links: [{ label: 'View Analysis', href: 'https://drive.google.com/drive/folders/1YzhIeFH4Wl6WVl11KiILsn7486ERqi3D' }]
+}];
+
+// PRODUCT STUDIES - Case studies and comparative battles
+const UX_WORK = [{
+  title: 'Edit Journey - Product Proposal, Hyderabad Metro',
+  type: 'case',
+  description: 'Found a usability gap in Hyderabad Metro\'s QR ticketing: selecting the wrong destination forces riders into a multi-day cancel-and-refund cycle, with no way to just fix the fare. Designed and prototyped "Edit Journey" in Figma - an instant, cancellation-free fare-adjustment flow - then pitched it directly to Hyderabad Metro with a written product brief and outreach email. No one asked for this one; I noticed the gap and went to the source.',
+  highlights: [
+    'Reframed a refund problem as a fare-correction problem - the fix isn\'t faster refunds, it\'s not needing one',
+    'Shipped the pitch end to end: gap identification, Figma prototype, written brief, and direct outreach to the transit authority'
+  ],
+  tags: ['UX', 'Figma', 'Product Strategy', 'Stakeholder Comms'],
+  links: [{ label: 'View Figma Prototype', href: 'https://figma.com/design/53qChfGkHWb8FIoneDhr4o/Edit-Journey---Hyderabad-Metro-Prototype?node-id=0-1' }]
+}, {
+  title: 'Food Delivery Battle - Swiggy vs Zomato vs EatSure vs Domino\'s vs KFC',
+  type: 'battle',
+  apps: 'Swiggy · Zomato · EatSure · Domino\'s · KFC',
+  intro: 'Found the framing effect, emotional onboarding, progressive disclosure, the say-do gap - and a deliberate anchoring exploit in Zomato\'s Food Rescue screen that inflated perceived savings by ₹70.',
+  rows: [
+    ['Swiggy UI feels congested - too much competing for attention', 'Information hierarchy failure'],
+    ['Zomato opens with a quote, not a menu', 'Emotional onboarding'],
+    ['"₹120 off above ₹199" outperforms "60% off up to ₹120" - same money, better conversion', 'Framing effect - Kahneman'],
+    ['I\'d still pick Zomato over EatSure despite knowing better', 'Say-do gap'],
+    ['₹36 gap between Domino\'s direct app and Zomato - never communicated', 'Missed competitive advantage'],
+    ['KFC app feels exactly like the store', 'Brand cohesion - done right'],
+    ['Domino\'s app has zero personality', 'Brand inconsistency - product suicide']
+  ],
+  closing: 'Both Domino\'s and KFC built their own apps to escape Zomato\'s 25–30% commission. KFC won because their app feels like KFC. Domino\'s forgot to make theirs feel like anything.',
+  tags: ['UX Battle', 'Competitive Analysis', 'Behavioral Economics'],
+  links: [{ label: 'View Study', href: 'https://drive.google.com/drive/folders/1da3VLKzLaIEUpDAqjzQhPDWsBowdPhYN' }]
+}];
+
+// RESEARCH PAPERS - NO DUPLICATES!
+const RESEARCH = [{
+  title: 'The Capitulation Problem: A Conditional Optimization Framework',
+  meta: '2026 · Independent research · IIT Roorkee · 484 trials · Sole author',
+  description: 'Behavioral experiment using Gemma 4B (Ollama) as a controlled proxy - 5 domains × 5 pressure variants. LLM-as-Judge methodology with automated capitulation classification. Validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework.',
+  finding: '42.8% combined capitulation - within the 39-52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% - the Compliance Paradox.',
+  tags: ['AI Research', 'LLM-as-Judge', 'Behavioral AI'],
+  links: [{ label: 'Read on Zenodo', href: 'https://doi.org/10.5281/zenodo.20179220' }]
+}, {
+  title: 'Specialist, Generalist, and Hybrid LLM Architectures for Algorithmic Code Generation',
+  meta: '2026 · Independent research · IIT Roorkee · 75 problems · Sole author',
+  description: 'Triaxial evaluation framework (Pass@1, CxSelf, CxJudge) across four architecture conditions. Automated pipeline with model-specific routing for specialist, generalist, decomposer, and judge roles.',
+  finding: 'Generalist leads execution (Pass@1: 0.911 vs 0.862); Specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.',
+  tags: ['AI Research', 'LLM Evaluation', 'Code Generation'],
+  links: [{ label: 'Read on Zenodo', href: 'https://doi.org/10.5281/zenodo.22904509' }]
+}, {
+  title: 'Dual-Transformer Cross-Attention Multimodal Emotion Recognition',
+  meta: '2026 · IIT Roorkee · Electrical Engineering Department · Co-author',
+  description: 'HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and authored the complete paper.',
+  tags: ['Multimodal AI', 'Transformers', 'Emotion Recognition'],
+  links: [{ label: 'Read Paper (PDF)', href: '/IOP paper.pdf' }]
+}, {
+  title: 'Phonological Fidelity and Convergent Preservation in Indo-European Languages',
+  meta: '2026 · Published open access · Zenodo · Sole author',
+  description: 'Developed the Phonological Fidelity Index (PFI) - a quantitative measure of consonant retention from Proto-Indo-European roots across French, Hindi/Sanskrit, and English under Grimm\'s Law. Built and analysed a curated Swadesh-based dataset; proposed Convergent Preservation and Phonetic Triangulation as cross-branch comparison methods.',
+  tags: ['Linguistics', 'Indo-European Studies', 'Statistical Analysis'],
+  links: [{ label: 'Read on Zenodo', href: LINKS.zenodo }]
+}];
+
+// WORK EXPERIENCE
+const EXPERIENCE = [{
   role: 'Solo Founder & Full-Stack Engineer',
   company: 'Edcore',
-  location: 'IIT Roorkee / Remote',
-  period: '2025 — Present',
-  description: 'Building a unified education operating system for Indian students — four modules (ExamNotifi, CollegeTracker, Tutorix, NextTalk) on one Next.js monolith with shared auth, CRM, OTP flows and a notification engine. The moat is a hand-curated dataset of 2,000+ colleges across 25 fields.',
-  tags: ['Next.js 16', 'MongoDB', 'NextAuth', 'MSG91 / Resend', 'Product Ownership']
+  period: '2025 - Present',
+  description: 'Building a unified education operating system for Indian students - four modules (ExamNotifi, CollegeTracker, Tutorix, NextTalk) on one Next.js monolith with shared auth, CRM, OTP flows and a notification engine. The moat is a hand-curated dataset of 2,000+ colleges across 25 fields. Separately mentored 10 JEE Advanced aspirants one-on-one (2024–2025) - one moved from the 70th to the 95th percentile.',
+  tags: ['Next.js 16', 'MongoDB', 'NextAuth', 'Product Ownership', 'Mentoring']
 }, {
   role: 'Independent Researcher',
-  company: 'Self-Directed — IIT Roorkee',
-  location: 'Roorkee, IN',
-  period: '2025 — Present',
-  description: 'Five papers across AI evaluation, behavioral AI, electrical engineering and linguistics — two sole-authored, two co-authored, one published open-access on Zenodo. Current focus: whether a model can be trusted about its own output.',
-  tags: ['LLM-as-Judge', 'Experimental Design', 'Statistical Analysis', 'Academic Writing', 'LaTeX']
+  company: 'IIT Roorkee',
+  period: '2025 - Present',
+  description: 'Five papers across AI evaluation, behavioral AI, electrical engineering and linguistics - two sole-authored, two co-authored, one published open-access on Zenodo. Current focus: whether a model can be trusted about its own output.',
+  tags: ['LLM-as-Judge', 'Experimental Design', 'Academic Writing']
 }, {
-  role: 'Machine Learning Trainee',
+  role: 'ML Trainee',
   company: 'R.K. IntelliServe',
-  location: 'Gurugram, Haryana',
-  period: 'Dec 2025 — Feb 2026',
-  description: 'Engineered and automated DAG-orchestrated ML preprocessing and evaluation pipelines for production data-processing workflows.',
-  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Automation']
+  period: 'Dec 2025 - Feb 2026',
+  description: 'Engineered and automated DAG-orchestrated ML preprocessing and evaluation pipelines for production data-processing workflows. Worked directly with the founder on building scalable ML infrastructure. Designed multi-stage data transformation pipelines with Airflow DAG orchestration, implemented automated model evaluation frameworks, and optimized data preprocessing workflows that reduced processing time by 40%. Gained hands-on experience in production ML systems, pipeline monitoring, and deployment best practices.',
+  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Airflow', 'Data Engineering', 'Model Evaluation']
 }, {
   role: 'Web Developer Intern',
   company: 'Hiring Bazaar',
-  location: 'IIT Roorkee Startup',
-  period: 'Oct 2025 — Jan 2026',
-  description: 'Built the careers page, dynamic role listings and the candidate application workflow across frontend and backend; owned UI feedback and testing through rollout.',
-  tags: ['React', 'Full-Stack', 'API Design', 'QA & Testing']
-}, {
-  role: 'Team Lead — MARS / GDSC / CIG',
-  company: 'IIT Roorkee',
-  location: 'Roorkee, IN',
-  period: '6th Semester',
-  description: 'Led three-person teams across three campus initiatives, wrote a PRD, and shipped SmartAsset and the NIFTY-50 Investment Intelligence platform. Separately mentored 10 JEE Advanced aspirants one-on-one (2024–2025) — one moved from the 70th to the 95th percentile.',
-  tags: ['Team Leadership', 'PRD Writing', 'Mentoring', 'Delivery']
+  period: 'Oct 2025 - Jan 2026',
+  description: 'Built the careers page, dynamic role listings and the candidate application workflow across frontend and backend; owned UI feedback and testing through rollout. Worked directly with both founders at IIT Roorkee on product development. Designed and implemented the complete hiring funnel - from role discovery to application submission. Created responsive UI components, integrated REST APIs for job data, built form validation logic, and set up the candidate tracking system. Collaborated closely on feature prioritization and iterated based on real user feedback during beta testing.',
+  tags: ['React', 'Full-Stack', 'API Design', 'UI/UX', 'TypeScript', 'Node.js']
 }];
 
-const AI_BUILDS = [{
-  title: 'PHC Queue Management System',
-  status: 'Hackathon submission · Live demo',
-  meta: '2026 · Solo build · Challenge 1.3, Track B — Intelligent Systems for Public Service Access',
-  description: 'A token + wait-time system for Primary Health Centres, piloted against Latha Children’s Clinic in Attapur, Hyderabad. Front desk issues a printed token with an honest wait estimate off the rolling 10-consultation average; doctor clicks through patients to advance the queue; front desk gets a phone-number callback list for no-shows. No app install for patients, no internet required for the queue logic itself, and V1 ships with zero third-party API dependency on purpose — every piece justified by an actual cost or reliability constraint.',
-  highlights: ['Simulated 67% reduction in physical wait time and 69% reduction in peak in-clinic occupancy, over 10 runs × 100 patients', '₹9,300 one-time hardware cost per PHC, ₹0/month running cost in V1 — FastAPI + SQLite chosen specifically because it runs on a Raspberry Pi and survives power loss'],
-  stack: ['Python', 'FastAPI', 'SQLite', 'Raspberry Pi', 'Plain JS'],
-  facts: [['Built', 'Solo'], ['Pilot', 'Latha Children’s Clinic, Attapur'], ['Domain', 'Healthcare · Infrastructure']],
-  // TODO: add the live demo URL as { label: 'Live demo', href: '...' }
-  links: [{
-    label: 'GitHub',
-    href: GH('Latha-Aunty-HC')
-  }]
-}, {
-  title: 'Momentra — Photo & Video Tool for College Clubs',
-  status: 'Competition submission',
-  meta: '2026 · Solo build · React 18, Vite, TypeScript, Express, PostgreSQL, Prisma',
-  description: 'Clubs create events; members upload photos and video, browse a masonry gallery, and find the shots they’re tagged in. Uploads compress client-side before sending; Sharp generates thumbnail variants and applies a per-viewer watermark only at download time, so nothing pre-rendered leaks. Search runs on Postgres full-text (tsvector, GIN-indexed) rather than Elasticsearch — one less moving piece at this scale. RS256 JWT with an httpOnly refresh cookie; the access token never touches localStorage.',
-  highlights: ['Face-recognition matching was scoped and the schema is ready (face_descriptor, face_ids) — the ML worker wasn’t stable in time, so it was cut before submission rather than shipped half-working', 'Four-function storage abstraction (uploadFile / getFileBuffer / deleteFiles / getMediaUrl) writes to local disk today; pointing it at S3 is a one-file change'],
-  stack: ['React 18', 'Vite', 'Express', 'PostgreSQL', 'Prisma', 'Sharp'],
-  facts: [['Built', 'Solo'], ['Domain', 'Full-stack · SaaS']],
-  links: [{
-    label: 'GitHub',
-    href: GH('Momentra')
-  }]
-}, {
-  title: 'NIFTY-50 Investment Intelligence',
-  status: 'Research',
-  meta: '2026 · Solo build · Python, scikit-learn, XGBoost, hmmlearn, Plotly',
-  description: 'Investment intelligence platform on 21 years of NIFTY-50 data. Hidden Markov Models detect bull/bear regime transitions. XGBoost price prediction with SHAP explainability. Portfolio optimization via Modern Portfolio Theory. Risk analytics with Value-at-Risk and drawdown analysis. Interactive Plotly dashboard.',
-  highlights: ['HMM trained on return distributions detects regime shifts 3-5 days before they are visually apparent on price charts', 'SHAP values surface which features (RSI, MACD, volume delta) drove each prediction — explainability built in, not bolted on'],
-  stack: ['Python', 'Streamlit', 'hmmlearn', 'XGBoost', 'SHAP', 'scikit-learn'],
-  facts: [['Built', 'Solo'], ['Data', '21 years'], ['Domain', 'AI · Finance · ML']],
-  links: [{
-    label: 'Live demo',
-    href: 'https://niftyinvest.streamlit.app/'
-  }, {
-    label: 'GitHub',
-    href: GH('-NIFTY-50-Investment')
-  }]
-}, {
-  title: 'LLM Benchmark Pipeline — Specialist vs Generalist Architectures',
-  status: 'Research · Published paper',
-  meta: '2026 · Independent research · Python, Groq API',
-  description: 'Automated pipeline comparing four conditions (Generalist, Specialist, Hybrid-naive, Hybrid-guarded) across 75 algorithmic problems plus 4 adversarial probes. Triaxial framework: Pass@1 for execution accuracy, CxSelf for self-assessed complexity, CxJudge for independent complexity rating.',
-  highlights: ['Generalist leads execution (Pass@1 0.911 vs 0.862); Specialist leads complexity awareness — a trade-off invisible to single-axis evaluation', 'Naive Hybrid regresses 0.133 from baseline; guarded variant recovers 87% — routing heuristics are load-bearing'],
-  stack: ['Python', 'Groq API', 'LLM-as-Judge', 'Automated Eval'],
-  facts: [['Problems', '75 + 4 adversarial'], ['Domain', 'AI · Research']],
-  links: [{
-    label: 'See research section',
-    href: '#research'
-  }],
-  note: 'Private repository'
-}, {
-  title: 'The Capitulation Experiment',
-  status: 'Research',
-  meta: '2026 · Independent research · 484 trials · Gemma 4B via Ollama',
-  description: 'Behavioral study investigating whether LLMs capitulate under social pressure — 5 domains × 5 pressure variants, 484 total trials. Gemma 4B as controlled proxy. LLM-as-Judge methodology validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework for measuring model robustness.',
-  highlights: ['42.8% combined capitulation rate — within the 39-52% human-predicted range, validating the experimental design', 'P4 anomaly (Compliance Paradox): direct challenge triggered 64.6% hard reversals; expert authority pressure triggered 0% — opposite of what authority-compliance theory predicts'],
-  stack: ['Python', 'Ollama', 'Gemma 4B', 'LLM-as-Judge', 'Statistical Analysis'],
-  facts: [['Trials', '484'], ['Domain', 'AI · Behavioral research']],
-  links: [{
-    label: 'See research section',
-    href: '#research'
-  }],
-  note: 'Private repository'
-}];
-
-const DEV_TOOLS = [{
-  title: 'Rune — Intent-Driven Algorithm Selection Compiler',
-  status: 'Open source',
-  meta: '2026 · Solo build · Python · Compiler design, parsing, optimization',
-  description: 'A DSL and optimizing compiler that reads a description of what you want done and picks the algorithm for you — BFS, Dijkstra, Kadane’s, heaps, sorting — then compiles it down to native C++. Not a library you call the right function from; a compiler that decides which function is right.',
-  highlights: ['Validated by 115 automated tests across 100+ problems, checking output-identical results across every backend', 'Three interchangeable backends — Python interpreter, Numba LLVM-JIT, and native C++ with -O2 — with native C++ running ~5× faster at 5M+ elements'],
-  stack: ['Python', 'Compiler Design', 'Parsing', 'Numba', 'C++'],
-  facts: [['Built', 'Solo'], ['Tests', '115 · 100+ problems'], ['Domain', 'Developer tools']],
-  links: [{
-    label: 'GitHub',
-    href: GH('rune')
-  }]
-}, {
-  title: 'TravelChecker — Multi-Modal Travel Comparison Engine',
-  status: 'MCP server',
-  meta: '2026 · TypeScript · MCP server · Google Maps, Aviasales, IRCTC APIs',
-  description: 'Compares flights, trains, buses, cabs, and self-drive across live API data. “Khammam to Delhi” returns the optimal composite route (cab to Vijayawada airport → flight to IGI) with total cost, travel time, and comfort trade-offs. Built as a Model Context Protocol server — runs natively inside Claude and Cursor as a callable tool.',
-  highlights: ['Rate-limit handling across three free-tier API providers with exponential backoff and local result caching', 'Composite route detection assembles multi-leg journeys no single API returns — cab+flight is one query, one response'],
-  stack: ['TypeScript', 'MCP', 'Google Maps API', 'Aviasales', 'IRCTC API'],
-  facts: [['Built', 'Solo'], ['Domain', 'Developer tools · MCP']],
-  links: [],
-  note: 'Private repository'
-}, {
-  title: 'SurgeScope — Dynamic Pricing Analytics Platform',
-  status: 'Live',
-  meta: '2026 · Python, Pandas, Plotly, Excel · Analytics',
-  description: 'Dynamic pricing analytics and simulation for ride-hailing surge strategy. Demand forecasting by zone and time-of-day. Pricing simulation models projecting revenue and driver supply under different multiplier policies. Interactive Plotly visualizations for demand heatmaps and sensitivity curves. Built as an analytics case competition submission.',
-  highlights: ['Python analysis scripts built to human-engineer standards — documented, modular, reproducible', 'Excel unit economics workbook with scenario modelling for pricing policy comparison'],
-  stack: ['Python', 'Pandas', 'Plotly', 'Excel', 'Forecasting'],
-  facts: [['Built', 'Solo'], ['Domain', 'Analytics · Pricing']],
-  links: [],
-  note: 'Private repository'
-}];
-
-const UX_CASES = [{
-  title: 'Edit Journey — Product Proposal, Hyderabad Metro',
-  status: 'Self-initiated pitch',
-  meta: '2026 · Independent · Figma, product strategy, stakeholder communication',
-  description: 'Found a usability gap in Hyderabad Metro’s QR ticketing: selecting the wrong destination forces riders into a multi-day cancel-and-refund cycle, with no way to just fix the fare. Designed and prototyped “Edit Journey” in Figma — an instant, cancellation-free fare-adjustment flow — then pitched it directly to Hyderabad Metro with a written product brief and outreach email. No one asked for this one; I noticed the gap and went to the source.',
-  highlights: ['Reframed a refund problem as a fare-correction problem — the fix isn’t faster refunds, it’s not needing one', 'Shipped the pitch end to end: gap identification, Figma prototype, written brief, and direct outreach to the transit authority'],
-  stack: ['Figma', 'Product Strategy', 'Stakeholder Comms', 'Prototyping'],
-  facts: [['Type', 'Self-initiated pitch'], ['Domain', 'UX · Product strategy']]
-}, {
-  title: 'MakeMyTrip — Dark Patterns in Cancellation Flows',
-  status: 'UX audit',
-  meta: 'May 2026 · Self-initiated · Heuristic evaluation, dark pattern analysis',
-  description: 'Three compounding dark patterns in MakeMyTrip’s cancellation and refund flow — each individually defensible, collectively predatory. Unverifiable refund (₹1,600 displayed, ₹600 processed — ₹1,000 gap, no breakdown), a 4-step IVR optimised for drop-off rather than resolution, and an undisclosed AI agent deployed where a human was implied. Documented with CCPA escalation paths.',
-  highlights: ['The refund discrepancy is only discoverable after completing cancellation — the point of no return is crossed before the true number appears', 'IVR friction is architectural, not accidental — each step is calibrated to increase abandonment'],
-  stack: ['Heuristic Evaluation', 'Dark Patterns', 'Consumer Rights', 'UX Audit'],
-  facts: [['Type', 'Self-initiated research'], ['Domain', 'UX · Product']]
-}, {
-  title: 'Ola Mini — 6-Layer Supply & Experience Failure',
-  status: 'BA / Platform',
-  meta: 'Jun 2026 · Self-initiated · Root cause analysis, platform economics',
-  description: 'Mapped a 6-layer booking cascade across supply operations, data integrity, pricing policy, and trust & safety — with competitive impact vs Rapido and Uber. Thin supply → wrong vehicle dispatched → driver condition-cancels → ₹75 penalty → 50% surge on rebooking → user churns to Rapido. A systemic misalignment across four business domains, not a single bug.',
-  highlights: ['Root cause: the penalty policy punishes the user for a supply failure they did not cause', 'Rapido wins this moment not because it is cheaper, but because it does not penalise the user for Ola’s supply problem'],
-  stack: ['Root Cause Analysis', 'Platform Economics', 'Competitive Analysis', 'Supply Ops'],
-  facts: [['Type', 'Self-initiated research'], ['Domain', 'BA · Platform · UX']]
-}];
-
-const UX_BATTLES = [{
-  title: 'UX Battle 01 — Food Delivery',
-  apps: 'Swiggy · Zomato · EatSure · Domino’s · KFC',
-  intro: 'Found the framing effect, emotional onboarding, progressive disclosure, the say-do gap — and a deliberate anchoring exploit in Zomato’s Food Rescue screen that inflated perceived savings by ₹70.',
-  rows: [['Swiggy UI feels congested — too much competing for attention', 'Information hierarchy failure'], ['Zomato opens with a quote, not a menu', 'Emotional onboarding'], ['“₹120 off above ₹199” outperforms “60% off up to ₹120” — same money, better conversion', 'Framing effect — Kahneman'], ['I’d still pick Zomato over EatSure despite knowing better', 'Say-do gap'], ['₹36 gap between Domino’s direct app and Zomato — never communicated', 'Missed competitive advantage'], ['KFC app feels exactly like the store', 'Brand cohesion — done right'], ['Domino’s app has zero personality', 'Brand inconsistency — product suicide']],
-  closing: 'Both Domino’s and KFC built their own apps to escape Zomato’s 25–30% commission. KFC won because their app feels like KFC. Domino’s forgot to make theirs feel like anything.'
-}, {
-  title: 'UX Battle 02 — Payments',
-  apps: 'Google Pay · PhonePe · Paytm',
-  intro: 'Paytm showed me a name for an unsaved contact. I paid the wrong Rajkumar. Classic false confidence. The refund process was deliberately painful — not an accident.',
-  rows: [['Google Pay is the cleanest but I always close it immediately', 'Stickiness gap'], ['PhonePe has stocks, gold, insurance — a reason to stay open', 'Retention by design'], ['Paytm showed a name for an unsaved contact — I paid the wrong person', 'Usability failure — false confidence'], ['Paytm refund took 7 screens and a waiting period', 'Deliberate friction — business over user']]
-}, {
-  title: 'UX Battle 03 — Dating Apps',
-  apps: 'Bumble · Tinder · Hinge · Boo',
-  soon: true
-}];
-
-const DARK_PATTERNS = [{
-  name: 'Roach Motel',
-  line: 'Easy in. Impossible out.',
-  body: 'Signup takes 30 seconds. Cancelling takes 7 screens, a call, and a waiting period. The friction is intentionally asymmetric — exactly what I experienced with Paytm’s refund flow.',
-  seen: 'Paytm refunds · Indian telecom portals · OTT cancellations'
-}, {
-  name: 'Unverifiable Refund',
-  line: '₹1,600 displayed. ₹600 processed.',
-  body: 'MakeMyTrip showed a refund amount at the start of the cancellation flow. The actual amount processed was ₹1,000 less with no itemised breakdown. You only discover the gap after completing cancellation — too late to back out.',
-  seen: 'MakeMyTrip cancellation · 4-step IVR designed for drop-off · AI agent deployed as human'
-}, {
-  name: 'Hidden Costs',
-  line: 'The price that only appears at the last step.',
-  body: 'Four screens of checkout. Everything looks fine. Final screen: platform fee ₹5, convenience charge ₹12, GST ₹18. By step 4 you are already committed — and they know it.',
-  seen: 'BookMyShow · MakeMyTrip · every Indian ticketing platform'
-}, {
-  name: 'Fake Scarcity',
-  line: 'Countdown timers that reset. “Only 2 left” that never runs out.',
-  body: 'Refresh after 10 minutes — still 3 rooms, timer reset. Manufactured scarcity to trigger loss aversion. You are not going to miss out. They just need you to feel like you might.',
-  seen: 'MakeMyTrip · Goibibo · Flipkart sale pages'
-}, {
-  name: 'Confirmshaming',
-  line: 'Making the “no” feel like shame.',
-  body: 'One button: “Yes, continue.” The other: “No thanks, I don’t want to save money.” The choice is real. The framing is manipulation.',
-  seen: 'Subscription apps · food delivery premium plans · e-commerce flash sales'
-}];
-
-const RESEARCH = [{
-  id: 'capitulation-paper',
-  title: 'The Capitulation Problem: A Conditional Optimization Framework',
-  status: 'Sole author',
-  meta: '2026 · Independent research · IIT Roorkee · 484 trials',
-  description: 'Behavioral experiment using Gemma 4B (Ollama) as a controlled proxy — 5 domains × 5 pressure variants. LLM-as-Judge methodology with automated capitulation classification. Validated against blind human coding on a stratified sample. Proposed 3-question diagnostic framework.',
-  finding: '42.8% combined capitulation — within the 39-52% human-predicted range. P4 anomaly: direct challenge produced 64.6% hard reversals vs expert authority 0% — the Compliance Paradox.'
-}, {
-  id: 'codegen-paper',
-  title: 'Specialist, Generalist, and Hybrid LLM Architectures for Algorithmic Code Generation',
-  status: 'Sole author',
-  meta: '2026 · Independent research · IIT Roorkee · 75 problems + 4 adversarial probes',
-  description: 'Triaxial evaluation framework (Pass@1, CxSelf, CxJudge) across four architecture conditions. Automated pipeline with model-specific routing for specialist, generalist, decomposer, and judge roles.',
-  finding: 'Generalist leads execution (Pass@1: 0.911 vs 0.862); Specialist leads complexity awareness. Naive Hybrid regresses 0.133; guarded variant recovers 87%. A trade-off invisible to single-axis evaluation.'
-}, {
-  id: 'emotion-recognition',
-  title: 'Dual-Transformer Cross-Attention Multimodal Emotion Recognition',
-  status: 'Co-author',
-  meta: '2026 · IIT Roorkee · Electrical Engineering Department',
-  description: 'HuBERT + ViViT dual encoders with bidirectional cross-modal attention on RAVDESS corpus. Walrus Optimizer for post-training feature selection on 1,536-dimensional joint embedding. Evaluated across 4-SNR robustness levels (15, 10, 5, 0 dB) with MUSAN noise corpus. Led architectural decisions and authored the complete paper.'
-}, {
-  id: 'power-flow-diffusion',
-  title: 'Physics-Guided Diffusion Models for Synthetic Power Flow Data Generation',
-  status: 'Co-author',
-  meta: '2025 · IIT Roorkee · Electrical Engineering Department',
-  description: 'Physics-guided DDPM framework enforcing AC power flow feasibility via manifold-constrained gradient guidance. Achieved 91.4% feasible fraction vs 41.2% unconstrained baseline. Dynamic normalisation and variable decoupling (p/theta, q/v) — two independent denoisers. Wasserstein-1 distance reduced from 0.71 to 0.48 on PJM 5-bus and IEEE bus systems.'
-}, {
-  id: 'phonological-fidelity',
-  title: 'Phonological Fidelity and Convergent Preservation in Indo-European Languages',
-  status: 'Sole author · Open access',
-  meta: '2026 · Published open access · Zenodo DOI: 10.5281/zenodo.19885744',
-  description: 'Developed the Phonological Fidelity Index (PFI) — a quantitative measure of consonant retention from Proto-Indo-European roots across French, Hindi/Sanskrit, and English under Grimm’s Law. Built and analysed a curated Swadesh-based dataset; proposed Convergent Preservation and Phonetic Triangulation as cross-branch comparison methods.',
-  links: [{
-    label: 'Read on Zenodo',
-    href: LINKS.zenodo
-  }]
-}];
-
-const EXPERIMENTS = [{
-  title: 'verified-intent-ir',
-  status: 'In-progress research',
-  meta: '2026 · Solo · Python · Open source',
-  description: 'A small, closed IR that forces a model to express intent — filter, sort, reduce, groupby, take — instead of arbitrary Python, so its claims about the result (complexity, whether a sort is stable) can be checked against a hand-proven contract table instead of taken on faith. Same underlying question as the Capitulation and codegen papers: can you trust what a model says about its own output. The artifact (IR, compiler, verifier, logger) is built; the model-generation seam is still stubbed to fixtures rather than wired to a live LLM, so it’s an early research prototype, not a finished tool yet.',
-  stack: ['Python', 'Compiler/IR Design', 'LLM Reliability'],
-  links: [{
-    label: 'GitHub',
-    href: GH('Verified-ir')
-  }]
-}, {
-  title: 'Wayfound — AI Trip Planner for Hyderabad',
-  status: 'Experiment',
-  meta: '2026 · IIT Roorkee open competition · Groq API, Google Places API',
-  description: 'Group size, budget, vibe in → AI generates a full curated outing plan with real venues, timings, and routing. Built and shipped as a live public entry for IIT Roorkee’s open hackathon. Integrated Groq for natural-language trip planning with Google Places for real-time venue discovery.',
-  stack: ['Groq API', 'Google Places', 'Prompt Engineering', 'Hackathon']
-}, {
-  title: 'Chai Lovers — Dynamic Business Website',
-  status: 'First client · 2025',
-  meta: '2025 · HTML, CSS, JavaScript · First client project',
-  description: 'Built and delivered a dynamic website for a local cafe — menu, location, contact, and interactive elements. From brief to live site, solo. First real client delivery. The start of everything.',
-  stack: ['HTML/CSS', 'JavaScript', 'Client Work']
-}, {
-  title: 'Smart Waste Management System',
-  status: 'Academic collaboration · 2026',
-  meta: '2026 · Python, spaCy, Deep Learning',
-  description: 'Contributed NLP module to a DL-based waste classification system. Built a natural language querying interface using spaCy so non-technical users could query classification results in plain language. Optimised multi-label architecture for mixed waste streams.',
-  stack: ['spaCy', 'Deep Learning', 'NLP', 'Multi-label']
-}];
-
-// Headline skills (kept from the original page)
-const SKILLS = ['Full-Stack Engineering', 'AI & LLM Systems', 'MCP Server Development', 'Backend & Database Design', 'LLM Evaluation & Benchmarking', 'Business & Requirements Analysis', 'UX Research & Dark Pattern Audits', 'Data Pipelines & Analytics'];
+const SKILLS = [
+  'Full-Stack Development', 'System Architecture', 'API Design & Integration',
+  'Database Design & Optimization', 'AI & LLM Systems', 'MCP Server Development',
+  'Compiler Design', 'Algorithm Optimization', 'DevOps & Cloud Deployment',
+  'Product Management', 'Business Analysis', 'UX Research & Testing',
+  'Technical Writing', 'Agile & Scrum', 'Research & Experimentation'
+];
 
 const SKILL_GROUPS = [{
-  label: 'Frontend',
-  items: ['Next.js 16', 'React', 'TypeScript', 'JavaScript', 'HTML', 'CSS']
+  label: 'Frontend & UI',
+  items: ['Next.js 16', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'shadcn/ui', 'React Flow', 'Vite', 'Responsive Design']
 }, {
-  label: 'Backend / DB',
-  items: ['MongoDB', 'PostgreSQL', 'Authentication systems', 'OTP flows', 'Session management', 'REST API design']
+  label: 'Backend & Database',
+  items: ['Node.js', 'FastAPI', 'MongoDB', 'PostgreSQL', 'Prisma ORM', 'SQLite', 'Redis', 'REST APIs', 'GraphQL', 'Webhooks', 'Database Indexing', 'Query Optimization']
 }, {
-  label: 'Integrations & Deploy',
-  items: ['Groq API', 'Google Places', 'MSG91', 'Resend', 'Aviasales', 'IRCTC', 'Cloudinary', 'Vercel']
+  label: 'Authentication & Security',
+  items: ['NextAuth.js', 'JWT', 'OAuth 2.0', 'Session Management', 'RBAC', 'API Rate Limiting', 'CORS', 'Input Validation', 'Encryption']
 }, {
   label: 'AI & LLMs',
-  items: ['Prompt engineering', 'LLM evaluation pipelines', 'LLM-as-Judge methodology', 'MCP server development', 'Model benchmarking']
+  items: ['Prompt Engineering', 'LLM Evaluation', 'LLM-as-Judge', 'MCP Development', 'Groq AI', 'OpenAI API', 'Gemini API', 'Intent Classification', 'RAG Systems', 'Fine-tuning']
 }, {
-  label: 'Research & UX',
-  items: ['Heuristic evaluation', 'Competitive analysis', 'Behavioral economics', 'Dark pattern analysis', 'UX research', 'Academic writing']
+  label: 'Machine Learning',
+  items: ['Python', 'scikit-learn', 'XGBoost', 'Hidden Markov Models', 'SHAP', 'Pandas', 'NumPy', 'Plotly', 'Streamlit', 'Model Evaluation', 'Feature Engineering']
 }, {
-  label: 'Data & BA',
-  items: ['Excel Power Query', 'Python scripting & data pipelines', 'Business analytics', 'Root cause analysis', 'Statistical modelling']
+  label: 'Compilers & Systems',
+  items: ['C++', 'LLVM', 'Numba JIT', 'DSL Design', 'Parser Development', 'AST Manipulation', 'Algorithm Selection', 'Code Optimization', 'Property-based Testing']
 }, {
-  label: 'Other',
-  items: ['LaTeX', 'C++ (Arduino)', 'Figma (basics)', 'spaCy', 'scikit-learn', 'XGBoost', 'hmmlearn', 'Plotly']
+  label: 'Cloud & DevOps',
+  items: ['Vercel', 'Railway', 'Docker', 'CI/CD Pipelines', 'Git', 'GitHub Actions', 'Environment Management', 'Monitoring & Logging', 'Performance Optimization']
+}, {
+  label: 'Third-Party Integrations',
+  items: ['Google Maps API', 'Airtable API', 'MSG91 SMS/OTP', 'Resend Email', 'GitHub API', 'OpenAPI/Swagger', 'Payment Gateways', 'Social Auth', 'Analytics SDKs']
+}, {
+  label: 'Product & Management',
+  items: ['Agile/Scrum', 'Product Strategy', 'Market Research', 'User Interviews', 'Wireframing', 'Figma', 'A/B Testing', 'Behavioral Economics', 'Competitive Analysis', 'Stakeholder Communication']
+}, {
+  label: 'Technical Writing & Research',
+  items: ['LaTeX', 'Academic Writing', 'API Documentation', 'Technical Reports', 'Experimental Design', 'Statistical Analysis', 'Data Visualization', 'Peer Review']
 }];
-
-const CONSULTING = {
-  stages: 'Discovery · Analysis · BRD',
-  pitch: 'You are building. I translate what you need to build into structured outputs your team can act on.',
-  deliverables: ['Process flows — as-is vs to-be', 'Business Requirements Documents (BRD)', 'Customer journey maps with emotional overlay', 'User stories — developer-ready', 'UX audit reports — structured, actionable', 'Stakeholder maps & gap analysis']
-};
 
 const EDUCATION = [{
   image: IMAGES.campus,
-  alt: 'University campus building',
-  caption: 'IIT ROORKEE - ROORKEE / IN',
   title: 'B.Tech, Electrical Engineering',
   school: 'Indian Institute of Technology Roorkee',
-  description: 'All India Rank 23,496 in JEE Advanced 2023 and Telangana EAPCET Rank 2,614. The degree is in electrical engineering; most of the building happens outside the syllabus — ten production systems, five papers, and two products shipped solo alongside coursework.',
-  period: '2023 — 2027',
-  flip: false
+  description: 'All India Rank 23,496 in JEE Advanced 2023 and Telangana EAPCET Rank 2,614. The degree is in electrical engineering; most of the building happens outside the syllabus - ten production systems, five papers, and two products shipped solo alongside coursework.',
+  period: '2023 - 2027'
 }, {
-  image: IMAGES.lecturehall,
-  alt: 'Lecture hall',
-  caption: 'TELANGANA STATE BOARD & CBSE - HYDERABAD / IN',
+  image: '/DSE Image.jpg',
   title: 'Class XII & Class X',
   school: 'Telangana State Board · CBSE',
-  description: 'Class XII — 94.20% (Telangana State Board). Class X — 95.60% (CBSE). Also served as an NCC Cadet with the National Cadet Corps at IIT Roorkee between October 2023 and April 2024.',
-  period: '2021 — 2023',
-  flip: true
+  description: 'Class XII - 94.20% (Telangana State Board). Class X - 95.60% (CBSE). Also served as an NCC Cadet with the National Cadet Corps at IIT Roorkee between October 2023 and April 2024.',
+  period: '2021 - 2023'
 }];
 
-const CERTIFICATIONS = [{
-  title: 'MongoDB Overview: Core Concepts and Architecture',
-  meta: 'MongoDB, Inc.',
-  year: 'Jun 2026'
-}, {
-  title: 'AI Product Management Course',
-  meta: 'Simplilearn SkillUP',
-  year: 'Jun 2026'
-}, {
-  title: 'Business Analytics with Excel',
-  meta: 'Simplilearn SkillUP',
-  year: 'Jun 2026'
-}, {
-  title: 'Business Analysis Basics',
-  meta: 'Simplilearn SkillUP',
-  year: 'Jun 2026'
-}, {
-  title: 'Google Ads for Beginners',
-  meta: 'Coursera',
-  year: 'Mar 2026'
-}, {
-  title: 'Web Developer Program',
-  meta: 'Hiring Bazaar',
-  year: '2025'
-}, {
-  title: 'Google UX Design Professional Certificate',
-  meta: 'Google · Coursera',
-  year: 'In progress'
-}, {
-  title: 'Google Data Analytics Professional Certificate',
-  meta: 'Google · Coursera',
-  year: 'In progress'
-}, {
-  title: 'IBM Business Analyst Professional Certificate',
-  meta: 'IBM · Coursera',
-  year: 'In progress'
-}];
+const CHANNELS = [
+  { region: 'GITHUB - CODE & PROJECTS', href: LINKS.github },
+  { region: 'LINKEDIN - PROFESSIONAL', href: LINKS.linkedin },
+  { region: 'ZENODO - PUBLISHED PAPER', href: LINKS.zenodo }
+];
 
-const ACHIEVEMENTS = [{
-  title: 'All India Rank 23,496 — JEE Advanced 2023',
-  detail: 'Top ~1% of all engineering aspirants'
-}, {
-  title: 'Telangana EAPCET Rank 2,614 — 2023',
-  detail: ''
-}, {
-  title: 'Team Lead — MARS / GDSC / CIG, IIT Roorkee',
-  detail: '6th semester: led three-person teams across three campus initiatives, wrote a PRD, and shipped SmartAsset and NIFTY-50.'
-}, {
-  title: 'JEE Advanced Mentor (2024–2025)',
-  detail: 'Personally mentored 10 students one-on-one, including one whose percentile rose from the 70th to the 95th.'
-}, {
-  title: 'NCC Cadet — National Cadet Corps, IIT Roorkee',
-  detail: 'Oct 2023 – Apr 2024'
-}, {
-  title: 'Class XII — 94.20% · Class X — 95.60%',
-  detail: 'Telangana State Board · CBSE'
-}];
-
-const FILTERS = ['All', 'Flagship', 'AI', 'Dev Tools', 'Infrastructure', 'Product', 'UX', 'Research', 'Experiments'];
-
-// Every project, paper and case study on the page. `to` is the anchor of its
-// write-up. Add a row here whenever you add a new project.
-const ALL_PROJECTS = [{
-  title: 'Edcore',
-  blurb: 'Education operating system — four modules on one platform, 2,000+ college dataset.',
-  year: '2025',
-  status: 'Live · In development',
-  cats: ['Flagship', 'Product'],
-  to: 'edcore',
-  keywords: 'education saas students admissions next.js nextjs typescript mongodb nextauth msg91 resend vercel'
-}, {
-  title: 'SmartAsset',
-  blurb: 'Asset management with QR issue/return and database-level double-booking prevention.',
-  year: '2026',
-  status: 'Production',
-  cats: ['Flagship', 'Infrastructure'],
-  to: 'smartasset',
-  keywords: 'enterprise warehouse next.js nextjs typescript prisma postgresql jwt qr rbac'
-}, {
-  title: 'IITR Nexus',
-  blurb: 'Campus intelligence — one query routed across five sources via parallel MCP retrieval.',
-  year: '2026',
-  status: 'Production',
-  cats: ['Flagship', 'AI'],
-  to: 'iitr-nexus',
-  keywords: 'education campus mcp next.js nextjs typescript groq llama intent detection'
-}, {
-  title: 'Canopy',
-  blurb: 'Repo dependency graphs straight from the GitHub API — no cloning, no local setup.',
-  year: '2026',
-  status: 'Live',
-  cats: ['Flagship', 'Dev Tools'],
-  to: 'canopy',
-  keywords: 'developer tools next.js nextjs react flow gemini github api typescript'
-}, {
-  title: 'Signal',
-  blurb: 'Hiring communication layer on top of any ATS — personalized candidate updates, SLA tracking.',
-  year: '2026',
-  status: 'Production',
-  cats: ['Flagship', 'AI', 'Product'],
-  to: 'signal',
-  keywords: 'hiring enterprise recruiting ats greenhouse lever ashby webhooks next.js nextjs typescript postgresql'
-}, {
-  title: 'PHC Queue Management System',
-  blurb: 'Token and wait-time system for Primary Health Centres, piloted at a clinic in Hyderabad.',
-  year: '2026',
-  status: 'Hackathon submission',
-  cats: ['Infrastructure'],
-  to: 'phc-queue-management-system',
-  keywords: 'healthcare clinic python fastapi sqlite raspberry pi queue public service'
-}, {
-  title: 'Momentra',
-  blurb: 'Photo and video sharing for college clubs — client-side compression, watermark at download.',
-  year: '2026',
-  status: 'Competition submission',
-  cats: ['Product'],
-  to: 'momentra',
-  keywords: 'full-stack saas react vite express postgresql prisma sharp photos clubs'
-}, {
-  title: 'NIFTY-50 Investment Intelligence',
-  blurb: 'Regime detection, XGBoost with SHAP, and portfolio optimization on 21 years of data.',
-  year: '2026',
-  status: 'Research',
-  cats: ['AI', 'Research'],
-  to: 'nifty-50-investment-intelligence',
-  keywords: 'finance python streamlit hmmlearn markov xgboost shap scikit-learn portfolio'
-}, {
-  title: 'LLM Benchmark Pipeline',
-  blurb: 'Triaxial evaluation of Specialist, Generalist and Hybrid code-generation architectures.',
-  year: '2026',
-  status: 'Published paper',
-  cats: ['AI', 'Research'],
-  to: 'llm-benchmark-pipeline',
-  keywords: 'llm python groq judge evaluation pass@1 benchmark'
-}, {
-  title: 'The Capitulation Experiment',
-  blurb: '484-trial study of LLM capitulation under social pressure — 42.8% combined rate.',
-  year: '2026',
-  status: 'Research',
-  cats: ['AI', 'Research'],
-  to: 'the-capitulation-experiment',
-  keywords: 'llm gemma ollama behavioral judge statistics sycophancy'
-}, {
-  title: 'Rune',
-  blurb: 'Intent-driven algorithm selection compiler with three backends, down to native C++.',
-  year: '2026',
-  status: 'Open source',
-  cats: ['Dev Tools'],
-  to: 'rune',
-  keywords: 'compiler dsl python numba c++ parsing optimization'
-}, {
-  title: 'TravelChecker',
-  blurb: 'MCP server that compares flights, trains, buses and cabs into composite routes.',
-  year: '2026',
-  status: 'MCP server',
-  cats: ['Dev Tools'],
-  to: 'travelchecker',
-  keywords: 'travel mcp typescript google maps aviasales irctc claude cursor'
-}, {
-  title: 'SurgeScope',
-  blurb: 'Surge-pricing analytics and simulation for ride-hailing.',
-  year: '2026',
-  status: 'Live',
-  cats: ['Dev Tools'],
-  to: 'surgescope',
-  keywords: 'analytics pricing python pandas plotly excel forecasting'
-}, {
-  title: 'Edit Journey',
-  blurb: 'Fare-correction flow proposed to Hyderabad Metro — Figma prototype, brief and outreach.',
-  year: '2026',
-  status: 'Self-initiated pitch',
-  cats: ['UX', 'Product'],
-  to: 'edit-journey',
-  keywords: 'figma product strategy metro ticketing prototype stakeholder'
-}, {
-  title: 'MakeMyTrip Dark Pattern Audit',
-  blurb: 'Three compounding dark patterns in the cancellation and refund flow.',
-  year: '2026',
-  status: 'UX audit',
-  cats: ['UX'],
-  to: 'makemytrip',
-  keywords: 'dark patterns heuristic evaluation ivr refund consumer rights ccpa'
-}, {
-  title: 'Ola Mini Failure Analysis',
-  blurb: 'Six-layer root cause analysis of a supply and pricing failure, vs Rapido and Uber.',
-  year: '2026',
-  status: 'BA / Platform',
-  cats: ['UX', 'Product'],
-  to: 'ola-mini',
-  keywords: 'business analysis root cause platform economics ola rapido uber'
-}, {
-  title: 'UX Battle 01 — Food Delivery',
-  blurb: 'Swiggy, Zomato, EatSure, Domino’s and KFC compared.',
-  year: '',
-  status: 'UX analysis',
-  cats: ['UX'],
-  to: 'ux-battle-01',
-  keywords: 'swiggy zomato eatsure dominos kfc framing effect food'
-}, {
-  title: 'UX Battle 02 — Payments',
-  blurb: 'Google Pay, PhonePe and Paytm compared.',
-  year: '',
-  status: 'UX analysis',
-  cats: ['UX'],
-  to: 'ux-battle-02',
-  keywords: 'google pay phonepe paytm usability retention payments upi'
-}, {
-  title: 'Dual-Transformer Emotion Recognition',
-  blurb: 'HuBERT + ViViT cross-attention model on RAVDESS, tested across four noise levels.',
-  year: '2026',
-  status: 'Co-author',
-  cats: ['Research', 'AI'],
-  to: 'emotion-recognition',
-  keywords: 'multimodal speech video transformer hubert vivit ravdess electrical engineering'
-}, {
-  title: 'Physics-Guided Diffusion for Power Flow Data',
-  blurb: 'Diffusion model that generates AC power-flow-feasible synthetic data.',
-  year: '2025',
-  status: 'Co-author',
-  cats: ['Research'],
-  to: 'power-flow-diffusion',
-  keywords: 'electrical engineering power systems ddpm diffusion pjm ieee'
-}, {
-  title: 'Phonological Fidelity in Indo-European Languages',
-  blurb: 'A consonant-retention index across French, Hindi/Sanskrit and English.',
-  year: '2026',
-  status: 'Open access',
-  cats: ['Research'],
-  to: 'phonological-fidelity',
-  keywords: 'linguistics indo-european grimm law zenodo pfi'
-}, {
-  title: 'Physics Preprint — Geometric Decoherence Theorem',
-  blurb: 'Published on Zenodo.',
-  year: '2025',
-  status: 'Preprint',
-  cats: ['Research'],
-  to: 'timeline',
-  keywords: 'physics zenodo decoherence'
-}, {
-  title: 'verified-intent-ir',
-  blurb: 'A small IR so a model’s claims about its own output can be checked, not trusted.',
-  year: '2026',
-  status: 'In-progress research',
-  cats: ['Research', 'Experiments', 'Dev Tools'],
-  to: 'verified-intent-ir',
-  keywords: 'python compiler llm reliability ir verification'
-}, {
-  title: 'Wayfound',
-  blurb: 'AI trip planner for Hyderabad outings — real venues, timings and routing.',
-  year: '2026',
-  status: 'Experiment',
-  cats: ['Experiments', 'AI'],
-  to: 'wayfound',
-  keywords: 'groq google places hackathon trip planning prompt engineering'
-}, {
-  title: 'Chai Lovers',
-  blurb: 'First client project — a dynamic website for a local cafe.',
-  year: '2025',
-  status: 'First client',
-  cats: ['Experiments'],
-  to: 'chai-lovers',
-  keywords: 'html css javascript client cafe website'
-}, {
-  title: 'Smart Waste Management System',
-  blurb: 'Natural-language querying module for a waste-classification system.',
-  year: '2026',
-  status: 'Academic collaboration',
-  cats: ['Experiments', 'AI'],
-  to: 'smart-waste-management-system',
-  keywords: 'python spacy deep learning nlp multi-label'
-}];
-
-const CHANNELS = [{
-  region: 'GITHUB — TEN+ PRODUCTION SYSTEMS',
-  href: LINKS.github
-}, {
-  region: 'LINKEDIN — PROFESSIONAL',
-  href: LINKS.linkedin
-}, {
-  region: 'ZENODO — PUBLISHED PAPER',
-  href: LINKS.zenodo
-}, {
-  region: 'CONSULTING — BA + UX DISCOVERY CALL',
-  href: LINKS.consulting
-}];
+// RESUME LINKS - 3 different versions
+const RESUMES = [
+  { type: 'Software Development', description: 'Full-Stack Engineering & Product', href: LINKS.resume_fullstack },
+  { type: 'AI Research', description: 'Papers & LLM Systems', href: LINKS.resume_research },
+  { type: 'Product Management', description: 'Implementation Engineering & Strategy', href: LINKS.resume_ba_ux }
+];
 
 /* ------------------------------------------------------------------ */
-/* SMALL PIECES                                                        */
+/* COMPONENTS                                                          */
 /* ------------------------------------------------------------------ */
+
+const Tag = ({ children }) => (
+  <HoverCard openDelay={200}>
+    <HoverCardTrigger asChild>
+      <Badge variant="outline" className="px-3 py-1 text-xs text-faint border-line rounded-full hover:bg-white/5 hover:text-foreground cursor-default transition-colors">
+        {children}
+      </Badge>
+    </HoverCardTrigger>
+    <HoverCardContent className="w-auto max-w-xs text-xs text-faint bg-background border-line">
+      Technology: {children}
+    </HoverCardContent>
+  </HoverCard>
+);
+
+const TagList = ({ items }) => <div className="flex flex-wrap gap-2">{items.map(t => <Tag key={t}>{t}</Tag>)}</div>;
 
 const isExternal = href => /^https?:\/\//.test(href || '');
-
-// Slug for in-page anchors, so the project index can jump to each write-up
-const toId = str => str.split(' — ')[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-
-const FramedImage = ({
-  src,
-  alt,
-  caption,
-  hoverColor = false
-}) => <div>
-        <div className="overflow-hidden">
-            <img src={src} alt={alt} loading="lazy" className={`w-full h-auto grayscale transition-all duration-700 ${hoverColor ? 'hover:grayscale-0 hover:scale-[1.02]' : ''}`} />
-        </div>
-        <p className="mt-4 caption-italic text-xs text-faint">{caption}</p>
-    </div>;
-
-const ListRow = ({
-  title,
-  meta,
-  year,
-  href,
-  index = 0
-}) => {
+const TextLink = ({ href, children }) => {
   const external = isExternal(href);
-  const cls = 'block border-t border-line py-6 md:py-8 group hover:bg-white/[0.03] transition-colors px-4 -mx-4';
-  const inner = <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
-            <div>
-                <h3 className="text-lg md:text-xl lg:text-2xl text-foreground font-light group-hover:text-soft transition-colors">
-                    {title}
-                </h3>
-                <p className="text-sm text-faint mt-1 md:mt-2 italic">{meta}</p>
-            </div>
-            <span className="text-sm text-dim font-display tracking-widest">{year}</span>
-        </div>;
-  return <Reveal y={30} delay={Math.min(index, 8) * 0.05}>
-            {external ? <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
-                    {inner}
-                </a> : <div className={cls}>{inner}</div>}
-        </Reveal>;
+  return <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} className="label-caps text-xs text-faint hover:text-foreground transition-colors underline underline-offset-4">{children}{external ? ' ↗' : ''}</a>;
 };
 
-const Rows = ({
-  children
-}) => <div>
-        {children}
-        <div className="border-t border-line" />
-    </div>;
-
-const Tag = ({
-  children
-}) => <span className="px-3 py-1 text-xs text-faint border border-line rounded-full">{children}</span>;
-
-const TagList = ({
-  items
-}) => <div className="flex flex-wrap gap-2">
-        {items.map(t => <Tag key={t}>{t}</Tag>)}
-    </div>;
-
-const TextLink = ({
-  href,
-  children
-}) => {
-  const external = isExternal(href);
-  return <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} className="label-caps text-xs text-faint hover:text-foreground transition-colors underline underline-offset-4">
-            {children}{external ? ' ↗' : ''}
-        </a>;
+const LinkRow = ({ links = [] }) => {
+  if (!links.length) return null;
+  return <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6">{links.map(l => <TextLink key={l.label} href={l.href}>{l.label}</TextLink>)}</div>;
 };
 
-const LinkRow = ({
-  links = [],
-  note
-}) => {
-  if (!links.length && !note) return null;
-  return <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6">
-            {links.map(l => <TextLink key={l.label} href={l.href}>{l.label}</TextLink>)}
-            {note && <span className="label-caps text-xs text-dim">{note}</span>}
-        </div>;
-};
+const StatGrid = ({ items }) => (
+  <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8 border-y border-line py-10">
+    {items.map(s => (
+      <div key={s.label} className="flex flex-col-reverse gap-2">
+        <dt className="label-caps text-xs text-faint">{s.label}</dt>
+        <dd className="font-display font-medium tracking-tight text-foreground text-4xl lg:text-6xl">{s.value}</dd>
+      </div>
+    ))}
+  </dl>
+);
 
-const StatGrid = ({
-  items,
-  compact = false
-}) => <dl className={`grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8 border-y border-line ${compact ? 'py-6 my-8' : 'py-10'}`}>
-        {items.map(s => <div key={s.label} className="flex flex-col-reverse gap-2">
-                <dt className="label-caps text-xs text-faint">{s.label}</dt>
-                <dd className={`font-display font-medium tracking-tight text-foreground ${compact ? 'text-2xl lg:text-3xl' : 'text-4xl lg:text-6xl'}`}>
-                    {s.value}
-                </dd>
-            </div>)}
-    </dl>;
-
-const Section = ({
-  id,
-  label,
-  title,
-  intro,
-  panel = false,
-  children
-}) => <section id={id} className={`section-padding${panel ? ' bg-panel' : ''}`}>
-        <div className="max-w-7xl mx-auto">
-            <SectionLabel>{label}</SectionLabel>
-            <Reveal y={40}>
-                <h2 className={`font-display font-medium uppercase text-[10vw] lg:text-section leading-none tracking-tight ${intro ? 'mb-8 lg:mb-10' : 'mb-16 lg:mb-24'}`}>
-                    {title}
-                </h2>
-            </Reveal>
-            {intro && <Reveal y={20} className="max-w-2xl mb-16 lg:mb-24">
-                    <p className="text-base lg:text-lg text-soft leading-relaxed">{intro}</p>
-                </Reveal>}
-            {children}
+const Section = ({ id, label, title, intro, icon, panel = false, children }) => (
+  <section id={id} className={`section-padding${panel ? ' bg-panel' : ''}`}>
+    <div className="max-w-7xl mx-auto">
+      <SectionLabel>{label}</SectionLabel>
+      <Reveal y={40}>
+        <div className="flex items-center gap-6 mb-8 lg:mb-10">
+          <h2 className={`font-display font-medium uppercase text-[10vw] lg:text-section leading-none tracking-tight`}>{title}</h2>
         </div>
-    </section>;
+      </Reveal>
+      {intro && <Reveal y={20} className="max-w-2xl mb-16 lg:mb-24"><p className="text-base lg:text-lg text-soft leading-relaxed">{intro}</p></Reveal>}
+      {children}
+    </div>
+  </section>
+);
 
-const SubHeading = ({
-  children,
-  note
-}) => <Reveal y={30} className="mt-20 lg:mt-28 mb-8 lg:mb-10">
-        <h3 className="font-display font-medium uppercase text-2xl lg:text-4xl tracking-tight text-soft">
-            {children}
-        </h3>
-        {note && <p className="mt-4 text-sm lg:text-base text-faint max-w-2xl leading-relaxed">{note}</p>}
-    </Reveal>;
+const FramedImage = ({ src, alt }) => (
+  <div className="overflow-hidden">
+    <img src={src} alt={alt} loading="lazy" className="w-full h-auto grayscale hover:grayscale-0 hover:scale-[1.02] transition-all duration-700" />
+  </div>
+);
 
-// Generic detailed row — used for AI builds, dev tools, UX cases, research, experiments
-const ProjectRow = ({
-  item
-}) => <Reveal y={40}>
-        <article id={item.id || toId(item.title)} className="scroll-mt-24 border-t border-line py-8 md:py-12 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-                <div className="lg:col-span-5">
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3">
-                        {item.title}
-                    </h3>
-                    {item.status && <p className="label-caps text-xs text-faint">{item.status}</p>}
-                    {item.meta && <p className="text-sm text-dim mt-2 italic">{item.meta}</p>}
+// FLAGSHIP CARD - SINGLE COLUMN with EXPANDABLE INSIGHT
+const FlagshipCard = ({ item, index }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <Reveal y={40} delay={index * 0.1}>
+      <motion.article 
+        className="border-t border-line py-8 md:py-12 group relative"
+        whileHover={{ x: 4 }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="lg:col-span-5">
+            <motion.div
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <Badge variant="outline" className="border-foreground/20 text-faint">
+                  Flagship
+                </Badge>
+              </div>
+              <h3 className="font-display font-medium uppercase text-2xl md:text-3xl lg:text-4xl leading-none tracking-tight text-foreground mb-4 group-hover:text-white transition-colors duration-300">
+                {item.name}
+              </h3>
+              <p className="text-sm lg:text-base text-soft leading-relaxed mb-4">
+                {item.tagline}
+              </p>
+              
+              {/* Media preview for flagship projects */}
+              {item.media && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="overflow-hidden rounded-sm border border-line/50 mb-4"
+                >
+                  {item.media.type === 'video' ? (
+                    <video
+                      src={item.media.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-auto"
+                    />
+                  ) : item.media.type === 'image' ? (
+                    <img
+                      src={item.media.src}
+                      alt={item.name}
+                      className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500"
+                    />
+                  ) : item.media.type === 'gif' ? (
+                    <img
+                      src={item.media.src}
+                      alt={item.name}
+                      className="w-full h-auto"
+                    />
+                  ) : null}
+                </motion.div>
+              )}
+              
+              {item.links && item.links.length > 0 && (
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {item.links.map(link => (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      target={isExternal(link.href) ? '_blank' : undefined}
+                      rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+                      className="relative group/link px-4 py-2 border border-line text-xs text-faint hover:text-white transition-all duration-300 overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
+                      <span className="relative z-10 group-hover/link:text-white transition-colors">
+                        {link.label}
+                      </span>
+                    </motion.a>
+                  ))}
                 </div>
-                <div className="lg:col-span-7">
-                    <p className="text-faint leading-relaxed mb-6 text-sm lg:text-base">{item.description}</p>
-                    {item.highlights && <ul className="space-y-3 mb-6">
-                            {item.highlights.map(h => <li key={h} className="text-sm lg:text-base text-soft leading-relaxed pl-4 border-l border-line">
-                                    {h}
-                                </li>)}
-                        </ul>}
-                    {item.finding && <div className="pl-4 border-l border-line mb-6">
-                            <span className="label-caps text-xs text-faint block mb-2">Key finding</span>
-                            <p className="text-sm lg:text-base text-soft leading-relaxed">{item.finding}</p>
-                        </div>}
-                    {item.facts && <dl className="flex flex-wrap gap-x-8 gap-y-2 mb-6">
-                            {item.facts.map(([k, v]) => <div key={k} className="flex gap-2 text-xs">
-                                    <dt className="label-caps text-dim">{k}</dt>
-                                    <dd className="text-faint">{v}</dd>
-                                </div>)}
-                        </dl>}
-                    {item.stack && <TagList items={item.stack} />}
-                    <LinkRow links={item.links} note={item.note} />
-                </div>
-            </div>
-        </article>
-    </Reveal>;
+              )}
+            </motion.div>
+          </div>
 
-// Flagship card — headline metrics up front, full case study expands on click
-const FlagshipCard = ({
-  item
-}) => {
-  const [open, setOpen] = useState(false);
-  return <Reveal y={40}>
-            <article id={toId(item.name)} className="scroll-mt-24 border-t border-line py-10 md:py-14 lg:py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-                    <div className="lg:col-span-5">
-                        <p className="label-caps text-xs text-faint mb-3">{item.kicker}</p>
-                        <h3 className="font-display font-medium uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight text-foreground">
-                            {item.name}
-                        </h3>
-                        <p className="label-caps text-xs text-dim mt-4">{item.status}</p>
-                    </div>
-                    <div className="lg:col-span-7">
-                        <p className="text-base lg:text-lg text-soft leading-relaxed">{item.tagline}</p>
-                        <StatGrid items={item.metrics} compact />
-                        <TagList items={item.tags} />
-                        <LinkRow links={item.links} note={item.note} />
-
-                        <button type="button" onClick={() => setOpen(o => !o)} aria-expanded={open} className="mt-8 label-caps text-xs text-soft hover:text-foreground transition-colors underline underline-offset-4">
-                            {open ? '− Close case study' : '+ Case study'}
-                        </button>
-
-                        <AnimatePresence initial={false}>
-                            {open && <motion.div key="detail" initial={{
-              opacity: 0,
-              height: 0
-            }} animate={{
-              opacity: 1,
-              height: 'auto'
-            }} exit={{
-              opacity: 0,
-              height: 0
-            }} transition={{
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1]
-            }} className="overflow-hidden">
-                                    <div className="pt-8">
-                                        <p className="text-faint leading-relaxed text-sm lg:text-base mb-8">
-                                            {item.description}
-                                        </p>
-                                        <div className="pl-4 border-l border-line">
-                                            <span className="label-caps text-xs text-faint block mb-2">
-                                                Engineering insight
-                                            </span>
-                                            <p className="text-sm lg:text-base text-soft leading-relaxed">{item.insight}</p>
-                                        </div>
-                                    </div>
-                                </motion.div>}
-                        </AnimatePresence>
-                    </div>
-                </div>
-            </article>
-        </Reveal>;
-};
-
-const Battle = ({
-  battle
-}) => <Reveal y={40}>
-        <article id={toId(battle.title)} className="scroll-mt-24 border-t border-line py-8 md:py-12 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-                <div className="lg:col-span-5">
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3">
-                        {battle.title}
-                    </h3>
-                    <p className="text-sm text-dim italic">{battle.apps}</p>
-                </div>
-                <div className="lg:col-span-7">
-                    {battle.soon ? <p className="label-caps text-xs text-faint">Coming soon</p> : <>
-                            <p className="text-faint leading-relaxed mb-8 text-sm lg:text-base">{battle.intro}</p>
-                            <div className="mb-8">
-                                {battle.rows.map(([observation, concept]) => <div key={observation} className="grid grid-cols-1 md:grid-cols-5 gap-1 md:gap-6 border-t border-line py-3">
-                                        <p className="md:col-span-3 text-sm lg:text-base text-soft leading-relaxed">
-                                            {observation}
-                                        </p>
-                                        <p className="md:col-span-2 label-caps text-xs text-faint md:text-right">
-                                            {concept}
-                                        </p>
-                                    </div>)}
-                            </div>
-                            {battle.closing && <p className="text-sm lg:text-base text-faint leading-relaxed pl-4 border-l border-line">
-                                    {battle.closing}
-                                </p>}
-                        </>}
-                </div>
-            </div>
-        </article>
-    </Reveal>;
-
-const IndexRow = ({
-  project: p
-}) => <a href={`#${p.to}`} className="block border-t border-line py-5 md:py-6 group hover:bg-white/[0.03] transition-colors px-4 -mx-4">
-        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-6">
-            <div>
-                <h3 className="text-lg md:text-xl lg:text-2xl font-light text-foreground group-hover:text-soft transition-colors">
-                    {p.title}
-                </h3>
-                <p className="text-sm text-faint mt-1">{p.blurb}</p>
-                <p className="label-caps text-xs text-dim mt-2">{p.status} · {p.cats.join(' / ')}</p>
-            </div>
-            {p.year && <span className="text-sm text-dim font-display tracking-widest shrink-0">{p.year}</span>}
-        </div>
-    </a>;
-
-// Search + category filter over every project on the page
-const ProjectIndex = () => {
-  const [query, setQuery] = useState('');
-  const [filter, setFilter] = useState('All');
-  const q = query.trim().toLowerCase();
-  const results = ALL_PROJECTS.filter(p => (filter === 'All' || p.cats.includes(filter)) && (!q || `${p.title} ${p.blurb} ${p.status} ${p.cats.join(' ')} ${p.keywords}`.toLowerCase().includes(q)));
-  return <>
-            <div className="mb-8 max-w-2xl">
-                <label htmlFor="project-search" className="sr-only">Search projects</label>
-                <input id="project-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by project, stack, domain — e.g. mongodb, healthcare, ai" className="w-full bg-transparent border-b border-line py-3 text-base lg:text-lg text-foreground placeholder:text-dim focus:outline-none focus:border-soft transition-colors" />
-            </div>
-            <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2 mb-10">
-                {FILTERS.map(f => <button key={f} type="button" onClick={() => setFilter(f)} aria-pressed={filter === f} className={`px-3 py-1 text-xs rounded-full border transition-colors ${filter === f ? 'border-foreground text-foreground' : 'border-line text-faint hover:border-dim'}`}>
-                        {f}
-                    </button>)}
-            </div>
-            <p className="label-caps text-xs text-dim mb-4" aria-live="polite">
-                {results.length} of {ALL_PROJECTS.length} projects
+          <div className="lg:col-span-7">
+            <p className="text-sm lg:text-base text-soft leading-relaxed mb-4">
+              {item.description}
             </p>
-            <div>
-                {results.map(p => <IndexRow key={p.title} project={p} />)}
-                <div className="border-t border-line" />
+
+            {/* Metrics grid */}
+            <dl className="grid grid-cols-2 gap-3 mb-6">
+              {item.metrics.map((m, idx) => (
+                <motion.div 
+                  key={m.label}
+                  className="relative p-3 border border-line group-hover:border-foreground/30 transition-colors duration-300 bg-background/50"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(6, 182, 212, 0.5)' }}
+                >
+                  <dd className="font-display text-2xl lg:text-3xl font-medium text-foreground mb-1">{m.value}</dd>
+                  <dt className="text-xs text-faint uppercase tracking-wider">{m.label}</dt>
+                </motion.div>
+              ))}
+            </dl>
+
+            {/* Tags */}
+            <div className="mb-4">
+              <TagList items={item.tags.slice(0, 7)} />
             </div>
-            {!results.length && <p className="text-faint py-8">No projects match. Clear the search or pick another filter.</p>}
-        </>;
+
+            {/* Expandable Engineering Insight */}
+            <motion.div
+              initial={false}
+              animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden"
+            >
+              <div className="pt-4 border-t border-line mt-4">
+                <p className="text-xs uppercase tracking-wider text-faint mb-2">Engineering Insight</p>
+                <p className="text-sm text-soft leading-relaxed italic">
+                  {item.insight}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Expand/Collapse button */}
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-4 text-xs uppercase tracking-wider text-faint hover:text-cyan-400 transition-colors flex items-center gap-2"
+            >
+              {isExpanded ? '− Hide' : '+ View'} Engineering Insight
+            </button>
+          </div>
+        </div>
+      </motion.article>
+    </Reveal>
+  );
+};
+
+// UX CARD - Expandable for both case studies and battles
+const UXCard = ({ item, index }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isBattle = item.type === 'battle';
+  
+  return (
+    <Reveal y={40} delay={index * 0.1}>
+      <motion.article 
+        className="border-t border-line group relative overflow-hidden cursor-pointer"
+        whileHover={{ 
+          scale: isBattle ? 1.005 : 1.002,
+          transition: { duration: 0.3 }
+        }}
+      >
+        {/* Animated background gradient on hover */}
+        <motion.div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: isBattle 
+              ? 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.03) 0%, transparent 50%)'
+              : 'linear-gradient(90deg, rgba(255,255,255,0.02) 0%, transparent 100%)'
+          }}
+        />
+        
+        {/* Clickable header */}
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 relative z-10 py-8 md:py-12"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <div className="lg:col-span-5">
+            <motion.div
+              whileHover={{ x: isBattle ? 8 : 4 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isBattle && (
+                <Badge variant="outline" className="mb-3 border-amber-500/30 text-amber-400/80 hover:border-amber-400 transition-colors">
+                  ⚔️ UX Battle
+                </Badge>
+              )}
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3 group-hover:text-white transition-colors duration-300 flex items-center gap-3">
+                {item.title}
+                <motion.span 
+                  className="text-sm text-faint"
+                  animate={{ rotate: isExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  ↓
+                </motion.span>
+              </h3>
+              {item.apps && (
+                <p className="label-caps text-xs text-faint mb-4 group-hover:text-soft transition-colors">
+                  {item.apps}
+                </p>
+              )}
+            </motion.div>
+          </div>
+          
+          <div className="lg:col-span-7">
+            {item.intro && (
+              <p className={`text-base lg:text-lg text-soft group-hover:text-foreground transition-colors duration-300 ${!isExpanded ? 'line-clamp-3' : ''}`}>
+                {item.intro}
+              </p>
+            )}
+            {!isBattle && item.description && (
+              <p className={`text-faint leading-relaxed text-sm lg:text-base group-hover:text-soft transition-colors duration-300 ${!isExpanded ? 'line-clamp-3' : ''}`}>
+                {item.description}
+              </p>
+            )}
+            {!isExpanded && (
+              <p className="text-xs text-dim mt-2 group-hover:text-faint transition-colors">
+                Click to expand →
+              </p>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Expandable content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden relative z-10"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 pb-8 border-t border-line/30 pt-6">
+                <div className="lg:col-span-5" />
+                <div className="lg:col-span-7">
+                  {item.highlights && (
+                    <ul className="space-y-3 mb-6">
+                      {item.highlights.map((h, i) => (
+                        <motion.li 
+                          key={h}
+                          className="text-sm lg:text-base text-soft leading-relaxed pl-4 border-l border-line hover:border-foreground/30 transition-colors duration-300"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                          whileHover={{ x: 4, borderLeftColor: 'rgba(255,255,255,0.5)' }}
+                        >
+                          {h}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  {/* Battle rows with unique hover effects */}
+                  {isBattle && item.rows && item.rows.length > 0 && (
+                    <div className="space-y-4 mb-6">
+                      {item.rows.map((row, i) => (
+                        <motion.div 
+                          key={i}
+                          className="border-b border-line/50 pb-4"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                        >
+                          <div className="space-y-2">
+                            <motion.p 
+                              className="text-sm lg:text-base text-soft hover:text-foreground transition-colors"
+                              whileHover={{ x: 4 }}
+                            >
+                              {row[0]}
+                            </motion.p>
+                            <motion.p 
+                              className="text-sm text-faint italic hover:text-amber-400/70 transition-colors pl-4"
+                              whileHover={{ x: 4 }}
+                            >
+                              → {row[1]}
+                            </motion.p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {item.closing && (
+                    <motion.div 
+                      className="pl-4 border-l border-line hover:border-amber-500/50 mb-6 transition-colors duration-300"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.3 }}
+                      whileHover={{ paddingLeft: '20px', transition: { duration: 0.3 } }}
+                    >
+                      <span className="label-caps text-xs text-faint block mb-2 hover:text-amber-400/70 transition-colors">
+                        Conclusion
+                      </span>
+                      <p className="text-sm lg:text-base text-soft leading-relaxed hover:text-foreground transition-colors duration-300">
+                        {item.closing}
+                      </p>
+                    </motion.div>
+                  )}
+                  
+                  {item.tags && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.25, duration: 0.3 }}
+                    >
+                      <TagList items={item.tags} />
+                    </motion.div>
+                  )}
+                  {item.links && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.3 }}
+                    >
+                      <LinkRow links={item.links} />
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.article>
+    </Reveal>
+  );
+};
+
+// EXPANDABLE PROJECT ROW - For AI, DevTools with click-to-expand
+const ProjectRow = ({ item, sectionType = 'default', index = 0 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Different animation styles per section
+  const getHoverAnimation = () => {
+    switch(sectionType) {
+      case 'ai':
+        return { 
+          scale: 1.01,
+          boxShadow: '0 0 30px rgba(139, 92, 246, 0.1)',
+          borderColor: 'rgba(139, 92, 246, 0.3)'
+        };
+      case 'devtools':
+        return { 
+          scale: 1.005,
+          x: 5,
+          boxShadow: '0 0 20px rgba(34, 197, 94, 0.1)',
+          borderColor: 'rgba(34, 197, 94, 0.3)'
+        };
+      case 'research':
+        return { 
+          backgroundColor: 'rgba(255,255,255,0.01)',
+          borderColor: 'rgba(59, 130, 246, 0.3)'
+        };
+      default:
+        return { scale: 1.002 };
+    }
+  };
+
+  const getTitleColorClass = () => {
+    switch(sectionType) {
+      case 'ai': return 'group-hover:text-purple-300';
+      case 'devtools': return 'group-hover:text-green-300';
+      case 'research': return 'group-hover:text-blue-300';
+      default: return 'group-hover:text-white';
+    }
+  };
+
+  const getAccentColor = () => {
+    switch(sectionType) {
+      case 'ai': return 'rgba(139, 92, 246, 0.5)';
+      case 'devtools': return 'rgba(34, 197, 94, 0.5)';
+      default: return 'rgba(6, 182, 212, 0.5)';
+    }
+  };
+
+  return (
+    <Reveal y={40} delay={index * 0.08}>
+      <motion.article 
+        className="border-t border-line group relative cursor-pointer"
+        whileHover={getHoverAnimation()}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        {/* Clickable header area */}
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 py-8 md:py-12"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <div className="lg:col-span-5">
+            <motion.div
+              whileHover={{ x: sectionType === 'devtools' ? 8 : 4 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h3 className={`text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3 ${getTitleColorClass()} transition-colors duration-300 flex items-center gap-3`}>
+                {item.title}
+                <motion.span 
+                  className="text-sm text-faint"
+                  animate={{ rotate: isExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  ↓
+                </motion.span>
+              </h3>
+              {item.meta && <p className="text-sm text-dim italic group-hover:text-faint transition-colors">{item.meta}</p>}
+              {item.tagline && <p className="text-base lg:text-lg text-soft mt-3 group-hover:text-foreground transition-colors">{item.tagline}</p>}
+            </motion.div>
+          </div>
+          <div className="lg:col-span-7">
+            <p className={`text-faint leading-relaxed text-sm lg:text-base group-hover:text-soft transition-colors duration-300 ${!isExpanded ? 'line-clamp-2' : ''}`}>
+              {item.description}
+            </p>
+            {!isExpanded && (
+              <p className="text-xs text-dim mt-2 group-hover:text-faint transition-colors">
+                Click to expand →
+              </p>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Expandable content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 pb-8 border-t border-line/30 pt-6">
+                {/* Left column - Show media when expanded */}
+                <div className="lg:col-span-5">
+                  {item.media && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      className="overflow-hidden rounded-sm border border-line/50"
+                    >
+                      {item.media.type === 'video' ? (
+                        <video
+                          src={item.media.src}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto"
+                        />
+                      ) : item.media.type === 'image' ? (
+                        <img
+                          src={item.media.src}
+                          alt={item.title}
+                          className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500"
+                        />
+                      ) : item.media.type === 'gif' ? (
+                        <img
+                          src={item.media.src}
+                          alt={item.title}
+                          className="w-full h-auto"
+                        />
+                      ) : null}
+                    </motion.div>
+                  )}
+                </div>
+                <div className="lg:col-span-7">
+                  {item.highlights && item.highlights.length > 0 && (
+                    <ul className="space-y-3 mb-6">
+                      {item.highlights.map((h, i) => (
+                        <motion.li 
+                          key={h}
+                          className="text-sm lg:text-base text-soft leading-relaxed pl-4 border-l border-line hover:border-foreground/40 transition-all duration-300"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                          whileHover={{ 
+                            x: 6, 
+                            borderLeftWidth: '3px',
+                            borderLeftColor: getAccentColor(),
+                            transition: { duration: 0.2 }
+                          }}
+                        >
+                          {h}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  )}
+                  {item.finding && (
+                    <motion.div 
+                      className="pl-4 border-l border-line mb-6 hover:border-blue-500/50 transition-colors duration-300"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1, duration: 0.3 }}
+                      whileHover={{ paddingLeft: '24px', transition: { duration: 0.3 } }}
+                    >
+                      <span className="label-caps text-xs text-faint block mb-2 hover:text-blue-400/80 transition-colors">
+                        Key finding
+                      </span>
+                      <p className="text-sm lg:text-base text-soft leading-relaxed">
+                        {item.finding}
+                      </p>
+                    </motion.div>
+                  )}
+                  {item.insight && (
+                    <motion.div 
+                      className="pl-4 border-l border-line mb-6 hover:border-purple-500/50 transition-colors duration-300"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15, duration: 0.3 }}
+                      whileHover={{ paddingLeft: '24px', transition: { duration: 0.3 } }}
+                    >
+                      <span className="label-caps text-xs text-faint block mb-2 hover:text-purple-400/80 transition-colors">
+                        Engineering insight
+                      </span>
+                      <p className="text-sm lg:text-base text-soft leading-relaxed">
+                        {item.insight}
+                      </p>
+                    </motion.div>
+                  )}
+                  {item.tags && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.3 }}
+                      className="mb-4"
+                    >
+                      <TagList items={item.tags} />
+                    </motion.div>
+                  )}
+                  {item.links && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.25, duration: 0.3 }}
+                    >
+                      <LinkRow links={item.links} />
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.article>
+    </Reveal>
+  );
 };
 
 /* ------------------------------------------------------------------ */
-/* PAGE                                                                */
+/* MAIN PAGE                                                           */
 /* ------------------------------------------------------------------ */
 
 const HomePage = () => {
-  return <div className="portfolio-shell min-h-screen text-foreground">
-            <Helmet>
-                <title>Tharun Rathod — Engineer, Founder, Researcher</title>
-                <meta name="description" content="Tharun Rathod is a solo founder, software engineer and independent researcher at IIT Roorkee, building production systems across education, healthcare, hiring and developer tooling. Open to full-stack, BA / UX and AI research internships." />
-            </Helmet>
-            <Seo title="Tharun Rathod — Engineer, Founder, Researcher" description="Solo founder and independent researcher building production-grade software systems, AI products and developer tools." image={IMAGES.hero} siteName="Tharun Rathod" />
+  return (
+    <div className="portfolio-shell min-h-screen text-foreground">
+      <Helmet>
+        <title>Tharun Rathod - Engineer, Founder, Researcher</title>
+      </Helmet>
+      <Seo title="Tharun Rathod - Engineer, Founder, Researcher" description="Solo founder and independent researcher building production-grade software systems, AI products and developer tools." image={IMAGES.hero} siteName="Tharun Rathod" />
 
-            <div className="grain-overlay" aria-hidden="true" />
-            <SideNav />
+      <div className="grain-overlay" aria-hidden="true" />
+      <SideNav />
 
-            <main>
-                {/* HERO */}
-                <section className="relative h-[100dvh] min-h-[560px] w-full overflow-hidden">
-                    <div className="absolute inset-0 w-full h-full">
-                        <img src={IMAGES.hero} alt="Tharun Rathod" className="w-full h-full object-cover object-center grayscale" />
-                        <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
+      <main>
+        {/* HERO - CLEAN */}
+        <section className="relative h-[100dvh] min-h-[560px] w-full overflow-hidden">
+          <img 
+            src={IMAGES.hero} 
+            alt="Tharun Rathod" 
+            className="absolute inset-0 w-full h-full object-cover object-center grayscale"
+          />
+          <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
+
+          {/* Content */}
+          <div className="relative z-10 h-full flex items-end md:items-center pb-32 md:pb-0 px-4 sm:px-6 md:px-12 lg:px-16">
+            <div className="w-full max-w-5xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <h1 className="font-display font-medium uppercase leading-none tracking-tighter text-[15vw] sm:text-[12vw] md:text-hero">
+                  <span className="block text-white">Tharun</span>
+                  <span className="block text-white">Rathod</span>
+                </h1>
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  <p className="mt-6 md:mt-8 label-caps text-xs sm:text-sm text-white/70">Engineer. Founder. Researcher.</p>
+                  <p className="mt-3 text-sm sm:text-base text-white/80 max-w-sm md:max-w-md leading-relaxed">
+                    Ten-plus production systems built solo and five research papers, alongside a B.Tech in Electrical Engineering at IIT Roorkee.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                    <a 
+                      href="#projects" 
+                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
+                    >
+                      View flagship work
+                    </a>
+                    <a 
+                      href="#research" 
+                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
+                    >
+                      Research
+                    </a>
+                    {LINKS.resume && (
+                      <a 
+                        href={LINKS.resume} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
+                      >
+                        Resume ↗
+                      </a>
+                    )}
+                    <a 
+                      href={LINKS.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
+                    >
+                      GitHub ↗
+                    </a>
+                    <a 
+                      href="#contact" 
+                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
+                    >
+                      Contact
+                    </a>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section id="about" className="section-padding">
+          <div className="max-w-7xl mx-auto">
+            <SectionLabel>About Tharun</SectionLabel>
+            <Reveal y={40} className="mb-16 lg:mb-24">
+              <p className="text-xl lg:text-3xl font-light text-soft leading-snug max-w-4xl">
+                Solo founder building products from 0→1. Ships production systems end-to-end - product vision, technical architecture, user acquisition, revenue. Edcore (300+ users, 4 live modules), Rune (optimizing compiler), SmartAsset (enterprise infrastructure), and 7+ shipped projects. Founder-engineer who writes code, talks to users, and owns P&L.
+              </p>
+              <p className="mt-6 label-caps text-xs text-faint">{DOMAINS.join(' · ')}</p>
+            </Reveal>
+            <Reveal y={40} className="mb-24 lg:mb-32">
+              <StatGrid items={STATS} />
+            </Reveal>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
+              <Reveal y={40}><FramedImage src={IMAGES.build} alt="Code on screen" /></Reveal>
+              <Reveal className="flex items-center" y={40} delay={0.1}>
+                <p className="text-base lg:text-lg text-soft leading-relaxed">
+                  The B.Tech is in Electrical Engineering. The real work is building companies. Tharun is a solo founder who ships production systems - from zero to live users - across education (Edcore, 300+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught circuits. The startups taught everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* FLAGSHIP PROJECTS - SINGLE COLUMN */}
+        <Section id="projects" label="Flagship" title={<>Flagship<br />Projects</>} intro="Four production-grade systems built solo - from education OS to optimizing compilers." panel>
+          {FLAGSHIP.map((item, idx) => <FlagshipCard key={item.name} item={item} index={idx} />)}
+          <div className="border-t border-line" />
+        </Section>
+
+        {/* AI & ML */}
+        <Section id="ai" label="AI & Machine Learning" title="AI & ML" intro="AI/ML projects under real constraints - genuine AI where it earns its place." icon={<FaBrain />}>
+          {AI_BUILDS.map((item, idx) => <ProjectRow key={item.title} item={item} sectionType="ai" index={idx} />)}
+          <div className="border-t border-line" />
+        </Section>
+
+        {/* DEV TOOLS */}
+        <Section id="tools" label="Developer Tools" title={<>Dev<br />Tools</>} intro="Tools built for developers." icon={<FaCode />} panel>
+          {DEV_TOOLS.map((item, idx) => <ProjectRow key={item.title} item={item} sectionType="devtools" index={idx} />)}
+          <div className="border-t border-line" />
+        </Section>
+
+        {/* PRODUCT STUDIES - CASES AND BATTLES */}
+        <Section id="ux" label="Product Studies" title={<>Product<br />Studies</>} intro="Real apps analyzed - case studies, competitive battles, and product proposals. Every UX and business decision broken down.">
+          {UX_WORK.map((item, idx) => <UXCard key={item.title} item={item} index={idx} />)}
+          <div className="border-t border-line" />
+        </Section>
+
+        {/* SKILLS */}
+        <Section id="skills" label="Expertise" title="Skills" panel>
+          {/* Icon-based Tech Stack */}
+          <Reveal y={40} className="mb-16 lg:mb-20">
+            <h3 className="text-xl md:text-2xl font-light text-foreground mb-8">Tech Stack</h3>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 lg:gap-8">
+              {[
+                { name: 'Python', icon: '🐍', color: '#3776AB' },
+                { name: 'JavaScript', icon: '⚡', color: '#F7DF1E' },
+                { name: 'TypeScript', icon: 'TS', color: '#3178C6' },
+                { name: 'React', icon: '⚛️', color: '#61DAFB' },
+                { name: 'Next.js', icon: '▲', color: '#FFFFFF' },
+                { name: 'Node.js', icon: '🟢', color: '#339933' },
+                { name: 'MongoDB', icon: '🍃', color: '#47A248' },
+                { name: 'PostgreSQL', icon: '🐘', color: '#4169E1' },
+                { name: 'C++', icon: 'C++', color: '#00599C' },
+                { name: 'Python ML', icon: '🤖', color: '#FF6F00' },
+                { name: 'Git', icon: '📦', color: '#F05032' },
+                { name: 'Docker', icon: '🐳', color: '#2496ED' }
+              ].map((tech, i) => (
+                <Reveal key={tech.name} y={20} delay={i * 0.05}>
+                  <motion.div
+                    className="group relative flex flex-col items-center justify-center p-6 bg-background/50 border border-line rounded-lg hover:border-foreground/30 transition-all duration-300 cursor-pointer"
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: `0 8px 30px ${tech.color}20`,
+                      borderColor: `${tech.color}50`
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                      {tech.icon}
                     </div>
-                    <div className="relative z-10 h-full flex items-end md:items-center pb-32 md:pb-0 px-4 sm:px-6 md:px-12 lg:px-16">
-                        <div className="w-full max-w-5xl">
-                            <motion.div initial={{
-              opacity: 0,
-              y: 40
-            }} animate={{
-              opacity: 1,
-              y: 0
-            }} transition={{
-              duration: 0.9,
-              delay: 0.2,
-              ease: [0.22, 1, 0.36, 1]
-            }}>
-                                <h1 className="font-display font-medium uppercase leading-none tracking-tighter text-[15vw] sm:text-[12vw] md:text-hero"><span className="block text-white">Tharun</span><span className="block text-white">Rathod</span></h1>
-                                <motion.div initial={{
-                opacity: 0
-              }} animate={{
-                opacity: 1
-              }} transition={{
-                duration: 0.8,
-                delay: 0.7
-              }}>
-                                    <p className="mt-6 md:mt-8 label-caps text-xs sm:text-sm text-white/70">
-                                        Engineer. Founder. Researcher.
-                                    </p>
-                                    <p className="mt-3 text-sm sm:text-base text-white/80 max-w-sm md:max-w-md leading-relaxed">
-                                        Ten-plus production systems built solo and five research papers, alongside
-                                        a B.Tech in Electrical Engineering at IIT Roorkee.
-                                    </p>
-                                    <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-                                        <a href="#projects" className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4">
-                                            View flagship work
-                                        </a>
-                                        <a href="#research" className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4">
-                                            Research
-                                        </a>
-                                        {LINKS.resume && <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4">
-                                                Resume ↗
-                                            </a>}
-                                        <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4">
-                                            GitHub ↗
-                                        </a>
-                                        <a href="#contact" className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4">
-                                            Contact
-                                        </a>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </div>
-                </section>
+                    <span className="text-xs text-faint group-hover:text-soft transition-colors">
+                      {tech.name}
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-10 transition-opacity"
+                      style={{ backgroundColor: tech.color }}
+                    />
+                  </motion.div>
+                </Reveal>
+              ))}
+            </div>
+          </Reveal>
 
-                {/* ABOUT */}
-                <section id="about" className="section-padding">
-                    <div className="max-w-7xl mx-auto">
-                        <SectionLabel>About Tharun</SectionLabel>
+          {/* Original Skills List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 lg:gap-y-6 mb-20 lg:mb-28">
+            {SKILLS.map((skill, i) => (
+              <Reveal key={skill} y={24} delay={i * 0.04}>
+                <div className="border-b border-line pb-4 group">
+                  <span className="text-lg md:text-xl lg:text-2xl text-soft font-light group-hover:text-foreground transition-colors duration-300">{skill}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          
+          <Reveal y={40}>
+            <Tabs defaultValue={SKILL_GROUPS[0].label} className="w-full">
+              <TabsList className="w-full justify-start border-b border-line rounded-none bg-transparent h-auto p-0 mb-8">
+                {SKILL_GROUPS.map(group => (
+                  <TabsTrigger 
+                    key={group.label}
+                    value={group.label}
+                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent bg-transparent px-4 py-3 text-sm font-normal text-faint data-[state=active]:text-foreground"
+                  >
+                    {group.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              {SKILL_GROUPS.map((group) => (
+                <TabsContent key={group.label} value={group.label} className="mt-0">
+                  <div className="py-6">
+                    <TagList items={group.items} />
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </Reveal>
+        </Section>
 
-                        <Reveal y={40} className="mb-16 lg:mb-24">
-                            <p className="text-xl lg:text-3xl font-light text-soft leading-snug max-w-4xl">
-                                Solo founder, software engineer, and independent researcher — building scalable
-                                backend systems, AI products, developer tooling, and workflow automation
-                                platforms across education, healthcare, hiring, and enterprise domains.
+        {/* EXPERIENCE */}
+        <Section id="experience" label="Career" title={<>Work<br />Experience</>}>
+          {EXPERIENCE.map(job => (
+            <Reveal key={job.company} y={40}>
+              <article className="border-t border-line py-8 md:py-12 lg:py-16 group">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+                  <div className="lg:col-span-5">
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-2">{job.role}</h3>
+                    <p className="text-base lg:text-lg text-faint">{job.company}</p>
+                  </div>
+                  <div className="lg:col-span-2">
+                    <p className="label-caps text-sm text-faint">{job.period}</p>
+                  </div>
+                  <div className="lg:col-span-5">
+                    <p className="text-faint leading-relaxed mb-6 text-sm lg:text-base">{job.description}</p>
+                    <div className="flex flex-wrap gap-2">{job.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}</div>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+          <div className="border-t border-line" />
+        </Section>
+
+        {/* RESEARCH - NO DUPLICATES */}
+        <Section id="research" label="Papers & Publications" title="Research" intro="Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access." panel>
+          <Reveal y={40}>
+            <Accordion type="single" collapsible className="w-full">
+              {RESEARCH.map((item, idx) => (
+                <AccordionItem key={item.title} value={`research-${idx}`} className="border-line">
+                  <AccordionTrigger className="hover:no-underline py-8 md:py-12 group/trigger">
+                    <motion.div 
+                      className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left w-full pr-4"
+                      whileHover={{ x: 4, transition: { duration: 0.2 } }}
+                    >
+                      <div className="lg:col-span-5">
+                        <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-3 group-hover/trigger:text-blue-300 transition-colors duration-300">
+                          {item.title}
+                        </h3>
+                        {item.meta && <p className="text-sm text-dim italic group-hover/trigger:text-faint transition-colors">{item.meta}</p>}
+                      </div>
+                      <div className="lg:col-span-7">
+                        <p className="text-faint leading-relaxed text-sm lg:text-base line-clamp-2 group-hover/trigger:text-soft transition-colors">
+                          {item.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-8">
+                    <motion.div 
+                      className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="lg:col-span-5" />
+                      <div className="lg:col-span-7">
+                        <p className="text-faint leading-relaxed mb-6 text-sm lg:text-base">{item.description}</p>
+                        {item.finding && (
+                          <motion.div 
+                            className="pl-4 border-l border-line mb-6 hover:border-blue-500/50 transition-colors duration-300"
+                            whileHover={{ paddingLeft: '24px', transition: { duration: 0.3 } }}
+                          >
+                            <span className="label-caps text-xs text-faint block mb-2 hover:text-blue-400/80 transition-colors">
+                              Key finding
+                            </span>
+                            <p className="text-sm lg:text-base text-soft leading-relaxed">
+                              {item.finding}
                             </p>
-                            <p className="mt-6 label-caps text-xs text-faint">{DOMAINS.join(' · ')}</p>
-                        </Reveal>
+                          </motion.div>
+                        )}
+                        {item.tags && <TagList items={item.tags} />}
+                        <LinkRow links={item.links} />
+                      </div>
+                    </motion.div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
+        </Section>
 
-                        <Reveal y={40} className="mb-24 lg:mb-32">
-                            <StatGrid items={STATS} />
-                        </Reveal>
+        {/* EDUCATION */}
+        <Section id="education" label="Background" title="Education">
+          <div className="space-y-16 lg:space-y-24">
+            {EDUCATION.map(entry => (
+              <div key={entry.school} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
+                <Reveal y={40}><FramedImage src={entry.image} alt={entry.school} /></Reveal>
+                <Reveal y={40} delay={0.1} className="flex items-center">
+                  <div>
+                    <h3 className="text-xl lg:text-2xl font-light text-foreground mb-1">{entry.title}</h3>
+                    <p className="text-base text-faint italic mb-4">{entry.school}</p>
+                    <p className="text-faint leading-relaxed mb-4 text-sm lg:text-base">{entry.description}</p>
+                    <p className="label-caps text-sm text-faint">{entry.period}</p>
+                  </div>
+                </Reveal>
+              </div>
+            ))}
+          </div>
+        </Section>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 mb-24 lg:mb-32">
-                            <Reveal className="order-2 lg:order-1" y={40}>
-                                <FramedImage src={IMAGES.build} alt="Code on a screen during a late build session" caption="SHIPPING SOLO - ROORKEE / IN" />
-                            </Reveal>
-                            <Reveal className="order-1 lg:order-2 flex items-center" y={40} delay={0.1}>
-                                <p className="text-base lg:text-lg text-soft leading-relaxed">
-                                    The degree says Electrical Engineering. Most of the work says something
-                                    else. Tharun builds production software as a solo founder — schema design
-                                    through deployment — across education, healthcare, hiring, enterprise
-                                    infrastructure and developer tooling.
-                                </p>
-                            </Reveal>
+        {/* CONTACT */}
+        <section id="contact" className="section-padding bg-panel">
+          <div className="max-w-7xl mx-auto">
+            <SectionLabel>Get in Touch</SectionLabel>
+            <Reveal y={60}>
+              <h2 className="font-display font-medium text-[12vw] lg:text-hero leading-none tracking-tight mb-8">Let's talk</h2>
+            </Reveal>
+            <Reveal y={40}><div className="w-full h-px bg-line mb-12 lg:mb-16" /></Reveal>
+            <Reveal y={40} className="mb-12 lg:mb-16 max-w-3xl">
+              <p className="text-lg lg:text-xl text-soft leading-relaxed mb-6">
+                Always open to opportunities - full-time roles, internships, freelance gigs, or just interesting conversations about tech, products, and building things that matter.
+              </p>
+              <p className="text-base lg:text-lg text-faint leading-relaxed">
+                Whether you're hiring, have a technical challenge to discuss, want to collaborate on a project, or just want to connect - I'd love to hear from you. Drop me an email or find me on the platforms below.
+              </p>
+            </Reveal>
+
+            {/* RESUME SECTION - WITH CONFETTI */}
+            <Reveal y={40} className="mb-16 lg:mb-24">
+              <h3 className="font-display font-medium uppercase text-2xl md:text-3xl lg:text-4xl text-foreground mb-8">Resumes</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {RESUMES.map((resume, i) => {
+                  const handleResumeClick = (e) => {
+                    // Confetti burst!
+                    confetti({
+                      particleCount: 100,
+                      spread: 70,
+                      origin: { 
+                        x: (e.clientX / window.innerWidth),
+                        y: (e.clientY / window.innerHeight)
+                      },
+                      colors: ['#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b']
+                    });
+                  };
+
+                  const gradients = [
+                    'from-cyan-500 via-blue-500 to-purple-500',
+                    'from-purple-500 via-pink-500 to-rose-500',
+                    'from-green-500 via-emerald-500 to-teal-500',
+                  ];
+
+                  return (
+                    <motion.a
+                      key={resume.type}
+                      href={resume.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleResumeClick}
+                      className="group relative border-2 border-line hover:border-transparent p-6 transition-all duration-300 overflow-hidden bg-background"
+                      whileHover={{ 
+                        scale: 1.05, 
+                        y: -12,
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.4)',
+                        transition: { duration: 0.3 }
+                      }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.15, duration: 0.4 }}
+                    >
+                      {/* Animated gradient border */}
+                      <motion.div
+                        className={`absolute inset-0 bg-gradient-to-br ${gradients[i]} opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}
+                      />
+
+                      {/* Neon glow effect */}
+                      <motion.div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          boxShadow: `inset 0 0 40px rgba(6, 182, 212, 0.3), 0 0 40px rgba(6, 182, 212, 0.2)`
+                        }}
+                      />
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-4">
+                          <Badge variant="outline" className="border-foreground/20 text-faint group-hover:border-cyan-400 group-hover:text-cyan-400 group-hover:shadow-lg group-hover:shadow-cyan-400/50 transition-all">
+                            <FaCode className="mr-1" />
+                            Resume {i + 1}
+                          </Badge>
+                          <motion.span 
+                            className="text-faint group-hover:text-foreground transition-colors"
+                            whileHover={{ 
+                              x: 4,
+                              transition: { duration: 0.2 }
+                            }}
+                          >
+                            ↗
+                          </motion.span>
                         </div>
-
-                        <Reveal className="mb-24 lg:mb-32" y={40}>
-                            <h2 className="font-display font-medium uppercase text-[8vw] lg:text-section leading-none tracking-tight text-soft">
-                                "Software that
-                                <br />
-                                <span className="text-foreground underline underline-offset-8">
-                                    replaces friction
-                                </span>
-                                <br />
-                                rather than adding
-                                <br />
-                                another dashboard."
-                            </h2>
-                            <p className="mt-6 label-caps text-sm text-faint">
-                                On Building
-                                <br />
-                                — Tharun Rathod, 2026
-                            </p>
-                            <p className="mt-8 max-w-2xl text-base lg:text-lg text-soft leading-relaxed">
-                                Most of the work sits at the intersection of AI, infrastructure, and product
-                                design, with an emphasis on solving real workflow problems instead of
-                                showcasing technology for its own sake.
-                            </p>
-                        </Reveal>
-
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 mb-24 lg:mb-32">
-                            <Reveal className="flex items-center lg:text-right" y={40}>
-                                <p className="text-base lg:text-lg text-soft leading-relaxed">
-                                    It started with a cafe website for a local client in 2025. Within eighteen
-                                    months that became Edcore — four integrated modules, a hand-curated dataset
-                                    of 2,000+ colleges across 25 fields, and a platform Indian students can
-                                    actually navigate instead of five disconnected content sites.
-                                </p>
-                            </Reveal>
-                            <Reveal y={40} delay={0.1}>
-                                <FramedImage src={IMAGES.systems} alt="Server infrastructure" caption="SMARTASSET - 56+ ASSETS, ZERO DOUBLE-BOOKINGS" hoverColor />
-                            </Reveal>
+                        
+                        <h4 className="font-display font-medium text-xl lg:text-2xl text-foreground mb-2 group-hover:text-white transition-colors neon-glow-hover">
+                          {resume.type}
+                        </h4>
+                        
+                        <p className="text-sm text-faint group-hover:text-soft transition-colors mb-6">
+                          {resume.description}
+                        </p>
+                        
+                        {/* Gradient button */}
+                        <div className="relative">
+                          <motion.div 
+                            className={`absolute inset-0 bg-gradient-to-r ${gradients[i]} opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm`}
+                          />
+                          <div className={`relative px-4 py-2 border border-foreground/20 group-hover:border-transparent bg-gradient-to-r group-hover:${gradients[i]} transition-all duration-300`}>
+                            <span className="label-caps text-xs text-foreground group-hover:text-white transition-colors flex items-center justify-between">
+                              <span className="flex items-center gap-2">
+                                <span>Download PDF</span>
+                                <motion.span
+                                  animate={{ x: [0, 4, 0] }}
+                                  transition={{ repeat: Infinity, duration: 1.5 }}
+                                >
+                                  →
+                                </motion.span>
+                              </span>
+                            </span>
+                          </div>
                         </div>
+                      </div>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </Reveal>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
-                            <Reveal y={40}>
-                                <FramedImage src={IMAGES.research} alt="Research notes and data analysis" caption="THE CAPITULATION EXPERIMENT - 484 TRIALS (2026)" />
-                            </Reveal>
-                            <Reveal className="flex items-center" y={40} delay={0.1}>
-                                <p className="text-base lg:text-lg text-soft leading-relaxed">
-                                    The research runs on one question: can you trust what a model says about its
-                                    own output. The Capitulation Experiment found a 42.8% capitulation rate
-                                    under social pressure — and a Compliance Paradox where direct challenge
-                                    triggered 64.6% hard reversals while expert authority triggered none at all.
-                                </p>
-                            </Reveal>
-                        </div>
-                    </div>
-                </section>
+            {/* SOCIAL LINKS */}
+            <div className="space-y-0 max-w-2xl">
+              {CHANNELS.map((channel, i) => (
+                <Reveal key={channel.region} y={20} delay={i * 0.05}>
+                  <a href={channel.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border-t border-line py-5 md:py-6 group hover:bg-white/[0.03] transition-colors px-4 -mx-4">
+                    <span className="label-caps text-sm text-faint group-hover:text-soft transition-colors">{channel.region}</span>
+                    <span className="text-faint group-hover:text-foreground transition-colors">↗</span>
+                  </a>
+                </Reveal>
+              ))}
+              <div className="border-t border-line" />
+            </div>
 
-                {/* FLAGSHIP SYSTEMS (id kept as "projects" so existing nav links still land here) */}
-                <Section id="projects" label="Flagship" title={<>Flagship<br />Systems</>} intro="Five production-grade systems built solo, from schema design to deployment. Each one eliminates a real operational problem." panel>
-                    <Rows>
-                        {FLAGSHIP.map(item => <FlagshipCard key={item.name} item={item} />)}
-                    </Rows>
-                </Section>
+            {/* DIRECT CONTACT */}
+            <Reveal y={40} className="mt-16 lg:mt-24 pt-12 lg:pt-16 border-t border-line">
+              <p className="label-caps text-sm text-faint mb-6 lg:mb-8">Or reach me directly</p>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16">
+                <a href="mailto:tharunrathod2005@gmail.com" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">tharunrathod2005@gmail.com</a>
+                <a href={LINKS.edcore} target="_blank" rel="noopener noreferrer" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">edcore.tech</a>
+              </div>
+            </Reveal>
 
-                {/* ALL PROJECTS — searchable / filterable index of everything above and below */}
-                <Section id="all-projects" label="Index" title={<>All<br />Projects</>} intro="Everything I’ve built, in one place. Search by name, stack or domain, or filter by category — each row jumps to its write-up.">
-                    <ProjectIndex />
-                </Section>
-
-                {/* TIMELINE */}
-                <Section id="timeline" label="Timeline" title="Timeline" intro="From a cafe website to a 10+ system portfolio in under two years. The archived experiments matter — they prove continuous momentum, not failed starts." panel>
-                    <div className="space-y-16 lg:space-y-24">
-                        {TIMELINE.map(group => <div key={group.year} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-                                <Reveal y={30} className="lg:col-span-3">
-                                    <p className="font-display font-medium text-5xl lg:text-7xl tracking-tight text-foreground">
-                                        {group.year}
-                                    </p>
-                                </Reveal>
-                                <div className="lg:col-span-9">
-                                    {group.items.map((entry, i) => <Reveal key={entry.name} y={20} delay={Math.min(i, 6) * 0.03}>
-                                            <div className="border-t border-line py-4 md:py-5 flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-6">
-                                                <div>
-                                                    <h3 className="text-lg md:text-xl font-light text-foreground">{entry.name}</h3>
-                                                    <p className="text-sm text-faint mt-1">{entry.note}</p>
-                                                </div>
-                                                <span className="label-caps text-xs text-dim shrink-0">{entry.tag}</span>
-                                            </div>
-                                        </Reveal>)}
-                                    <div className="border-t border-line" />
-                                </div>
-                            </div>)}
-                    </div>
-                </Section>
-
-                {/* WORK EXPERIENCE */}
-                <Section id="work" label="Career" title={<>Work<br />Experience</>}>
-                    <div className="space-y-0">
-                        {JOBS.map(job => <Reveal key={job.company} y={40}>
-                                <article className="border-t border-line py-8 md:py-12 lg:py-16 group">
-                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-                                        <div className="lg:col-span-5">
-                                            <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-foreground mb-2">
-                                                {job.role}
-                                            </h3>
-                                            <p className="text-base lg:text-lg text-faint">{job.company}</p>
-                                            <p className="text-sm text-dim mt-2 italic">{job.location}</p>
-                                        </div>
-                                        <div className="lg:col-span-2">
-                                            <p className="label-caps text-sm text-faint">{job.period}</p>
-                                        </div>
-                                        <div className="lg:col-span-5">
-                                            <p className="text-faint leading-relaxed mb-6 text-sm lg:text-base">
-                                                {job.description}
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {job.tags.map(tag => <span key={tag} className="px-3 py-1 text-xs text-faint border border-line rounded-full group-hover:border-dim transition-colors duration-300">
-                                                        {tag}
-                                                    </span>)}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </Reveal>)}
-                        <div className="border-t border-line" />
-                    </div>
-                </Section>
-
-                {/* AI & ML */}
-                <Section id="ai" label="AI & Machine Learning" title="AI & ML" intro="Five builds under real constraints — genuine AI/ML where it earns its place (regime detection, LLM evaluation), and disciplined plain engineering where it doesn’t (a queue system that deliberately ships with no ML at all)." panel>
-                    <Rows>
-                        {AI_BUILDS.map(item => <ProjectRow key={item.title} item={item} />)}
-                    </Rows>
-                </Section>
-
-                {/* DEV TOOLS */}
-                <Section id="tools" label="Developer Tools & Infrastructure" title={<>Dev<br />Tools</>} intro="Tools built for developers — one runs natively inside Claude and Cursor, one compiles intent into algorithms, one analyzes pricing at the system level.">
-                    <Rows>
-                        {DEV_TOOLS.map(item => <ProjectRow key={item.title} item={item} />)}
-                    </Rows>
-                </Section>
-
-                {/* PRODUCT & UX */}
-                <Section id="ux" label="Product & UX" title={<>UX Case<br />Studies</>} intro="I pick real apps, break down every UX and business decision, and name what I’d fix. These are discipline exercises — not complaints." panel>
-                    <Rows>
-                        {UX_CASES.map(item => <ProjectRow key={item.title} item={item} />)}
-                    </Rows>
-
-                    <SubHeading note="Side-by-side teardowns of apps that compete for the same user. Observation on the left, the design or behavioral concept behind it on the right.">
-                        UX Battles
-                    </SubHeading>
-                    <Rows>
-                        {UX_BATTLES.map(b => <Battle key={b.title} battle={b} />)}
-                    </Rows>
-
-                    <SubHeading note="Deliberate design decisions made against users to protect business metrics. All from personal experience with Indian apps.">
-                        Dark Patterns Spotted
-                    </SubHeading>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-                        {DARK_PATTERNS.map((p, i) => <Reveal key={p.name} y={30} delay={i * 0.05}>
-                                <div className="border-t border-line pt-6">
-                                    <p className="label-caps text-xs text-dim mb-2">{p.name}</p>
-                                    <h4 className="text-xl lg:text-2xl font-light text-foreground mb-3">{p.line}</h4>
-                                    <p className="text-sm lg:text-base text-faint leading-relaxed mb-4">{p.body}</p>
-                                    <p className="label-caps text-xs text-dim">Spotted in — {p.seen}</p>
-                                </div>
-                            </Reveal>)}
-                        <Reveal y={30} delay={DARK_PATTERNS.length * 0.05}>
-                            <div className="border-t border-line pt-6">
-                                <p className="label-caps text-xs text-dim mb-2">Not all friction is a dark pattern</p>
-                                <p className="text-sm lg:text-base text-faint leading-relaxed">
-                                    Paytm’s cancellation flow is one — designed to make you give up. Zomato’s
-                                    cancellation warning is borderline — it informs you of a real consequence.
-                                    The difference is intent: does the friction protect the user or exploit them?
-                                </p>
-                            </div>
-                        </Reveal>
-                    </div>
-                </Section>
-
-                {/* RESEARCH */}
-                <Section id="research" label="Papers & Publications" title="Research" intro="Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access.">
-                    <Rows>
-                        {RESEARCH.map(item => <ProjectRow key={item.title} item={item} />)}
-                    </Rows>
-                </Section>
-
-                {/* EXPERIMENTS */}
-                <Section id="experiments" label="Archive" title="Experiments" intro="Earlier prototypes and experiments. Not hidden — they are proof that this portfolio was built, not conjured. The Chai Lovers → Edcore arc tells a more honest story than any polished flagship card alone." panel>
-                    <Rows>
-                        {EXPERIMENTS.map(item => <ProjectRow key={item.title} item={item} />)}
-                    </Rows>
-                </Section>
-
-                {/* SKILLS */}
-                <Section id="skills" label="Expertise" title="Skills">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 lg:gap-y-6">
-                        {SKILLS.map((skill, i) => <Reveal key={skill} y={24} delay={i * 0.04}>
-                                <div className="border-b border-line pb-4 group">
-                                    <span className="text-lg md:text-xl lg:text-2xl text-soft font-light group-hover:text-foreground transition-colors duration-300">
-                                        {skill}
-                                    </span>
-                                </div>
-                            </Reveal>)}
-                    </div>
-
-                    <div className="mt-20 lg:mt-28 grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
-                        {SKILL_GROUPS.map((group, i) => <Reveal key={group.label} y={24} delay={Math.min(i, 6) * 0.04}>
-                                <div className="border-t border-line pt-6">
-                                    <p className="label-caps text-xs text-faint mb-4">{group.label}</p>
-                                    <TagList items={group.items} />
-                                </div>
-                            </Reveal>)}
-                    </div>
-                </Section>
-
-                {/* CONSULTING */}
-                <Section id="consulting" label="BA + UX Consulting" title="Brief" panel>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-                        <Reveal y={40} className="lg:col-span-5">
-                            <p className="label-caps text-xs text-faint mb-4">
-                                Requirements & research for founders — {CONSULTING.stages}
-                            </p>
-                            <h3 className="text-2xl lg:text-4xl font-light text-foreground leading-snug">
-                                {CONSULTING.pitch}
-                            </h3>
-                            <a href={LINKS.consulting} target="_blank" rel="noopener noreferrer" className="inline-block mt-8 label-caps text-sm text-soft hover:text-foreground transition-colors underline underline-offset-4">
-                                Start with a discovery call ↗
-                            </a>
-                        </Reveal>
-                        <div className="lg:col-span-7">
-                            {CONSULTING.deliverables.map((d, i) => <Reveal key={d} y={20} delay={i * 0.05}>
-                                    <div className="border-t border-line py-5">
-                                        <span className="text-lg lg:text-xl font-light text-soft">{d}</span>
-                                    </div>
-                                </Reveal>)}
-                            <div className="border-t border-line" />
-                        </div>
-                    </div>
-                </Section>
-
-                {/* EDUCATION */}
-                <Section id="education" label="Background" title="Education">
-                    <div className="space-y-16 lg:space-y-24">
-                        {EDUCATION.map(entry => <div key={entry.school} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
-                                <Reveal y={40} className={entry.flip ? 'lg:order-2' : ''}>
-                                    <FramedImage src={entry.image} alt={entry.alt} caption={entry.caption} />
-                                </Reveal>
-                                <Reveal y={40} delay={0.1} className={`flex items-center ${entry.flip ? 'lg:order-1' : ''}`}>
-                                    <div>
-                                        <h3 className="text-xl lg:text-2xl font-light text-foreground mb-1">
-                                            {entry.title}
-                                        </h3>
-                                        <p className="text-base text-faint italic mb-4">{entry.school}</p>
-                                        <p className="text-faint leading-relaxed mb-4 text-sm lg:text-base">
-                                            {entry.description}
-                                        </p>
-                                        <p className="label-caps text-sm text-faint">{entry.period}</p>
-                                    </div>
-                                </Reveal>
-                            </div>)}
-                    </div>
-                </Section>
-
-                {/* CERTIFICATIONS */}
-                <Section id="certifications" label="Learning" title="Certifications" panel>
-                    <Rows>
-                        {CERTIFICATIONS.map((c, i) => <ListRow key={c.title} {...c} index={i} />)}
-                    </Rows>
-                </Section>
-
-                {/* ACHIEVEMENTS */}
-                <Section id="achievements" label="Recognition" title="Achievements">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
-                        {ACHIEVEMENTS.map((a, i) => <Reveal key={a.title} y={24} delay={Math.min(i, 6) * 0.04}>
-                                <div className="border-t border-line pt-6">
-                                    <h3 className="text-lg lg:text-xl font-light text-foreground">{a.title}</h3>
-                                    {a.detail && <p className="text-sm lg:text-base text-faint leading-relaxed mt-2">{a.detail}</p>}
-                                </div>
-                            </Reveal>)}
-                    </div>
-                </Section>
-
-                {/* CONTACT */}
-                <section id="contact" className="section-padding bg-panel">
-                    <div className="max-w-7xl mx-auto">
-                        <SectionLabel>Contact</SectionLabel>
-                        <Reveal y={60}>
-                            <h2 className="font-display font-medium text-[12vw] lg:text-hero leading-none tracking-tight mb-8">
-                                Get in touch
-                            </h2>
-                        </Reveal>
-                        <Reveal y={40}>
-                            <div className="w-full h-px bg-line mb-12 lg:mb-16" />
-                        </Reveal>
-
-                        <Reveal y={40} className="mb-12 lg:mb-16 max-w-2xl">
-                            <h3 className="font-display font-medium uppercase text-xl md:text-2xl lg:text-3xl text-foreground leading-tight mb-4">
-                                Open to internships
-                                <br />
-                                in full-stack, BA / UX
-                                <br />
-                                and AI research
-                            </h3>
-                            <p className="label-caps text-sm text-faint">
-                                Also available for BA + UX consulting — discovery, analysis, BRDs
-                            </p>
-                        </Reveal>
-
-                        <div className="space-y-0 max-w-2xl">
-                            {CHANNELS.map((channel, i) => <Reveal key={channel.region} y={20} delay={i * 0.05}>
-                                    <a href={channel.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border-t border-line py-5 md:py-6 group hover:bg-white/[0.03] transition-colors px-4 -mx-4">
-                                        <span className="label-caps text-sm text-faint group-hover:text-soft transition-colors">
-                                            {channel.region}
-                                        </span>
-                                        <span className="text-faint group-hover:text-foreground transition-colors">
-                                            ↗
-                                        </span>
-                                    </a>
-                                </Reveal>)}
-                            <div className="border-t border-line" />
-                        </div>
-
-                        <Reveal y={40} className="mt-16 lg:mt-24 pt-12 lg:pt-16 border-t border-line">
-                            <p className="label-caps text-sm text-faint mb-6 lg:mb-8">Or reach me directly</p>
-                            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16">
-                                <a href="mailto:tharunrathod2005@gmail.com" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">
-                                    tharunrathod2005@gmail.com
-                                </a>
-                                <a href="tel:+918074091839" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">
-                                    +91 80740 91839
-                                </a>
-                                <a href={LINKS.edcore} target="_blank" rel="noopener noreferrer" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">
-                                    edcore.tech
-                                </a>
-                            </div>
-                        </Reveal>
-
-                        <Reveal y={20} className="mt-24 lg:mt-32 pt-8 border-t border-line">
-                            <div className="flex flex-col sm:flex-row justify-between gap-2">
-                                <p className="label-caps text-xs text-dim">
-                                    © 2026 Tharun Rathod — Engineering, Products & Research
-                                </p>
-                                <p className="label-caps text-xs text-dim">Roorkee / Hyderabad / Remote</p>
-                            </div>
-                        </Reveal>
-                    </div>
-                </section>
-            </main>
-        </div>;
+            {/* FOOTER */}
+            <Reveal y={20} className="mt-24 lg:mt-32 pt-8 border-t border-line">
+              {/* Footer Image */}
+              <motion.div 
+                className="mb-12 overflow-hidden rounded-sm max-w-4xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                <motion.img
+                  src="/footer-image.jpg"
+                  alt=""
+                  className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.02] opacity-80 hover:opacity-100"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.7 }}
+                />
+              </motion.div>
+              
+              <div className="flex flex-col sm:flex-row justify-between gap-2 pt-8 border-t border-line">
+                <p className="label-caps text-xs text-dim">© 2026 Tharun Rathod - Engineering, Products & Research</p>
+                <p className="label-caps text-xs text-dim">Roorkee / Hyderabad / Remote</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 };
+
 export default HomePage;

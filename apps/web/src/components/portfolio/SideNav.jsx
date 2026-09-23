@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
     { id: 'about', label: 'About' },
+    { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
-    { id: 'work', label: 'Work' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'research', label: 'Research' },
     { id: 'education', label: 'Education' },
-    { id: 'writing', label: 'Writing' },
-    { id: 'speaking', label: 'Speaking' },
+    { id: 'contact', label: 'Contact' },
 ];
 
 const CONTACT_LINKS = [
-    { label: 'Mail', href: 'mailto:antonio@vega.studio' },
-    { label: 'Instagram', href: 'https://instagram.com/' },
-    { label: 'Vimeo', href: 'https://vimeo.com/' },
+    { label: 'GitHub', href: 'https://github.com/tharun99856' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/tharun-rathod' },
+    { label: 'Instagram', href: 'https://www.instagram.com/tharunr05/' },
+    { label: 'Resume', href: '#contact' }, // Scrolls to resume section
 ];
 
 const scrollToSection = (id) => {
