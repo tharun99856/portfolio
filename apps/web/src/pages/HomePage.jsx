@@ -240,7 +240,7 @@ const UX_WORK = [{
     'Why Tata Neu wins: Shared rewards currency (NeuCoins) and connected brand portfolio enable cross-category lists/circles/drops that single-brand apps cannot match'
   ],
   tags: ['Product Teardown', 'Retention Strategy', 'Behavioral Design', 'Metrics Design', 'Consumer Apps'],
-  links: [{ label: 'View Full Teardown (PDF)', href: '#' }]
+  links: [{ label: 'View Full Teardown (PDF)', href: '/Tata Neu Product Teardown 2026.pdf' }]
 }, {
   title: 'Edit Journey - Product Proposal, Hyderabad Metro',
   type: 'case',
