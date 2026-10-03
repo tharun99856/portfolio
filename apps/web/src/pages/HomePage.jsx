@@ -228,6 +228,20 @@ const UX_WORK = [{
   tags: ['Product Strategy', 'Consumer Research', 'Market Analysis', 'FMCG', 'Business Case', 'Stakeholder Docs'],
   links: [{ label: 'View Full Proposal (PDF)', href: 'https://drive.google.com/file/d/1RAWSlQ484d5PxolH5_sB3ATIoY3f0QR5/view' }]
 }, {
+  title: 'Tata Neu Product Teardown: Gen Z Engagement & Retention',
+  type: 'case',
+  description: 'Product Teardown 2026 case study diagnosing Tata Neu\'s "Buy and Bye" problem - students use the app for big purchases, then it goes dormant for months. Proposed solution: shift from transaction-led to relationship-led engagement through two integrated product cases that give students a reason to open the app without buying.',
+  highlights: [
+    'Core diagnosis: Ecosystem breadth ≠ visit frequency. Tata Neu is a catalogue useful once you know what to buy, but has no daily hook',
+    'Case 1 (Trust wedge): Neu Circles + Essentials - private social discovery where friend recommendations become reusable shopping lists across brands',
+    'Case 2 (Habit engine): Campus Drops + Weekly Challenges - relevant time-bound offers with light daily steps (never requiring purchase)',
+    'Primary metric: WESU (Weekly Engaged Student Users) - filtering WAU for meaningful actions, not passive notification clicks',
+    'Target: +15% student WAU by week 8 vs matched control, with engaged students averaging 2-3 meaningful visits/week',
+    'Why Tata Neu wins: Shared rewards currency (NeuCoins) and connected brand portfolio enable cross-category lists/circles/drops that single-brand apps cannot match'
+  ],
+  tags: ['Product Teardown', 'Retention Strategy', 'Behavioral Design', 'Metrics Design', 'Consumer Apps'],
+  links: [{ label: 'View Full Teardown (PDF)', href: '#' }]
+}, {
   title: 'Edit Journey - Product Proposal, Hyderabad Metro',
   type: 'case',
   description: 'Found a usability gap in Hyderabad Metro\'s QR ticketing: selecting the wrong destination forces riders into a multi-day cancel-and-refund cycle, with no way to just fix the fare. Designed and prototyped "Edit Journey" in Figma - an instant, cancellation-free fare-adjustment flow - then pitched it directly to Hyderabad Metro with a written product brief and outreach email. No one asked for this one; I noticed the gap and went to the source.',
