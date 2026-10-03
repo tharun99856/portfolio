@@ -5,6 +5,7 @@ import Reveal from '@/components/Reveal';
 import Seo from '@/components/Seo';
 import SideNav from '@/components/portfolio/SideNav';
 import SectionLabel from '@/components/portfolio/SectionLabel';
+import Analytics from '@/components/Analytics';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
@@ -119,13 +120,16 @@ const FLAGSHIP = [{
 
 // AI & ML PROJECTS
 const AI_BUILDS = [{
-  title: 'Signal',
-  tagline: 'AI decision engine that automates recruiting workflow decisions - watches workflows, decides when to act, when to wait, when to escalate.',
-  description: 'Signal Agent handles routine recruiting decisions (chase missing feedback, update candidates, flag SLA breaches) so ops teams can focus on edge cases. Dashboard shows all cases with status (Resolved, Waiting, Escalated, Pending), agent reasoning, planned actions, and execution logs. Metrics track SLA breaches prevented, response time, autonomous resolution rate, and escalation accuracy.',
-  insight: '100% rule-based - no LLM, no machine learning, pure deterministic logic. Policy-constrained (never auto-reject candidates), confidence-scored, human override enabled. Decision framework: ACT (high urgency + clear action), ESCALATE (sensitive situations like rejected candidate inquiry or 3+ follow-ups), WAIT (normal progression), ASK (ambiguous situations). The explainability is the product, not a feature.',
-  tags: ['Hiring', 'Enterprise', 'AI', 'Next.js', 'TypeScript', 'PostgreSQL', 'ATS Webhooks', 'Rule-Based AI'],
-  links: [{ label: 'GitHub', href: 'https://github.com/tharun99856/SIGNAL' }],
-  media: { type: 'image', src: '/projects/signal-dashboard.jpg' } // Add your screenshot here
+  title: 'IHateApplying',
+  tagline: 'Bulk outreach automation for job applications - upload CSV, AI generates personalized emails/DMs, push to Gmail. Apply till you get a reply.',
+  description: 'Cold email automation tool that generates personalized outreach emails and LinkedIn/X DMs at scale. Upload a CSV with contacts (email required, name/company/context optional), paste your resume and skills, and the AI generates customized drafts based on your background. Batch processing (50 rows at a time with free keys), Gmail integration to push drafts directly to inbox, auto-detects email column from any header format. Built for job seekers tired of manual applications.',
+  insight: 'The product positioning is deliberate: "Apply till you get a reply" acknowledges the numbers game reality of job hunting. Email column auto-detection handles messy CSVs without forcing users to reformat. Batch limits (50 free, 100 with own Groq key) prevent API abuse while keeping it accessible. Resume parsing is optional - short mode for 3-sentence pitches, detailed mode for project-heavy 4-5 sentence emails. The Gmail push feature is the conversion point - draft generation alone isn\'t enough, people want it in their inbox ready to send.',
+  tags: ['Job Search', 'AI', 'Next.js', 'TypeScript', 'Groq API', 'Gmail Integration', 'CSV Processing', 'Automation'],
+  links: [
+    { label: 'Live App', href: 'https://ihateapplying.vercel.app/' },
+    { label: 'GitHub', href: 'https://github.com/tharun99856/ihateapplying' }
+  ],
+  media: { type: 'image', src: '/projects/ihateapplying.jpg' }
 }, {
   title: 'PHC Queue Management System',
   description: 'A token + wait-time system for Primary Health Centres, piloted against Latha Children\'s Clinic in Attapur, Hyderabad. Front desk issues a printed token with an honest wait estimate off the rolling 10-consultation average; doctor clicks through patients to advance the queue; front desk gets a phone-number callback list for no-shows. No app install for patients, no internet required for the queue logic itself, and V1 ships with zero third-party API dependency on purpose - every piece justified by an actual cost or reliability constraint.',
@@ -210,6 +214,20 @@ const DEV_TOOLS = [{
 
 // PRODUCT STUDIES - Case studies and comparative battles
 const UX_WORK = [{
+  title: 'MAGGI CUSTOMS - Product Proposal for Nestlé India',
+  type: 'case',
+  description: 'A complete product hypothesis for Nestlé India proposing a modular instant-noodle ecosystem (MAGGI CUSTOMS) targeting Gen Z college students. 40-page document covering market opportunity, product architecture (MAGGI DUO, Flavor Sachets, Bowl format, Campus Bowl Lab), validation plan, retailer economics, and commercial case. Includes consumer hypotheses, campus pilot methodology, metrics framework, and illustrative scenario modeling.',
+  highlights: [
+    'Core thesis: Move from "Which MAGGI should I buy?" to "How do I want my MAGGI today?" - modular customization without sacrificing affordability',
+    'Proposed 4-phase validation: consumer research (100-200 students) → prototype testing → campus lab pilot → scale only if metrics validate',
+    'Retailer economics analysis: ₹10 pack gives ~₹0.90 margin vs ₹15 pack ~₹1.35 - a 50% rupee increase for only 3% price-per-100g premium',
+    'Revenue-per-consumption-occasion framework: tracking basket value (₹20 today → ₹20-25 with customization → ₹30-50 premium bowl)',
+    'Campus experimentation model: MAGGI Bowl Lab as a consumer co-creation platform, not just a product launch',
+    'Written as a formal product brief with hypothesis tags (VERIFIED, REPORTED, TO CONFIRM, ILLUSTRATIVE) and evidence register'
+  ],
+  tags: ['Product Strategy', 'Consumer Research', 'Market Analysis', 'FMCG', 'Business Case', 'Stakeholder Docs'],
+  links: [{ label: 'View Full Proposal (PDF)', href: 'https://drive.google.com/file/d/1RAWSlQ484d5PxolH5_sB3ATIoY3f0QR5/view' }]
+}, {
   title: 'Edit Journey - Product Proposal, Hyderabad Metro',
   type: 'case',
   description: 'Found a usability gap in Hyderabad Metro\'s QR ticketing: selecting the wrong destination forces riders into a multi-day cancel-and-refund cycle, with no way to just fix the fare. Designed and prototyped "Edit Journey" in Figma - an instant, cancellation-free fare-adjustment flow - then pitched it directly to Hyderabad Metro with a written product brief and outreach email. No one asked for this one; I noticed the gap and went to the source.',
@@ -1279,6 +1297,19 @@ const HomePage = () => {
             ))}
           </div>
         </Section>
+
+        {/* ANALYTICS */}
+        <section id="analytics" className="section-padding">
+          <div className="max-w-7xl mx-auto">
+            <SectionLabel>Portfolio Metrics</SectionLabel>
+            <Reveal y={40}>
+              <h2 className="font-display font-medium uppercase text-[10vw] lg:text-section leading-none tracking-tight mb-12 lg:mb-16">Analytics</h2>
+            </Reveal>
+            <Reveal y={40}>
+              <Analytics />
+            </Reveal>
+          </div>
+        </section>
 
         {/* CONTACT */}
         <section id="contact" className="section-padding bg-panel">
