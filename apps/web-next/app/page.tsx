@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from '@/components/Reveal';
 import SideNav from '@/components/portfolio/SideNav';
 import SectionLabel from '@/components/portfolio/SectionLabel';
-import Analytics from '@/components/Analytics';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
@@ -1306,19 +1305,6 @@ const HomePage = () => {
             ))}
           </div>
         </Section>
-
-        {/* ANALYTICS */}
-        <section id="analytics" className="section-padding">
-          <div className="max-w-7xl mx-auto">
-            <SectionLabel>Portfolio Metrics</SectionLabel>
-            <Reveal y={40}>
-              <h2 className="font-display font-medium uppercase text-[10vw] lg:text-section leading-none tracking-tight mb-12 lg:mb-16">Analytics</h2>
-            </Reveal>
-            <Reveal y={40}>
-              <Analytics />
-            </Reveal>
-          </div>
-        </section>
 
         {/* CONTACT */}
         <section id="contact" className="section-padding bg-panel">
