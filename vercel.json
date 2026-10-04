@@ -1,30 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "cd apps/web && npm run build",
-  "outputDirectory": "apps/web/dist",
-  "routes": [
-    {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    }
-  ]
+  "buildCommand": "cd apps/web-next && npm install && npm run build",
+  "outputDirectory": "apps/web-next/.next",
+  "framework": "nextjs",
+  "installCommand": "cd apps/web-next && npm install"
 }
