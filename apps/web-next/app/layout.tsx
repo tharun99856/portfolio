@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -22,12 +23,50 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Tharun Rathod - Product Manager, AI Engineer & Researcher',
-    description: 'Product Manager and AI Engineer at IIT Roorkee. Building AI-first products, conducting behavioral AI research, and solving real-world problems through technology.',
+    description: 'Product Manager and AI Engineer at IIT Roorkee. Building AI-first products, conducted behavioral AI research, and solving real-world problems through technology.',
     images: ['https://portfolio-tharun-gray.vercel.app/my-image.jpeg']
   },
   other: {
     'canonical': 'https://portfolio-tharun-gray.vercel.app/'
   }
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Tharun Rathod",
+  "url": "https://portfolio-tharun-gray.vercel.app",
+  "image": "https://portfolio-tharun-gray.vercel.app/my-image.jpeg",
+  "jobTitle": "Product Manager & AI Engineer",
+  "description": "Product Manager and AI Engineer at IIT Roorkee. Building AI-first products, conducting behavioral AI research, and solving real-world problems through technology.",
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Indian Institute of Technology Roorkee",
+    "sameAs": "https://en.wikipedia.org/wiki/Indian_Institute_of_Technology_Roorkee"
+  },
+  "knowsAbout": [
+    "Product Management",
+    "Artificial Intelligence",
+    "Large Language Models",
+    "Full-Stack Development",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "Behavioral AI",
+    "UX Research",
+    "Product Strategy"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Edcore",
+    "url": "https://edcore.tech"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/tharunrathod/",
+    "https://github.com/tharun99856",
+    "https://x.com/tharunrathod"
+  ]
 }
 
 export default function RootLayout({
@@ -37,52 +76,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
+      <body>
         {/* Schema.org JSON-LD for Rich Results & Knowledge Graph */}
-        <script
+        <Script
+          id="schema-person"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Tharun Rathod",
-              "url": "https://portfolio-tharun-gray.vercel.app",
-              "image": "https://portfolio-tharun-gray.vercel.app/my-image.jpeg",
-              "jobTitle": "Product Manager & AI Engineer",
-              "description": "Product Manager and AI Engineer at IIT Roorkee. Building AI-first products, conducting behavioral AI research, and solving real-world problems through technology.",
-              "alumniOf": {
-                "@type": "EducationalOrganization",
-                "name": "Indian Institute of Technology Roorkee",
-                "sameAs": "https://en.wikipedia.org/wiki/Indian_Institute_of_Technology_Roorkee"
-              },
-              "knowsAbout": [
-                "Product Management",
-                "Artificial Intelligence",
-                "Large Language Models",
-                "Full-Stack Development",
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Python",
-                "Behavioral AI",
-                "UX Research",
-                "Product Strategy"
-              ],
-              "worksFor": {
-                "@type": "Organization",
-                "name": "Edcore",
-                "url": "https://edcore.tech"
-              },
-              "sameAs": [
-                "https://www.linkedin.com/in/tharunrathod/",
-                "https://github.com/tharun99856",
-                "https://x.com/tharunrathod"
-              ]
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body>{children}</body>
+        {children}
+      </body>
     </html>
   )
 }
