@@ -1,6 +1,5 @@
 {
-  "buildCommand": "cd apps/web-next && npm install && npm run build",
+  "buildCommand": "cd apps/web-next && npm run build",
   "outputDirectory": "apps/web-next/.next",
-  "framework": "nextjs",
-  "installCommand": "npm install --prefix apps/web-next"
+  "installCommand": "cd apps/web-next && npm install"
 }
