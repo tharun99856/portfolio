@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -78,8 +77,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {/* Schema.org JSON-LD for Rich Results & Knowledge Graph */}
-        <Script
-          id="schema-person"
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
