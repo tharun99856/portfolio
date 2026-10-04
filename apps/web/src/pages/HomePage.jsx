@@ -1000,9 +1000,20 @@ const HomePage = () => {
   return (
     <div className="portfolio-shell min-h-screen text-foreground">
       <Helmet>
-        <title>Tharun Rathod - Engineer, Founder, Researcher</title>
+        <title>Tharun Rathod - Product Manager, AI Engineer & Researcher | IIT Roorkee</title>
+        <meta name="description" content="Product Manager and AI Engineer at IIT Roorkee. Building AI-first products at Edcore, conducting behavioral AI research, and solving real-world problems. Ex-intern at DSE." />
+        <meta name="keywords" content="Tharun Rathod, Product Manager, AI Engineer, IIT Roorkee, Edcore, Behavioral AI, LLM Research, Full-Stack Developer, UX Research, Product Strategy" />
+        <meta name="author" content="Tharun Rathod" />
+        <link rel="canonical" href="https://portfolio-tharun-gray.vercel.app/" />
       </Helmet>
-      <Seo title="Tharun Rathod - Engineer, Founder, Researcher" description="Solo founder and independent researcher building production-grade software systems, AI products and developer tools." image={IMAGES.hero} siteName="Tharun Rathod" />
+      <Seo 
+        title="Tharun Rathod - Product Manager, AI Engineer & Researcher" 
+        description="Product Manager and AI Engineer at IIT Roorkee. Building AI-first products, conducting behavioral AI research, and solving real-world problems through technology." 
+        image="https://portfolio-tharun-gray.vercel.app/my-image.jpeg"
+        url="https://portfolio-tharun-gray.vercel.app/"
+        siteName="Tharun Rathod Portfolio" 
+        type="profile"
+      />
 
       <div className="grain-overlay" aria-hidden="true" />
       <SideNav />
