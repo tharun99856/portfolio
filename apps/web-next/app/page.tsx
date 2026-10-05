@@ -300,11 +300,11 @@ const RESEARCH = [{
 
 // WORK EXPERIENCE
 const EXPERIENCE = [{
-  role: 'Solo Founder & Full-Stack Engineer',
+  role: 'Founder and Product Engineer',
   company: 'Edcore',
-  period: '2025 - Present',
-  description: 'Building a unified education operating system for Indian students - four modules (ExamNotifi, CollegeTracker, Tutorix, NextTalk) on one Next.js monolith with shared auth, CRM, OTP flows and a notification engine. The moat is a hand-curated dataset of 2,000+ colleges across 25 fields. Separately mentored 10 JEE Advanced aspirants one-on-one (2024–2025) - one moved from the 70th to the 95th percentile.',
-  tags: ['Next.js 16', 'MongoDB', 'NextAuth', 'Product Ownership', 'Mentoring']
+  period: 'Jan 2025 - Present',
+  description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 300+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition. Built the platform end-to-end using Next.js, TypeScript, Supabase/PostgreSQL, and REST APIs. Developed four core modules: CollegeTracker, ExamNotifi, Tutorix, and NextTalk. Built college discovery and ranking tools using structured admission and counselling data. Owned product decisions across engineering, UX, analytics, experimentation, and growth.',
+  tags: ['Next.js', 'PostgreSQL', 'NextAuth', 'Product Ownership', 'User Acquisition']
 }, {
   role: 'Independent Researcher',
   company: 'IIT Roorkee',
@@ -312,17 +312,17 @@ const EXPERIENCE = [{
   description: 'Five papers across AI evaluation, behavioral AI, electrical engineering and linguistics - two sole-authored, two co-authored, one published open-access on Zenodo. Current focus: whether a model can be trusted about its own output.',
   tags: ['LLM-as-Judge', 'Experimental Design', 'Academic Writing']
 }, {
-  role: 'ML Trainee',
+  role: 'Forward Deployed Engineer',
   company: 'R.K. IntelliServe',
-  period: 'Dec 2025 - Feb 2026',
-  description: 'Engineered and automated DAG-orchestrated ML preprocessing and evaluation pipelines for production data-processing workflows. Worked directly with the founder on building scalable ML infrastructure. Designed multi-stage data transformation pipelines with Airflow DAG orchestration, implemented automated model evaluation frameworks, and optimized data preprocessing workflows that reduced processing time by 40%. Gained hands-on experience in production ML systems, pipeline monitoring, and deployment best practices.',
-  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Airflow', 'Data Engineering', 'Model Evaluation']
+  period: 'Mar 2025 - Mar 2026',
+  description: 'Pipeline Orchestration: Architected and automated DAG-based ML preprocessing and model evaluation pipelines for high-throughput production data workflows. Client and Systems Integration: Translated client requirements into scalable AI/ML solutions, integrating data systems, APIs, and existing enterprise workflows. Full-Stack Engineering: Built low-latency microservices, third-party API integrations, and automation scripts to streamline operational workflows for SME clients. Production Engineering: Collaborated across engineering pods to troubleshoot integration failures, ship emergency hotfixes, and stabilize production systems under tight delivery timelines. Rapid Deployment: Worked across the development-to-deployment lifecycle, adapting solutions quickly to evolving client requirements and real-world production constraints.',
+  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Airflow', 'Data Engineering', 'Client Integration']
 }, {
-  role: 'Web Developer Intern',
-  company: 'Hiring Bazaar',
+  role: 'Web Development Intern',
+  company: 'Hiring Bazaar AI',
   period: 'Oct 2025 - Jan 2026',
-  description: 'Built the careers page, dynamic role listings and the candidate application workflow across frontend and backend; owned UI feedback and testing through rollout. Worked directly with both founders at IIT Roorkee on product development. Designed and implemented the complete hiring funnel - from role discovery to application submission. Created responsive UI components, integrated REST APIs for job data, built form validation logic, and set up the candidate tracking system. Collaborated closely on feature prioritization and iterated based on real user feedback during beta testing.',
-  tags: ['React', 'Full-Stack', 'API Design', 'UI/UX', 'TypeScript', 'Node.js']
+  description: 'Product Delivery: Shipped the careers page, role listings and candidate application workflow end to end (frontend and backend); owned UI feedback and rollout testing. Performance Optimization: Cut average API response time 30% (400 ms to 280 ms) and initial page load 25% (2.4 s to 1.8 s).',
+  tags: ['React', 'Full-Stack', 'API Design', 'Performance', 'TypeScript', 'Mean Stack']
 }];
 
 const SKILLS = [
