@@ -306,12 +306,6 @@ const EXPERIENCE = [{
   description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 300+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition.',
   tags: ['Next.js', 'PostgreSQL', 'NextAuth', 'Product Ownership', 'User Acquisition']
 }, {
-  role: 'Product Management Intern (Offer)',
-  company: 'MAGGI CUSTOMS - Nestlé India',
-  period: 'Acknowledged - 2026',
-  description: 'Received acknowledgment and internship offer from Nestlé India for the MAGGI CUSTOMS product proposal - a modular instant-noodle ecosystem targeting Gen Z college students. 40-page product hypothesis covering market opportunity, product architecture, validation plan, retailer economics, and commercial case.',
-  tags: ['Product Strategy', 'Market Research', 'Business Case', 'Consumer Insights']
-}, {
   role: 'Independent Researcher',
   company: 'IIT Roorkee',
   period: '2025 - Present',
