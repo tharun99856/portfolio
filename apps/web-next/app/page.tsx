@@ -303,8 +303,14 @@ const EXPERIENCE = [{
   role: 'Founder and Product Engineer',
   company: 'Edcore',
   period: 'Jan 2025 - Present',
-  description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 300+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition. Built the platform end-to-end using Next.js, TypeScript, Supabase/PostgreSQL, and REST APIs. Developed four core modules: CollegeTracker, ExamNotifi, Tutorix, and NextTalk. Built college discovery and ranking tools using structured admission and counselling data. Owned product decisions across engineering, UX, analytics, experimentation, and growth.',
+  description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 300+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition.',
   tags: ['Next.js', 'PostgreSQL', 'NextAuth', 'Product Ownership', 'User Acquisition']
+}, {
+  role: 'Product Management Intern (Offer)',
+  company: 'MAGGI CUSTOMS - Nestlé India',
+  period: 'Acknowledged - 2026',
+  description: 'Received acknowledgment and internship offer from Nestlé India for the MAGGI CUSTOMS product proposal - a modular instant-noodle ecosystem targeting Gen Z college students. 40-page product hypothesis covering market opportunity, product architecture, validation plan, retailer economics, and commercial case.',
+  tags: ['Product Strategy', 'Market Research', 'Business Case', 'Consumer Insights']
 }, {
   role: 'Independent Researcher',
   company: 'IIT Roorkee',
@@ -313,10 +319,10 @@ const EXPERIENCE = [{
   tags: ['LLM-as-Judge', 'Experimental Design', 'Academic Writing']
 }, {
   role: 'Forward Deployed Engineer',
-  company: 'R.K. IntelliServe',
+  company: 'R.K. IntelliServe (Startup)',
   period: 'Mar 2025 - Mar 2026',
-  description: 'Pipeline Orchestration: Architected and automated DAG-based ML preprocessing and model evaluation pipelines for high-throughput production data workflows. Client and Systems Integration: Translated client requirements into scalable AI/ML solutions, integrating data systems, APIs, and existing enterprise workflows. Full-Stack Engineering: Built low-latency microservices, third-party API integrations, and automation scripts to streamline operational workflows for SME clients. Production Engineering: Collaborated across engineering pods to troubleshoot integration failures, ship emergency hotfixes, and stabilize production systems under tight delivery timelines. Rapid Deployment: Worked across the development-to-deployment lifecycle, adapting solutions quickly to evolving client requirements and real-world production constraints.',
-  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Airflow', 'Data Engineering', 'Client Integration']
+  description: 'Pipeline Orchestration: Architected and automated DAG-based ML preprocessing and model evaluation pipelines for high-throughput production data workflows. Client and Systems Integration: Translated client requirements into scalable AI/ML solutions, integrating data systems, APIs, and existing enterprise workflows. Full-Stack Engineering: Built low-latency microservices, third-party API integrations, and automation scripts to streamline operational workflows for SME clients. Production Engineering: Collaborated across engineering pods to troubleshoot integration failures, ship emergency hotfixes, and stabilize production systems under tight delivery timelines.',
+  tags: ['Python', 'ML Pipelines', 'DAG Orchestration', 'Airflow', 'Startup', 'Client Integration']
 }, {
   role: 'Web Development Intern',
   company: 'Hiring Bazaar AI',

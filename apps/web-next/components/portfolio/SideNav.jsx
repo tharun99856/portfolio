@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 const NAV_ITEMS = [
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
+    { id: 'ai', label: 'AI/ML', indent: true },
+    { id: 'tools', label: 'Dev Tools', indent: true },
+    { id: 'ux', label: 'Product Studies', indent: true },
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
     { id: 'research', label: 'Research' },
@@ -87,6 +90,8 @@ const SideNav = () => {
                                 type="button"
                                 onClick={() => handleNav(item.id)}
                                 className={`text-sm text-white mix-blend-difference transition-all duration-300 relative py-1 hover:opacity-60 ${
+                                    item.indent ? 'pl-4 text-xs' : ''
+                                } ${
                                     active === item.id
                                         ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white'
                                         : ''
@@ -116,6 +121,8 @@ const SideNav = () => {
                         type="button"
                         onClick={() => handleNav(item.id)}
                         className={`text-sm text-white mix-blend-difference transition-all duration-300 relative py-1 hover:opacity-60 ${
+                            item.indent ? 'pl-4 text-xs opacity-75' : ''
+                        } ${
                             active === item.id
                                 ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white'
                                 : ''
