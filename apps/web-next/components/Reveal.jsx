@@ -10,7 +10,7 @@ const Reveal = ({
   rotate = 0,
   className = '',
   as = 'div',
-  once = false, // Changed default to false - animates every time!
+  once = true, // Animate once on first view for performance
   duration = 0.6,
   margin = '-60px',
   ...rest

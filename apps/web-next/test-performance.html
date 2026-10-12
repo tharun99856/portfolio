@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Test Checklist</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: #0f0a1f;
+      color: #e5e5e5;
+    }
+    h1 { color: #06b6d4; margin-bottom: 10px; }
+    h2 { color: #8b5cf6; margin-top: 30px; }
+    .checklist { background: #1a1432; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    .check-item { 
+      display: flex; 
+      align-items: flex-start; 
+      margin: 15px 0; 
+      padding: 10px;
+      border-left: 3px solid #444;
+      transition: all 0.2s;
+    }
+    .check-item:hover {
+      border-left-color: #06b6d4;
+      background: rgba(6, 182, 212, 0.05);
+    }
+    input[type="checkbox"] {
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    label {
+      cursor: pointer;
+      flex: 1;
+    }
+    .status {
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin: 20px 0;
+      font-weight: 600;
+    }
+    .pass { background: #064e3b; color: #10b981; border-left: 4px solid #10b981; }
+    .warn { background: #422006; color: #f59e0b; border-left: 4px solid #f59e0b; }
+    .fail { background: #450a0a; color: #ef4444; border-left: 4px solid #ef4444; }
+    code {
+      background: #2a1f44;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.9em;
+      color: #a78bfa;
+    }
+    .command {
+      background: #1a1432;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      color: #06b6d4;
+      overflow-x: auto;
+    }
+    .tip {
+      background: #1e293b;
+      border-left: 4px solid #3b82f6;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    .metric {
+      display: inline-block;
+      background: #2a1f44;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin: 4px;
+      font-weight: 600;
+      color: #a78bfa;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Portfolio Performance Test Checklist</h1>
+  <p>Use this checklist to verify all optimizations are working correctly.</p>
+
+  <h2>Pre-Deployment Tests</h2>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="build">
+      <label for="build">
+        <strong>Build succeeds</strong><br>
+        Run <code>npm run build</code> - should complete without errors
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="preview">
+      <label for="preview">
+        <strong>Local preview works</strong><br>
+        Run <code>npm run start</code> and open http://localhost:3000
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="visual">
+      <label for="visual">
+        <strong>Visual inspection passed</strong><br>
+        All sections look identical to before, no broken styles
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="cards">
+      <label for="cards">
+        <strong>Card expand/collapse works</strong><br>
+        Click cards in AI, DevTools, UX sections - smooth expansion
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="videos-visible">
+      <label for="videos-visible">
+        <strong>Videos are visible</strong><br>
+        Scroll to flagship projects - videos load and display
+      </label>
+    </div>
+  </div>
+
+  <h2>Performance Verification (Chrome DevTools)</h2>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="font-check">
+      <label for="font-check">
+        <strong>Fonts load from same domain</strong><br>
+        DevTools → Network → Font filter → No requests to <code>googleapis.com</code>
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="video-lazy">
+      <label for="video-lazy">
+        <strong>Videos lazy-load correctly</strong><br>
+        DevTools → Network → Media filter → Videos load only when scrolled near
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="one-video">
+      <label for="one-video">
+        <strong>Only one video plays at a time</strong><br>
+        Scroll past multiple videos - previous ones pause automatically
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="cache">
+      <label for="cache">
+        <strong>Caching works on reload</strong><br>
+        Reload page (Ctrl/Cmd + R) → Most assets show <code>(disk cache)</code>
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="initial-load">
+      <label for="initial-load">
+        <strong>Initial page load is light</strong><br>
+        DevTools → Network → Check transferred: Should be ~3-4MB (not 10MB+)
+      </label>
+    </div>
+  </div>
+
+  <h2>Scroll Performance (60 FPS Target)</h2>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="fps-record">
+      <label for="fps-record">
+        <strong>Record scroll performance</strong><br>
+        DevTools → Performance → Record while scrolling entire page
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="fps-check">
+      <label for="fps-check">
+        <strong>FPS graph mostly green</strong><br>
+        Look for green bars (60fps), minimal yellow (30fps) or red (&lt;30fps)
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="long-tasks">
+      <label for="long-tasks">
+        <strong>No long tasks during scroll</strong><br>
+        In Performance tab, check for tasks &gt;50ms - should be minimal
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="animations">
+      <label for="animations">
+        <strong>Reveal animations trigger once</strong><br>
+        Scroll down past sections, then scroll back up - sections stay visible
+      </label>
+    </div>
+  </div>
+
+  <h2>Mobile Testing</h2>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="mobile-emulation">
+      <label for="mobile-emulation">
+        <strong>Mobile emulation smooth</strong><br>
+        DevTools → Toggle device toolbar → Test on Pixel 5 or Galaxy S10
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="tap-delay">
+      <label for="tap-delay">
+        <strong>No tap delay on buttons</strong><br>
+        Click buttons/links on mobile view - should feel instant
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="throttle">
+      <label for="throttle">
+        <strong>Scroll smooth with CPU throttle</strong><br>
+        DevTools → Performance → 4x slowdown → Record scroll → Still smooth
+      </label>
+    </div>
+  </div>
+
+  <h2>Lighthouse Audit (Post-Deploy)</h2>
+  <div class="tip">
+    Run after deploying to Vercel. Local builds may show different scores.
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="lighthouse-run">
+      <label for="lighthouse-run">
+        <strong>Run Lighthouse mobile audit</strong><br>
+        DevTools → Lighthouse → Mobile → Performance only → Analyze
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="perf-score">
+      <label for="perf-score">
+        <strong>Performance Score 85+</strong> (Target: 90+)<br>
+        <span class="metric">Performance: __/100</span>
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="lcp">
+      <label for="lcp">
+        <strong>LCP &lt; 2.5s</strong><br>
+        <span class="metric">LCP: __ s</span>
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="tbt">
+      <label for="tbt">
+        <strong>TBT &lt; 200ms</strong><br>
+        <span class="metric">TBT: __ ms</span>
+      </label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="cls">
+      <label for="cls">
+        <strong>CLS &lt; 0.1</strong><br>
+        <span class="metric">CLS: __</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>Video Optimization Status</h2>
+  <div class="status warn">
+    ⚠️ FFmpeg video encoding pending - See VIDEO_OPTIMIZATION_GUIDE.md
+  </div>
+  <p>Once videos are optimized:</p>
+  <ul>
+    <li>Initial page: ~7MB lighter</li>
+    <li>LCP improvement: -1 to -2 seconds</li>
+    <li>Bandwidth savings: 50%+ on video-heavy sections</li>
+  </ul>
+
+  <h2>Expected Metrics (After Video Optimization)</h2>
+  <table style="width:100%; border-collapse: collapse;">
+    <tr style="background:#2a1f44;">
+      <th style="padding:10px; text-align:left; border:1px solid #444;">Metric</th>
+      <th style="padding:10px; text-align:left; border:1px solid #444;">Target</th>
+      <th style="padding:10px; text-align:left; border:1px solid #444;">Actual</th>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">Performance Score</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">90+</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">First Contentful Paint</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">&lt; 1.8s</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">Largest Contentful Paint</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">&lt; 2.5s</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">Total Blocking Time</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">&lt; 200ms</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">Cumulative Layout Shift</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">&lt; 0.1</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+    <tr style="background:#1a1432;">
+      <td style="padding:10px; border:1px solid #444;">Speed Index</td>
+      <td style="padding:10px; border:1px solid #444; color:#10b981;">&lt; 3.4s</td>
+      <td style="padding:10px; border:1px solid #444;"><input type="text" style="width:80px; background:#0f0a1f; border:1px solid #444; padding:4px; color:#e5e5e5;"></td>
+    </tr>
+  </table>
+
+  <div style="margin-top: 40px; padding: 20px; background: #1e293b; border-radius: 8px;">
+    <h3 style="margin-top:0; color: #06b6d4;">✅ All Checks Passed?</h3>
+    <p>You're ready to deploy! Run:</p>
+    <div class="command">git add .<br>git commit -m "perf: optimize fonts, videos, animations"<br>git push</div>
+    <p>Then run Lighthouse on the deployed URL.</p>
+  </div>
+
+  <script>
+    // Save checkbox state to localStorage
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      const saved = localStorage.getItem(cb.id);
+      if (saved === 'true') cb.checked = true;
+      
+      cb.addEventListener('change', () => {
+        localStorage.setItem(cb.id, cb.checked);
+      });
+    });
+  </script>
+</body>
+</html>
