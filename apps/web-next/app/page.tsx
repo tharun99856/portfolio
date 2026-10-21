@@ -22,9 +22,14 @@ import { IMAGES, LINKS, GH, DOMAINS, STATS, CHANNELS, RESUMES, FLAGSHIP } from '
 const AI_BUILDS = [{
   title: 'IHateApplying',
   tagline: 'Bulk outreach automation for job applications - upload CSV, AI generates personalized emails/DMs, push to Gmail. Apply till you get a reply.',
-  description: 'Cold email automation tool that generates personalized outreach emails and LinkedIn/X DMs at scale. Upload a CSV with contacts (email required, name/company/context optional), paste your resume and skills, and the AI generates customized drafts based on your background. Batch processing (50 rows at a time with free keys), Gmail integration to push drafts directly to inbox, auto-detects email column from any header format. Built for job seekers tired of manual applications.',
+  description: [
+    'Upload CSV with contacts → AI generates personalized cold emails and LinkedIn/X DMs at scale',
+    'Gmail integration pushes drafts to inbox, auto-detects email columns from any CSV format',
+    'Batch processing (50 free, 100 with own key), optional resume parsing for detailed pitches',
+    'Built for the numbers game of job hunting - apply till you get a reply'
+  ],
   insight: 'The product positioning is deliberate: "Apply till you get a reply" acknowledges the numbers game reality of job hunting. Email column auto-detection handles messy CSVs without forcing users to reformat. Batch limits (50 free, 100 with own Groq key) prevent API abuse while keeping it accessible. Resume parsing is optional - short mode for 3-sentence pitches, detailed mode for project-heavy 4-5 sentence emails. The Gmail push feature is the conversion point - draft generation alone isn\'t enough, people want it in their inbox ready to send.',
-  tags: ['Job Search', 'AI', 'Next.js', 'TypeScript', 'Groq API', 'Gmail Integration', 'CSV Processing', 'Automation'],
+  tags: ['AI', 'Next.js', 'Groq API', 'Gmail API', 'TypeScript'],
   links: [
     { label: 'Live App', href: 'https://ihateapplying.vercel.app/' },
     { label: 'GitHub', href: 'https://github.com/tharun99856/ihateapplying' }
@@ -32,7 +37,12 @@ const AI_BUILDS = [{
   media: { type: 'image', src: '/projects/ihateapplying.jpg' }
 }, {
   title: 'PHC Queue Management System',
-  description: 'A token + wait-time system for Primary Health Centres, piloted against Latha Children\'s Clinic in Attapur, Hyderabad. Front desk issues a printed token with an honest wait estimate off the rolling 10-consultation average; doctor clicks through patients to advance the queue; front desk gets a phone-number callback list for no-shows. No app install for patients, no internet required for the queue logic itself, and V1 ships with zero third-party API dependency on purpose - every piece justified by an actual cost or reliability constraint.',
+  description: [
+    'Token + wait-time system for Primary Health Centres, piloted at Latha Children\'s Clinic, Hyderabad',
+    'Printed tokens with honest wait estimates from rolling 10-consultation average',
+    'No app install for patients, runs on Raspberry Pi with zero third-party API dependencies',
+    '67% reduction in physical wait time, ₹9,300 one-time cost, ₹0/month running cost'
+  ],
   highlights: [
     'Simulated 67% reduction in physical wait time and 69% reduction in peak in-clinic occupancy, over 10 runs × 100 patients',
     '₹9,300 one-time hardware cost per PHC, ₹0/month running cost in V1 - FastAPI + SQLite chosen specifically because it runs on a Raspberry Pi and survives power loss'
@@ -41,12 +51,17 @@ const AI_BUILDS = [{
   links: [{ label: 'GitHub', href: GH('Latha-Aunty-HC') }]
 }, {
   title: 'NIFTY-50 Investment Intelligence',
-  description: 'Investment intelligence platform on 21 years of NIFTY-50 data. Hidden Markov Models detect bull/bear regime transitions. XGBoost price prediction with SHAP explainability. Portfolio optimization via Modern Portfolio Theory. Risk analytics with Value-at-Risk and drawdown analysis. Interactive Plotly dashboard.',
+  description: [
+    '21 years of NIFTY-50 data with Hidden Markov Models detecting bull/bear regime transitions',
+    'XGBoost price prediction with SHAP explainability showing which features drove each prediction',
+    'Portfolio optimization via Modern Portfolio Theory, Value-at-Risk analysis',
+    'HMM detects regime shifts 3-5 days before they appear visually on price charts'
+  ],
   highlights: [
     'HMM trained on return distributions detects regime shifts 3-5 days before they are visually apparent on price charts',
     'SHAP values surface which features (RSI, MACD, volume delta) drove each prediction - explainability built in, not bolted on'
   ],
-  tags: ['Finance', 'Python', 'Streamlit', 'hmmlearn', 'XGBoost', 'SHAP', 'scikit-learn'],
+  tags: ['Finance', 'Python', 'XGBoost', 'SHAP', 'Streamlit'],
   links: [
     { label: 'Live demo', href: 'https://niftyinvest.streamlit.app/' },
     { label: 'GitHub', href: GH('-NIFTY-50-Investment') }
@@ -58,27 +73,37 @@ const AI_BUILDS = [{
 const DEV_TOOLS = [{
   title: 'SmartAsset',
   tagline: 'Enterprise asset management - 56+ assets, zero double-bookings, full audit trail.',
-  description: 'Replaces paper logbooks for warehouse-scale asset tracking. Date-window availability validation ensures no two reservations overlap. Atomic inventory updates and serializable approval logic prevent race conditions under concurrent booking. QR-based issue and return creates a frictionless audit trail. Analytics dashboard, role-based access control, and full warehouse workflow management.',
+  description: [
+    'Replaces paper logbooks for warehouse-scale asset tracking with 56+ assets managed',
+    'Double-booking prevention at database layer via PostgreSQL serializable transactions',
+    'QR-based issue/return creates frictionless audit trail with full RBAC permissions',
+    'Analytics dashboard tracks utilization, approval workflows prevent race conditions'
+  ],
   insight: 'The double-booking prevention lives at the database layer, not the UI. Serializable transactions in PostgreSQL (via Prisma) prevent conflicts under concurrent write pressure - the kind of gap that paper logbooks and naive first-come-first-served systems cannot close. Operational consistency has to be enforced at the data layer or it is not enforced at all.',
   highlights: [
     '56+ assets tracked with zero double-bookings',
     'QR-based issue/return with full audit trail',
     'RBAC permissions and analytics dashboard'
   ],
-  tags: ['Enterprise', 'Infrastructure', 'Next.js 16', 'TypeScript', 'Prisma', 'PostgreSQL', 'JWT Auth', 'QR Code'],
+  tags: ['Enterprise', 'Next.js 16', 'Prisma', 'PostgreSQL', 'TypeScript'],
   links: [{ label: 'GitHub', href: GH('SmartAsset') }],
   media: { type: 'video', src: '/projects/Smartasset recording .mp4' }
 }, {
   title: 'TravelChecker',
   tagline: 'Multi-modal travel comparison for India - MCP server + REST API + dashboard. Finds optimal composite routes like cab→airport→flight.',
-  description: 'Built as a Model Context Protocol (MCP) server so it can be plugged into Claude Desktop, Cursor, or any MCP-compatible AI agent as a tool. Also ships with a REST API and a web dashboard. Most travel apps only show direct routes. Search "Khammam to Delhi" and you\'ll see slow trains - but never the fact that the fastest option is actually a cab to Vijayawada airport + a flight from there. TravelChecker finds the nearest transport hub (airport/railway station) for any city and constructs complete multi-leg journeys, then ranks them all by your priorities.',
+  description: [
+    'Model Context Protocol (MCP) server for Claude Desktop, Cursor, or any MCP-compatible AI agent',
+    'Finds multi-leg journeys most travel apps miss (e.g., cab to airport + flight beats direct train)',
+    '5 travel modes across 117 Indian cities with live API data (Google Maps, flights, trains, buses)',
+    'Weighted scoring, graceful API fallbacks, SQLite cache, per-IP rate limiting'
+  ],
   highlights: [
     '5 travel modes: Flight, Train, Bus, Cab (Ola/Uber/Auto/Rapido), Personal Vehicle (Petrol/Diesel/Bike) across 117 Indian cities',
     'Live API data: Google Maps Distance Matrix, Travelpayouts/Aviasales (flights), IRCTC RapidAPI (trains), AbhiBus HTTP scrape (buses)',
     'Weighted scoring: tune price/time/comfort sliders to match your trip style with smart insights on surge warnings, fuel-vs-cab savings, train-vs-flight tradeoffs',
     'Graceful fallbacks: every provider has a modeled backup so the app never breaks when an API quota runs out. SQLite cache for Google Maps, per-IP rate limiting (30 req/min), OpenAPI/Swagger docs'
   ],
-  tags: ['MCP', 'TypeScript', 'Node.js', 'Google Maps API', 'Aviasales', 'IRCTC API', 'SQLite'],
+  tags: ['MCP', 'TypeScript', 'Google Maps API', 'Node.js', 'SQLite'],
   links: [
     { label: 'Live API', href: 'https://travelchecker-resume.up.railway.app' },
     { label: 'GitHub', href: 'https://github.com/tharun99856/TravelChecker' }
@@ -87,7 +112,12 @@ const DEV_TOOLS = [{
 }, {
   title: 'Wayfound',
   tagline: 'AI-powered itinerary planner for Hyderabad. Tell it your group size, age, vibe and budget - it plans your whole outing with real venues, timings and cost breakdown.',
-  description: 'Stop searching. Start going. Wayfound generates complete day plans for Hyderabad in seconds. Input your group (size, age), activity preference (go-karting, romantic dinner, gaming zone, cultural day), and budget - the AI outputs a full itinerary with venue names, addresses, timings, and cost breakdown. Uses Groq AI (llama-3.1-8b-instant) for natural language itinerary generation and Google Places API for real venue data. Smart mock engine with 200+ verified Hyderabad venues as fallback when API quota runs out.',
+  description: [
+    'Generates complete day plans for Hyderabad in seconds with real venue names, addresses, timings, costs',
+    'Groq AI (llama-3.1-8b-instant) for natural language generation + Google Places API for real data',
+    'Smart mock engine with 200+ verified Hyderabad venues as fallback when API quota runs out',
+    'Example: "4 friends, age 19, go-karting and food under ₹2500" → Full itemized plan'
+  ],
   highlights: [
     'Prompts: "4 friends, age 19, go-karting and food under ₹2500" → Full plan with venue names, addresses, timings, itemized costs',
     '"2 people, age 40, romantic dinner and evening ₹3000" → Curated fine-dining + evening activity with travel time',
@@ -95,20 +125,25 @@ const DEV_TOOLS = [{
     '"Family of 4, age 35, cultural day and lunch ₹2000" → Museums, heritage sites, family restaurant with kid-friendly options',
     'Defaults to ₹2000 budget and 7 PM start time if not specified. Graceful degradation: Google Places live data preferred, mock engine (200+ venues) kicks in on quota limit'
   ],
-  tags: ['AI', 'React', 'TypeScript', 'Groq AI', 'llama-3.1-8b-instant', 'Google Places API', 'Vite'],
+  tags: ['AI', 'React', 'Groq AI', 'Google Places API', 'TypeScript'],
   links: [{ label: 'Live App', href: 'https://wayfound-five.vercel.app/' }],
   media: { type: 'image', src: '/projects/wayfound.jpg' }
 }, {
   title: 'SurgeScope',
   tagline: 'Surge pricing analytics using arc elasticity on 50,000 Mumbai/Bangalore/Delhi trip records. Found the 2.0x wall where completion falls off a cliff.',
-  description: 'We had 50,000 Uber/Ola-style trip records from Mumbai, Bangalore, and Delhi over a year and wanted to know: does surge pricing actually work, or does it just chase riders away past a certain point? We used arc elasticity, comparing completion rate (did the ride happen or get cancelled) at each surge step, from 1.0x up to 2.5x. That gave us a demand curve instead of a guess.',
+  description: [
+    '50,000 Uber/Ola-style trip records analyzed using arc elasticity to find demand curves',
+    'Found the 2.0x wall: up to 1.5x riders stay, 1.5-2.0x completion drops sharply, above 2.0x only desperate riders left',
+    'Commercial areas most price-sensitive, transit hubs almost inelastic, residential in between',
+    'Recommended zone-based surge caps and loyalty protection for Gold-tier users'
+  ],
   highlights: [
     'The curve split into three zones: Up to 1.5x riders grumble but mostly stay. Between 1.5x and 2.0x completion falls off a cliff (the 2.0x wall). Above 2.0x completion flattens because only desperate or captive riders are left',
     'Commercial areas (offices, malls) are most price-sensitive since people have metro/buses. Transit hubs (airports, stations) are almost inelastic since people are stuck with luggage. Residential sits in between',
     'Weekday peak hour is the riskiest window to surge hard because commuters form habits and might switch to metro permanently. Rain barely moved cancellation rates at the same surge level - it\'s the price, not the weather',
     'Built recommendation: cap surge by zone and time instead of one blanket multiplier, and protect loyal (Gold-tier) users with a lower cap since they\'re the only segment where unit economics work'
   ],
-  tags: ['Analytics', 'Python', 'Pandas', 'Plotly', 'Excel', 'Arc Elasticity', 'Demand Curves'],
+  tags: ['Analytics', 'Python', 'Pandas', 'Arc Elasticity', 'Excel'],
   links: [{ label: 'View Analysis', href: 'https://drive.google.com/drive/folders/1YzhIeFH4Wl6WVl11KiILsn7486ERqi3D' }]
 }];
 
@@ -425,9 +460,21 @@ const FlagshipCard = ({ item, index }) => {
           </div>
 
           <div className="lg:col-span-7">
-            <p className="text-sm lg:text-base text-soft leading-relaxed mb-4">
-              {item.description}
-            </p>
+            {/* Description - support both bullet array and string */}
+            {Array.isArray(item.description) ? (
+              <ul className="text-sm lg:text-base text-soft leading-relaxed mb-6 space-y-2">
+                {item.description.map((bullet, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="text-cyan-400 mt-1 flex-shrink-0">→</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm lg:text-base text-soft leading-relaxed mb-4">
+                {item.description}
+              </p>
+            )}
 
             {/* Metrics grid */}
             <dl className="grid grid-cols-2 gap-3 mb-6">
