@@ -4,45 +4,47 @@
 
 @layer base {
   :root {
+    /* Enhanced color system - improved contrast ratios for WCAG AAA */
     --background: 270 32% 6%;
-    --foreground: 40 22% 95%;
-    --card: 268 28% 7%;
-    --card-foreground: 40 22% 95%;
-    --popover: 268 28% 7%;
-    --popover-foreground: 40 22% 95%;
-    --primary: 40 22% 95%;
+    --foreground: 40 28% 97%; /* Bumped from 95% to 97% for better contrast */
+    --card: 268 28% 8%; /* Slightly lighter for depth */
+    --card-foreground: 40 28% 97%;
+    --popover: 268 28% 8%;
+    --popover-foreground: 40 28% 97%;
+    --primary: 40 28% 97%;
     --primary-foreground: 270 32% 6%;
-    --secondary: 270 24% 11%;
-    --secondary-foreground: 40 22% 95%;
-    --muted: 270 24% 11%;
-    --muted-foreground: 270 10% 58%;
-    --accent: 270 25% 14%;
-    --accent-foreground: 40 22% 95%;
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 40 22% 95%;
-    --border: 270 19% 17%;
-    --input: 270 19% 17%;
-    --ring: 270 18% 80%;
+    --secondary: 270 24% 12%; /* Refined secondary */
+    --secondary-foreground: 40 28% 97%;
+    --muted: 270 24% 12%;
+    --muted-foreground: 270 10% 64%; /* Better contrast */
+    --accent: 270 25% 16%; /* More visible accent */
+    --accent-foreground: 40 28% 97%;
+    --destructive: 0 62% 48%; /* Slightly lighter for visibility */
+    --destructive-foreground: 40 28% 97%;
+    --border: 270 19% 20%; /* More visible borders */
+    --input: 270 19% 20%;
+    --ring: 270 18% 82%;
     --radius: 0.125rem;
-    --sidebar-background: 268 28% 7%;
-    --sidebar-foreground: 40 10% 90%;
-    --sidebar-primary: 40 22% 95%;
+    --sidebar-background: 268 28% 8%;
+    --sidebar-foreground: 40 10% 92%;
+    --sidebar-primary: 40 28% 97%;
     --sidebar-primary-foreground: 270 32% 6%;
-    --sidebar-accent: 270 25% 14%;
-    --sidebar-accent-foreground: 40 22% 95%;
-    --sidebar-border: 270 19% 17%;
-    --sidebar-ring: 40 15% 80%;
+    --sidebar-accent: 270 25% 16%;
+    --sidebar-accent-foreground: 40 28% 97%;
+    --sidebar-border: 270 19% 20%;
+    --sidebar-ring: 40 15% 82%;
 
-    /* Portfolio-specific tonal tokens (deep violet) */
-    --panel: 270 27% 8%;
-    --line: 270 19% 17%;
-    --soft: 270 16% 78%;
-    --faint: 270 10% 56%;
-    --dim: 270 8% 36%;
-    --violet-wash: 275 42% 14%;
-    --violet-shadow: 250 35% 11%;
+    /* Portfolio-specific tonal tokens - refined violet system */
+    --panel: 270 27% 9%; /* Subtle panel lift */
+    --line: 270 19% 20%; /* More visible dividers */
+    --soft: 270 16% 82%; /* Better readability */
+    --faint: 270 10% 62%; /* Improved secondary text */
+    --dim: 270 8% 42%; /* Better contrast */
+    --violet-wash: 275 42% 16%; /* More vivid */
+    --violet-shadow: 250 35% 12%;
     --violet-edge: 280 25% 4%;
     --violet-base: 270 32% 6%;
+    --violet-glow: 275 60% 50%; /* New: for accents */
   }
   .dark {
     --background: 270 32% 6%;
@@ -70,14 +72,18 @@
 body {
   font-family: 'Newsreader', Georgia, serif;
   background-color: hsl(var(--background));
+  /* Enhanced atmospheric gradients - more depth and dimension */
   background-image:
-    radial-gradient(circle at 12% 0%, hsl(var(--violet-wash) / 0.9) 0%, transparent 36%),
-    radial-gradient(circle at 88% 12%, hsl(var(--violet-shadow) / 0.8) 0%, transparent 32%),
+    radial-gradient(circle at 12% 0%, hsl(var(--violet-wash) / 0.95) 0%, transparent 38%),
+    radial-gradient(circle at 88% 12%, hsl(var(--violet-shadow) / 0.85) 0%, transparent 34%),
+    radial-gradient(circle at 50% 100%, hsl(275 40% 8% / 0.6) 0%, transparent 50%),
     linear-gradient(135deg, hsl(var(--violet-base)) 0%, hsl(264 30% 5%) 52%, hsl(var(--violet-edge)) 100%);
   color: hsl(var(--foreground));
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Smooth scrolling with physics */
+  scroll-behavior: smooth;
 }
 
 /* Mobile-specific fixes */
@@ -111,8 +117,20 @@ body {
 }
 
 ::selection {
-  background: hsl(var(--foreground));
-  color: hsl(var(--background));
+  background: hsl(var(--violet-glow) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* Award-winning focus states */
+*:focus-visible {
+  outline: 2px solid hsl(var(--violet-glow));
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Smooth scroll with offset for fixed nav */
+html {
+  scroll-padding-top: 80px;
 }
 
 @layer utilities {

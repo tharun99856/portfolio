@@ -53,11 +53,11 @@ export const RESUMES = [
 
 export const FLAGSHIP = [{
   name: 'Edcore',
-  tagline: 'All-in-one education OS for Indian students - live with 300+ users across exam prep, college selection, and career guidance.',
+  tagline: 'All-in-one education OS for Indian students - live with 220+ users across exam prep, college selection, and career guidance.',
   description: 'Four production modules under one unified Next.js 16 monolith: ExamNotifi (exam calendar + notifications), CollegeTracker (personalized college shortlisting), Tutorix (mentor matching), and NextTalk (career counseling booking). Shared authentication via NextAuth, unified CRM with Airtable sync, MSG91 OTP flows, demo scheduling, and email automation with Resend. Not four isolated apps - one cohesive platform with cross-module state management, MongoDB schema shared across all features, and a notification engine that tracks user behavior across modules.',
   insight: 'The real moat isn\'t the code - it\'s the 2,000+ college dataset curated across 25 fields (hostel vibe, coding culture, campus life, placements, city tier, faculty, infrastructure, location advantages). Competitors have college names. Edcore has the depth students actually need to decide. The dataset took months of manual curation and is harder to replicate than the entire platform.',
   metrics: [
-    { value: '300+', label: 'Active Users' },
+    { value: '220+', label: 'Active Users' },
     { value: '4', label: 'Live Modules' },
     { value: '2k+', label: 'Colleges' },
     { value: '25', label: 'Data Fields' }

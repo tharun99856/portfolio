@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Reveal from '@/components/Reveal';
+import { EnhancedReveal } from '@/components/EnhancedReveal';
+import { EnhancedHero } from '@/components/EnhancedHero';
+import { CursorGlow } from '@/components/CursorGlow';
+import { MagneticButton } from '@/components/MagneticButton';
+import { cardHover, quietReveal } from '@/lib/motion-config';
 import SideNav from '@/components/portfolio/SideNav';
 import SectionLabel from '@/components/portfolio/SectionLabel';
 import { VideoPlayer } from '@/components/VideoPlayer';
@@ -200,7 +204,7 @@ const EXPERIENCE = [{
   role: 'Founder and Product Engineer',
   company: 'Edcore',
   period: 'Jan 2025 - Present',
-  description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 300+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition.',
+  description: 'Built and launched an education platform helping Indian students discover colleges, exams, mentors, and career pathways. Grew the platform to 220+ users and generated 2.7K+ impressions through organic distribution and experimentation. Took Edcore from problem discovery → UX → full-stack development → deployment → user acquisition.',
   tags: ['Next.js', 'PostgreSQL', 'NextAuth', 'Product Ownership', 'User Acquisition']
 }, {
   role: 'Independent Researcher',
@@ -321,12 +325,12 @@ const Section = ({ id, label, title, intro, icon, panel = false, children }) => 
   <section id={id} className={`section-padding${panel ? ' bg-panel' : ''}`}>
     <div className="max-w-7xl mx-auto">
       <SectionLabel>{label}</SectionLabel>
-      <Reveal y={40}>
+      <EnhancedReveal y={40}>
         <div className="flex items-center gap-6 mb-8 lg:mb-10">
           <h2 className={`font-display font-medium uppercase text-[10vw] lg:text-section leading-none tracking-tight`}>{title}</h2>
         </div>
-      </Reveal>
-      {intro && <Reveal y={20} className="max-w-2xl mb-16 lg:mb-24"><p className="text-base lg:text-lg text-soft leading-relaxed">{intro}</p></Reveal>}
+      </EnhancedReveal>
+      {intro && <EnhancedReveal y={20} className="max-w-2xl mb-16 lg:mb-24"><p className="text-base lg:text-lg text-soft leading-relaxed">{intro}</p></EnhancedReveal>}
       {children}
     </div>
   </section>
@@ -343,7 +347,7 @@ const FlagshipCard = ({ item, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Reveal y={40} delay={index * 0.1}>
+    <EnhancedReveal y={40} delay={index * 0.1}>
       <motion.article 
         className="border-t border-line py-8 md:py-12 group relative"
         whileHover={{ x: 4 }}
@@ -469,7 +473,7 @@ const FlagshipCard = ({ item, index }) => {
           </div>
         </div>
       </motion.article>
-    </Reveal>
+    </EnhancedReveal>
   );
 };
 
@@ -479,7 +483,7 @@ const UXCard = ({ item, index }) => {
   const isBattle = item.type === 'battle';
   
   return (
-    <Reveal y={40} delay={index * 0.1}>
+    <EnhancedReveal y={40} delay={index * 0.1}>
       <motion.article 
         className="border-t border-line group relative overflow-hidden cursor-pointer"
         whileHover={{ 
@@ -650,7 +654,7 @@ const UXCard = ({ item, index }) => {
           )}
         </AnimatePresence>
       </motion.article>
-    </Reveal>
+    </EnhancedReveal>
   );
 };
 
@@ -702,7 +706,7 @@ const ProjectRow = ({ item, sectionType = 'default', index = 0 }) => {
   };
 
   return (
-    <Reveal y={40} delay={index * 0.08}>
+    <EnhancedReveal y={40} delay={index * 0.08}>
       <motion.article 
         className="border-t border-line group relative cursor-pointer"
         whileHover={getHoverAnimation()}
@@ -865,7 +869,7 @@ const ProjectRow = ({ item, sectionType = 'default', index = 0 }) => {
           )}
         </AnimatePresence>
       </motion.article>
-    </Reveal>
+    </EnhancedReveal>
   );
 };
 
@@ -877,103 +881,43 @@ const HomePage = () => {
   return (
     <div className="portfolio-shell min-h-screen text-foreground">
       <div className="grain-overlay" aria-hidden="true" />
+      <CursorGlow />
       <SideNav />
 
       <main>
-        {/* HERO - CLEAN */}
-        <section className="relative h-[100dvh] min-h-[560px] w-full overflow-hidden">
-          <img 
-            src={IMAGES.hero} 
-            alt="Tharun Rathod" 
-            className="absolute inset-0 w-full h-full object-cover object-center grayscale"
-          />
-          <div className="absolute inset-0 bg-black/40 md:bg-black/30" />
-
-          {/* Content */}
-          <div className="relative z-10 h-full flex items-end md:items-center pb-32 md:pb-0 px-4 sm:px-6 md:px-12 lg:px-16">
-            <div className="w-full max-w-5xl">
-              <motion.div 
-                initial={{ opacity: 0, y: 40 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <h1 className="font-display font-medium uppercase leading-none tracking-tighter text-[15vw] sm:text-[12vw] md:text-hero">
-                  <span className="block text-white">Tharun</span>
-                  <span className="block text-white">Rathod</span>
-                </h1>
-                <motion.div 
-                  initial={{ opacity: 0 }} 
-                  animate={{ opacity: 1 }} 
-                  transition={{ duration: 0.8, delay: 0.7 }}
-                >
-                  <p className="mt-6 md:mt-8 label-caps text-xs sm:text-sm text-white/70">Engineer. Founder. Researcher.</p>
-                  <p className="mt-3 text-sm sm:text-base text-white/80 max-w-sm md:max-w-md leading-relaxed">
-                    Ten-plus production systems built solo and five research papers, alongside a B.Tech in Electrical Engineering at IIT Roorkee.
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-                    <a 
-                      href="#projects" 
-                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
-                    >
-                      View flagship work
-                    </a>
-                    <a 
-                      href="#research" 
-                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
-                    >
-                      Research
-                    </a>
-                    {LINKS.resume && (
-                      <a 
-                        href={LINKS.resume} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
-                      >
-                        Resume ↗
-                      </a>
-                    )}
-                    <a 
-                      href={LINKS.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
-                    >
-                      GitHub ↗
-                    </a>
-                    <a 
-                      href="#contact" 
-                      className="label-caps text-xs text-white/80 hover:text-white transition-colors underline underline-offset-4"
-                    >
-                      Contact
-                    </a>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {/* HERO - ENHANCED AWARD-CALIBER VERSION */}
+        <EnhancedHero
+          name="Tharun Rathod"
+          title="Product Engineer"
+          subtitle="Building AI-first products at IIT Roorkee"
+          description="Product Manager and AI Engineer. Built Edcore (220+ users), published 5 research papers, and shipped 10+ production systems. I solve real problems with code, design, and data."
+          cta={{
+            label: "View Flagship Work",
+            href: "#flagship"
+          }}
+          imageSrc={IMAGES.hero}
+        />
 
         {/* ABOUT */}
         <section id="about" className="section-padding">
           <div className="max-w-7xl mx-auto">
             <SectionLabel>About Tharun</SectionLabel>
-            <Reveal y={40} className="mb-16 lg:mb-24">
+            <EnhancedReveal y={40} className="mb-16 lg:mb-24">
               <p className="text-xl lg:text-3xl font-light text-soft leading-snug max-w-4xl">
-                Solo founder building products from 0→1. Ships production systems end-to-end - product vision, technical architecture, user acquisition, revenue. Edcore (300+ users, 4 live modules), Rune (optimizing compiler), SmartAsset (enterprise infrastructure), and 7+ shipped projects. Founder-engineer who writes code, talks to users, and owns P&L.
+                Solo founder building products from 0→1. Ships production systems end-to-end - product vision, technical architecture, user acquisition, revenue. Edcore (220+ users, 4 live modules), Rune (optimizing compiler), SmartAsset (enterprise infrastructure), and 7+ shipped projects. Founder-engineer who writes code, talks to users, and owns P&L.
               </p>
               <p className="mt-6 label-caps text-xs text-faint">{DOMAINS.join(' · ')}</p>
-            </Reveal>
-            <Reveal y={40} className="mb-24 lg:mb-32">
+            </EnhancedReveal>
+            <EnhancedReveal y={40} className="mb-24 lg:mb-32">
               <StatGrid items={STATS} />
-            </Reveal>
+            </EnhancedReveal>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
-              <Reveal y={40}><FramedImage src={IMAGES.build} alt="Code on screen" /></Reveal>
-              <Reveal className="flex items-center" y={40} delay={0.1}>
+              <EnhancedReveal y={40}><FramedImage src={IMAGES.build} alt="Code on screen" /></EnhancedReveal>
+              <EnhancedReveal className="flex items-center" y={40} delay={0.1}>
                 <p className="text-base lg:text-lg text-soft leading-relaxed">
-                  My B.Tech is in Electrical Engineering, but the real work is building companies. I'm a solo founder who ships production systems - from zero to live users - across education (Edcore, 300+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught me circuits. The startups taught me everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.
+                  My B.Tech is in Electrical Engineering, but the real work is building companies. I'm a solo founder who ships production systems - from zero to live users - across education (Edcore, 220+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught me circuits. The startups taught me everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.
                 </p>
-              </Reveal>
+              </EnhancedReveal>
             </div>
           </div>
         </section>
@@ -1005,7 +949,7 @@ const HomePage = () => {
         {/* SKILLS */}
         <Section id="skills" label="Expertise" title="Skills" panel>
           {/* Icon-based Tech Stack */}
-          <Reveal y={40} className="mb-16 lg:mb-20">
+          <EnhancedReveal y={40} className="mb-16 lg:mb-20">
             <h3 className="text-xl md:text-2xl font-light text-foreground mb-8">Tech Stack</h3>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 lg:gap-8">
               {[
@@ -1022,7 +966,7 @@ const HomePage = () => {
                 { name: 'Git', icon: '📦', color: '#F05032' },
                 { name: 'Docker', icon: '🐳', color: '#2496ED' }
               ].map((tech, i) => (
-                <Reveal key={tech.name} y={20} delay={i * 0.05}>
+                <EnhancedReveal key={tech.name} y={20} delay={i * 0.05}>
                   <motion.div
                     className="group relative flex flex-col items-center justify-center p-6 bg-background/50 border border-line rounded-lg hover:border-foreground/30 transition-all duration-300 cursor-pointer"
                     whileHover={{ 
@@ -1043,23 +987,23 @@ const HomePage = () => {
                       style={{ backgroundColor: tech.color }}
                     />
                   </motion.div>
-                </Reveal>
+                </EnhancedReveal>
               ))}
             </div>
-          </Reveal>
+          </EnhancedReveal>
 
           {/* Original Skills List */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 lg:gap-y-6 mb-20 lg:mb-28">
             {SKILLS.map((skill, i) => (
-              <Reveal key={skill} y={24} delay={i * 0.04}>
+              <EnhancedReveal key={skill} y={24} delay={i * 0.04}>
                 <div className="border-b border-line pb-4 group">
                   <span className="text-lg md:text-xl lg:text-2xl text-soft font-light group-hover:text-foreground transition-colors duration-300">{skill}</span>
                 </div>
-              </Reveal>
+              </EnhancedReveal>
             ))}
           </div>
           
-          <Reveal y={40}>
+          <EnhancedReveal y={40}>
             <Tabs defaultValue={SKILL_GROUPS[0].label} className="w-full">
               <TabsList className="w-full justify-start border-b border-line rounded-none bg-transparent h-auto p-0 mb-8">
                 {SKILL_GROUPS.map(group => (
@@ -1080,13 +1024,13 @@ const HomePage = () => {
                 </TabsContent>
               ))}
             </Tabs>
-          </Reveal>
+          </EnhancedReveal>
         </Section>
 
         {/* EXPERIENCE */}
         <Section id="experience" label="Career" title={<>Work<br />Experience</>}>
           {EXPERIENCE.map(job => (
-            <Reveal key={job.company} y={40}>
+            <EnhancedReveal key={job.company} y={40}>
               <article className="border-t border-line py-8 md:py-12 lg:py-16 group">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                   <div className="lg:col-span-5">
@@ -1102,14 +1046,14 @@ const HomePage = () => {
                   </div>
                 </div>
               </article>
-            </Reveal>
+            </EnhancedReveal>
           ))}
           <div className="border-t border-line" />
         </Section>
 
         {/* RESEARCH - NO DUPLICATES */}
         <Section id="research" label="Papers & Publications" title="Research" intro="Five papers spanning AI evaluation, behavioral AI, electrical engineering, and linguistics. Two sole-authored, two co-authored, one published open-access." panel>
-          <Reveal y={40}>
+          <EnhancedReveal y={40}>
             <Accordion type="single" collapsible className="w-full">
               {RESEARCH.map((item, idx) => (
                 <AccordionItem key={item.title} value={`research-${idx}`} className="border-line">
@@ -1162,7 +1106,7 @@ const HomePage = () => {
                 </AccordionItem>
               ))}
             </Accordion>
-          </Reveal>
+          </EnhancedReveal>
         </Section>
 
         {/* EDUCATION */}
@@ -1170,15 +1114,15 @@ const HomePage = () => {
           <div className="space-y-16 lg:space-y-24">
             {EDUCATION.map(entry => (
               <div key={entry.school} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24">
-                <Reveal y={40}><FramedImage src={entry.image} alt={entry.school} /></Reveal>
-                <Reveal y={40} delay={0.1} className="flex items-center">
+                <EnhancedReveal y={40}><FramedImage src={entry.image} alt={entry.school} /></EnhancedReveal>
+                <EnhancedReveal y={40} delay={0.1} className="flex items-center">
                   <div>
                     <h3 className="text-xl lg:text-2xl font-light text-foreground mb-1">{entry.title}</h3>
                     <p className="text-base text-faint italic mb-4">{entry.school}</p>
                     <p className="text-faint leading-relaxed mb-4 text-sm lg:text-base">{entry.description}</p>
                     <p className="label-caps text-sm text-faint">{entry.period}</p>
                   </div>
-                </Reveal>
+                </EnhancedReveal>
               </div>
             ))}
           </div>
@@ -1188,21 +1132,21 @@ const HomePage = () => {
         <section id="contact" className="section-padding bg-panel">
           <div className="max-w-7xl mx-auto">
             <SectionLabel>Get in Touch</SectionLabel>
-            <Reveal y={60}>
+            <EnhancedReveal y={60}>
               <h2 className="font-display font-medium text-[12vw] lg:text-hero leading-none tracking-tight mb-8">Let's talk</h2>
-            </Reveal>
-            <Reveal y={40}><div className="w-full h-px bg-line mb-12 lg:mb-16" /></Reveal>
-            <Reveal y={40} className="mb-12 lg:mb-16 max-w-3xl">
+            </EnhancedReveal>
+            <EnhancedReveal y={40}><div className="w-full h-px bg-line mb-12 lg:mb-16" /></EnhancedReveal>
+            <EnhancedReveal y={40} className="mb-12 lg:mb-16 max-w-3xl">
               <p className="text-lg lg:text-xl text-soft leading-relaxed mb-6">
                 Always open to opportunities - full-time roles, internships, freelance gigs, or just interesting conversations about tech, products, and building things that matter.
               </p>
               <p className="text-base lg:text-lg text-faint leading-relaxed">
                 Whether you're hiring, have a technical challenge to discuss, want to collaborate on a project, or just want to connect - I'd love to hear from you. Drop me an email or find me on the platforms below.
               </p>
-            </Reveal>
+            </EnhancedReveal>
 
             {/* RESUME SECTION - WITH CONFETTI */}
-            <Reveal y={40} className="mb-16 lg:mb-24">
+            <EnhancedReveal y={40} className="mb-16 lg:mb-24">
               <h3 className="font-display font-medium uppercase text-2xl md:text-3xl lg:text-4xl text-foreground mb-8">Resumes</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {RESUMES.map((resume, i) => {
@@ -1305,32 +1249,32 @@ const HomePage = () => {
                   );
                 })}
               </div>
-            </Reveal>
+            </EnhancedReveal>
 
             {/* SOCIAL LINKS */}
             <div className="space-y-0 max-w-2xl">
               {CHANNELS.map((channel, i) => (
-                <Reveal key={channel.region} y={20} delay={i * 0.05}>
+                <EnhancedReveal key={channel.region} y={20} delay={i * 0.05}>
                   <a href={channel.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border-t border-line py-5 md:py-6 group hover:bg-white/[0.03] transition-colors px-4 -mx-4">
                     <span className="label-caps text-sm text-faint group-hover:text-soft transition-colors">{channel.region}</span>
                     <span className="text-faint group-hover:text-foreground transition-colors">↗</span>
                   </a>
-                </Reveal>
+                </EnhancedReveal>
               ))}
               <div className="border-t border-line" />
             </div>
 
             {/* DIRECT CONTACT */}
-            <Reveal y={40} className="mt-16 lg:mt-24 pt-12 lg:pt-16 border-t border-line">
+            <EnhancedReveal y={40} className="mt-16 lg:mt-24 pt-12 lg:pt-16 border-t border-line">
               <p className="label-caps text-sm text-faint mb-6 lg:mb-8">Or reach me directly</p>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-16">
                 <a href="mailto:tharunrathod2005@gmail.com" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">tharunrathod2005@gmail.com</a>
                 <a href={LINKS.edcore} target="_blank" rel="noopener noreferrer" className="text-lg lg:text-xl text-soft hover:text-foreground transition-colors underline underline-offset-4">edcore.tech</a>
               </div>
-            </Reveal>
+            </EnhancedReveal>
 
             {/* FOOTER */}
-            <Reveal y={20} className="mt-24 lg:mt-32 pt-8 border-t border-line">
+            <EnhancedReveal y={20} className="mt-24 lg:mt-32 pt-8 border-t border-line">
               {/* Footer Image */}
               <motion.div 
                 className="mb-12 overflow-hidden rounded-sm max-w-4xl mx-auto"
@@ -1351,7 +1295,7 @@ const HomePage = () => {
                 <p className="label-caps text-xs text-dim">© 2026 Tharun Rathod - Engineering, Products & Research</p>
                 <p className="label-caps text-xs text-dim">Roorkee / Hyderabad / Remote</p>
               </div>
-            </Reveal>
+            </EnhancedReveal>
           </div>
         </section>
       </main>
@@ -1360,3 +1304,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
