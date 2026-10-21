@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/projects/(.*\\.(mp4|webm|jpg|jpeg|png|webp|gif|svg))",
+      "source": "/projects/:path*",
       "headers": [
         {
           "key": "Cache-Control",
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(pdf|jpg|jpeg|png|webp|gif|svg|ico))",
+      "source": "/:path*",
       "headers": [
         {
           "key": "Cache-Control",
