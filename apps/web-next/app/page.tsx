@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { HERO } from '@/lib/content'
-import { DIVISIONS, itemsIn, divisionEdges, READOUTS } from '@/lib/records'
+import { DIVISIONS, itemsIn, READOUTS } from '@/lib/records'
 import { CONTACT } from '@/lib/content'
 import Constellation from '@/components/crt/Constellation'
 import DitherImage from '@/components/crt/DitherImage'
@@ -33,13 +33,13 @@ export default function Hub() {
       </section>
 
       <section className="wrap" aria-label="Map of the work">
-        <p className="hint" data-reveal>Hover a box to see what links it to the rest. Click to open it.</p>
+        <p className="hint" data-reveal>Pick a box to open that part of the work.</p>
         <div data-reveal style={{ '--d': '160ms' } as React.CSSProperties}>
           <Constellation
             variant="hub"
             spokes
             nodes={nodes}
-            edges={divisionEdges()}
+            edges={[]}
             centerLabel="Portrait of Tharun Rathod"
             center={
               <div className="core core-rect">

@@ -101,9 +101,9 @@ export function itemEdges(items) {
   return edges;
 }
 
-/** Items elsewhere in the portfolio most related to `it`. */
+/** Items in the same division most related to `it` (no cross-division links). */
 export function relatedTo(it, k = 6) {
-  return ITEMS.filter((o) => o.href !== it.href)
+  return ITEMS.filter((o) => o.href !== it.href && o.division === it.division)
     .map((o) => ({ o, s: shared(it, o), t: sharedTags(it, o) }))
     .filter((x) => x.s.length || x.t.length)
     .sort((x, y) => (y.s.length + y.t.length * 2) - (x.s.length + x.t.length * 2))
@@ -111,25 +111,12 @@ export function relatedTo(it, k = 6) {
     .map(({ o, s, t }) => ({ item: o, label: (t.length ? t : s).slice(0, 2).join(' · ') }));
 }
 
-/** Division-level areas and the strongest links between divisions. */
+/** Skill areas per division (used for the division page's area tags). */
 const divAreas = Object.fromEntries(COLLECTIONS.map((d) => {
   const counts = {};
   itemsIn(d.slug).forEach((it) => it.areas.forEach((a) => { counts[a] = (counts[a] || 0) + 1; }));
   return [d.slug, counts];
 }));
-export function divisionEdges() {
-  const pairs = [];
-  COLLECTIONS.forEach((a, i) => COLLECTIONS.slice(i + 1).forEach((b) => {
-    const s = Object.keys(divAreas[a.slug]).filter((x) => divAreas[b.slug][x]);
-    if (!s.length) return;
-    const score = s.reduce((n2, x) => n2 + Math.min(divAreas[a.slug][x], divAreas[b.slug][x]), 0);
-    pairs.push({ a: `/${a.slug}`, b: `/${b.slug}`, label: s.sort(byRarity).slice(0, 2).join(' · '), weight: score });
-  }));
-  // keep each division's two strongest links so the map stays readable
-  const keep = new Set();
-  COLLECTIONS.forEach((d) => pairs.filter((p) => p.a === `/${d.slug}` || p.b === `/${d.slug}`).sort((x, y) => y.weight - x.weight).slice(0, 2).forEach((p) => keep.add(p)));
-  return [...keep];
-}
 export const topAreas = (div) => Object.entries(divAreas[div] || {}).sort((a, b) => b[1] - a[1]).map(([a]) => a);
 
 export const READOUTS = STATS;

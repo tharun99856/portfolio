@@ -95,15 +95,15 @@ export default async function ItemPage({ params }: Params) {
 
       {related.length > 0 && (
         <section className="wrap related" aria-labelledby="rel-h">
-          <h2 id="rel-h" className="emboss-sm" data-reveal>Connected work</h2>
-          <p className="hint" data-reveal>Linked by shared tools and skill areas. Hover a box to see the link.</p>
+          <h2 id="rel-h" className="emboss-sm" data-reveal>More in {d.name}</h2>
+          <p className="hint" data-reveal>Linked by shared tools and skill areas. Hover a box to see what they share.</p>
           <div data-reveal style={delay(140)}>
             <Constellation
               variant="orbit"
               nodes={related.map((r, k) => ({
                 id: r.item.href, href: r.item.href, area: ['a', 'b', 'c', 'd', 'e', 'f'][k],
                 title: r.item.kind === 'role' ? r.item.company : r.item.title.split(':')[0].split(' - ')[0],
-                kicker: division(r.item.division)!.name
+                kicker: r.label
               }))}
               edges={related.map((r) => ({ a: '__center', b: r.item.href, label: r.label }))}
               centerLabel={it.title}
