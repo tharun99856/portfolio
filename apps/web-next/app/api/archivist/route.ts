@@ -26,6 +26,14 @@ const cite = (text: string) => {
   return ids.filter((id) => DOC_BY_ID[id]).map((id) => ({ id, title: DOC_BY_ID[id].title, href: DOC_BY_ID[id].href }))
 }
 
+// Normalise citation styles and drop any tag that isn't a real record (e.g. [NONE]).
+const tidy = (text: string) =>
+  text
+    .replace(/【\s*([A-Z]{2,7}(?:-[A-Z0-9]{1,3})?)[^】]*】/g, '[$1]')
+    .replace(/\s*\[([A-Z]{2,7}(?:-[A-Z0-9]{1,3})?)\]/g, (m, id) => (DOC_BY_ID[id] ? m : ''))
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim()
+
 function offline(question: string, found: ReturnType<typeof retrieve>) {
   const ex = extractiveAnswer(question, found)
   const answer = ex ? ex.text : NO_RECORD
@@ -47,11 +55,11 @@ async function askGroq(history: Turn[], records: string, question: string): Prom
           ...history,
           { role: 'user', content: `RECORDS:\n${records}\n\nVISITOR'S QUESTION:\n${question}` }
         ],
-        temperature: 0.2,
-        max_completion_tokens: 1200,
-        ...(GROQ_MODEL.startsWith('openai/gpt-oss') ? { reasoning_effort: 'medium' } : {})
+        temperature: 0,
+        max_completion_tokens: 3000,
+        ...(GROQ_MODEL.startsWith('openai/gpt-oss') ? { reasoning_effort: 'high' } : {})
       }),
-      signal: AbortSignal.timeout(20000)
+      signal: AbortSignal.timeout(25000)
     })
     if (!res.ok) {
       console.error('[archivist] groq call failed:', res.status, (await res.text()).slice(0, 300))
@@ -60,8 +68,7 @@ async function askGroq(history: Turn[], records: string, question: string): Prom
     const data = await res.json()
     const text = data?.choices?.[0]?.message?.content
     if (typeof text !== 'string' || !text.trim()) return null
-    // gpt-oss sometimes cites as 【REC-01】 or 【REC-01†L3】; normalise to [REC-01].
-    return text.trim().replace(/【\s*([A-Z]{2,7}(?:-[A-Z0-9]{1,3})?)[^】]*】/g, '[$1]')
+    return tidy(text) || null
   } catch (err) {
     console.error('[archivist] groq call error:', err)
     return null
@@ -99,7 +106,7 @@ export async function POST(request: Request) {
 
   const records = found.length
     ? found.map(({ doc }) => `<record id="${doc.id}" title="${doc.title}">\n${doc.text}\n</record>`).join('\n')
-    : '<record id="NONE">No records matched this question.</record>'
+    : '(No records matched this question.)'
 
   // Preferred: Groq. Falls through to Claude (if configured) and then to quoting the records.
   if (process.env.GROQ_API_KEY) {
@@ -134,9 +141,9 @@ export async function POST(request: Request) {
       .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
       .map((b) => b.text)
       .join('')
-      .trim()
-    if (!answer) return Response.json(offline(question, found))
-    return Response.json({ answer, citations: cite(answer), mode: 'model' })
+    const clean = tidy(answer)
+    if (!clean) return Response.json(offline(question, found))
+    return Response.json({ answer: clean, citations: cite(clean), mode: 'model' })
   } catch (err) {
     if (err instanceof Anthropic.RateLimitError || err instanceof Anthropic.APIConnectionError || err instanceof Anthropic.APIError) {
       console.error('[archivist] model call failed:', err.message)
