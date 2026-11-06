@@ -1,24 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const NAV_ITEMS = [
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'ai', label: 'AI/ML', indent: true },
-    { id: 'tools', label: 'Dev Tools', indent: true },
-    { id: 'ux', label: 'Product Studies', indent: true },
-    { id: 'skills', label: 'Skills' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'research', label: 'Research' },
-    { id: 'education', label: 'Education' },
-    { id: 'contact', label: 'Contact' },
-];
-
-const CONTACT_LINKS = [
-    { label: 'GitHub', href: 'https://github.com/tharun99856' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/tharun-rathod' },
-    { label: 'Instagram', href: 'https://www.instagram.com/tharunr05/' },
-    { label: 'Resume', href: '#contact' }, // Scrolls to resume section
-];
+import { NAV_ITEMS, NAV_CONTACT_LINKS as CONTACT_LINKS } from '@/lib/content';
 
 const scrollToSection = (id) => {
     const el = document.getElementById(id);
