@@ -280,6 +280,7 @@ main { position: relative; z-index: 1; padding-top: calc(var(--osd-h) + clamp(28
 .hub-role { margin-top: 20px; font: 600 clamp(16px, 1.5vw, 21px)/1.4 var(--f-mono); }
 .hub-role span { color: var(--phos); }
 .hub-desc { margin-top: 10px; max-width: 60ch; color: var(--text-2); }
+.hub-entity { margin-top: 18px; max-width: 68ch; font-size: 13px; line-height: 1.7; color: var(--text-3, var(--text-2)); opacity: 0.72; }
 .hub-foot { margin-top: clamp(48px, 6vw, 80px); }
 
 /* ------------------------------------------------- constellation */

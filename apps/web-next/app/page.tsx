@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { HERO } from '@/lib/content'
+import { ENTITY_SUMMARY, HERO } from '@/lib/content'
 import { DIVISIONS, itemsIn, READOUTS } from '@/lib/records'
 import { CONTACT } from '@/lib/content'
 import Constellation from '@/components/crt/Constellation'
@@ -33,6 +33,7 @@ export default function Hub() {
           {HERO.title} <span>/</span> {HERO.subtitle}
         </p>
         <p className="hub-desc" data-reveal style={{ '--d': '220ms' } as React.CSSProperties}>{HERO.description}</p>
+        <p className="hub-entity" data-reveal style={{ '--d': '300ms' } as React.CSSProperties}>{ENTITY_SUMMARY}</p>
       </section>
 
       <section className="wrap" aria-label="Map of the work">

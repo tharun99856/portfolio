@@ -1,5 +1,6 @@
 import { COLLECTIONS, ITEMS } from '@/lib/records'
 import { RESUMES } from '@/lib/portfolio-data'
+import { ENTITY_SUMMARY } from '@/lib/content'
 import { SITE_ORIGIN, SITE_NAME, SITE_DESCRIPTION } from '@/lib/site'
 
 export const dynamic = 'force-static'
@@ -16,8 +17,7 @@ export function GET() {
     '',
     `> ${SITE_DESCRIPTION}`,
     '',
-    'Portfolio, product work and research of Tharun Rathod, an Electronics & Communication',
-    'undergraduate at IIT Roorkee (2027). Everything below is also crawlable as HTML.',
+    ENTITY_SUMMARY,
     '',
     '## Sections',
     ...COLLECTIONS.map((d) => `- [${d.name}](${SITE_ORIGIN}/${d.slug}): ${d.intro}`),

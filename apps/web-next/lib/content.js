@@ -14,6 +14,8 @@ export const ABOUT = {
   body: 'My B.Tech is in Electrical Engineering, but the real work is building companies. I\'m a solo founder who ships production systems - from zero to live users - across education (Edcore, 220+ students), healthcare (PHC queue systems), developer tools (MCP servers, repo visualization), and enterprise infrastructure. Product strategy, full-stack execution, and go-to-market - all solo. The degree taught me circuits. The startups taught me everything else: customer discovery, unit economics, retention loops, and shipping fast under constraints.'
 };
 
+export const ENTITY_SUMMARY = 'Tharun Rathod is a product engineer and AI researcher studying Electrical Engineering at IIT Roorkee, class of 2027. He is the solo founder of Edcore, an education platform with 220+ users across exam prep, college selection and career guidance, and he publishes independent research on LLM behaviour and evaluation. He works between Roorkee and Hyderabad, India.';
+
 export const NAV_ITEMS = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },

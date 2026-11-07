@@ -16,22 +16,24 @@ import { SITE_ORIGIN, SITE_NAME, SITE_DESCRIPTION, PORTRAIT, HERO_SHOT, OG_IMAGE
 import { CONTACT } from '@/lib/content'
 import { LINKS } from '@/lib/portfolio-data'
 
+const BRAND_TITLE = 'Tharun Rathod: Product Engineer & AI Researcher at IIT Roorkee'
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
-  title: `${SITE_NAME}: Product Engineer & AI Researcher`,
+  title: BRAND_TITLE,
   description: SITE_DESCRIPTION,
   authors: [{ name: SITE_NAME }],
   openGraph: {
     type: 'profile',
     url: SITE_ORIGIN,
-    title: `${SITE_NAME}: Product Engineer & AI Researcher`,
+    title: BRAND_TITLE,
     description: SITE_DESCRIPTION,
     images: [{ url: OG_IMAGE.path, width: OG_IMAGE.width, height: OG_IMAGE.height, alt: OG_IMAGE.alt }],
     siteName: SITE_NAME
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME}: Product Engineer & AI Researcher`,
+    title: BRAND_TITLE,
     description: SITE_DESCRIPTION,
     images: [OG_IMAGE.path]
   }
@@ -55,6 +57,9 @@ const jsonLd = {
       image: [imageObject(PORTRAIT), imageObject(HERO_SHOT)],
       email: `mailto:${CONTACT.email}`,
       jobTitle: 'Product Engineer & AI Researcher',
+      givenName: 'Tharun',
+      familyName: 'Rathod',
+      address: { '@type': 'PostalAddress', addressLocality: 'Roorkee', addressRegion: 'Uttarakhand', addressCountry: 'IN' },
       description: SITE_DESCRIPTION,
       alumniOf: {
         '@type': 'EducationalOrganization',
@@ -78,7 +83,7 @@ const jsonLd = {
       '@type': 'ProfilePage',
       '@id': `${SITE_ORIGIN}/#profile`,
       url: `${SITE_ORIGIN}/`,
-      name: `${SITE_NAME}: Product Engineer & AI Researcher`,
+      name: BRAND_TITLE,
       isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
       mainEntity: { '@id': PERSON_ID }
     }
