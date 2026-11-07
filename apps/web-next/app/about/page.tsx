@@ -4,7 +4,11 @@ import { DOMAINS } from '@/lib/portfolio-data'
 import DitherImage from '@/components/crt/DitherImage'
 import { Bezel, Crumbs, StepNav, Tags, href } from '@/components/crt/Parts'
 
-export const metadata: Metadata = { title: 'About | Tharun Rathod', description: ABOUT.lead }
+export const metadata: Metadata = {
+  title: 'About | Tharun Rathod',
+  description: ABOUT.lead,
+  alternates: { canonical: '/about' }
+}
 
 const delay = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
 
@@ -19,7 +23,7 @@ export default function About() {
       <section className="wrap about">
         <div data-reveal>
           <Bezel>
-            <DitherImage src="/my-image.jpeg" alt="Tharun Rathod in a dark suit, rendered as a cyan dithered image" sample={300} palette={['#02080a', '#0d3f4a', '#2fa7bb', '#c6f6ff']} />
+            <DitherImage src="/tharun-rathod-portrait.jpeg" alt="Tharun Rathod, product engineer and AI researcher at IIT Roorkee" sample={300} palette={['#02080a', '#0d3f4a', '#2fa7bb', '#c6f6ff']} />
           </Bezel>
         </div>
         <div>

@@ -99,7 +99,9 @@ export default function DitherImage({ src, alt, sample = 300, palette = ['#0a070
 
   return (
     <figure className={`dither ${className}`} style={ratio ? { aspectRatio: ratio } : undefined} onPointerMove={onMove} onPointerLeave={onLeave}>
-      <canvas ref={canvasRef} role="img" aria-label={alt} className={ready ? 'is-ready' : ''} />
+      {/* The canvas is invisible to image search, so the real photo stays in the markup underneath it. */}
+      <img src={src} alt={alt} decoding="async" />
+      <canvas ref={canvasRef} role="presentation" aria-hidden="true" className={ready ? 'is-ready' : ''} />
     </figure>
   );
 }

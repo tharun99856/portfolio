@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import TubeVideo from './TubeVideo';
+import { SITE_ORIGIN } from '@/lib/site';
 
 const isExt = (h) => /^(https?:|mailto:)/.test(h);
 export const href = (h) => (isExt(h) || h.includes('%') ? h : encodeURI(h));
@@ -47,15 +48,29 @@ export function Media({ media, title }) {
 }
 
 export function Crumbs({ trail }) {
+  const crumbs = trail
+    .map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.label,
+      ...(t.href ? { item: `${SITE_ORIGIN}${t.href}` } : {})
+    }));
+
   return (
-    <nav className="crumbs" aria-label="Breadcrumb" data-reveal>
-      {trail.map((t, i) => (
-        <span key={t.label}>
-          {i > 0 && <span aria-hidden="true" className="crumb-sep">/</span>}
-          {t.href ? <Link href={t.href}>{t.label}</Link> : <span aria-current="page">{t.label}</span>}
-        </span>
-      ))}
-    </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs }) }}
+      />
+      <nav className="crumbs" aria-label="Breadcrumb" data-reveal>
+        {trail.map((t, i) => (
+          <span key={t.label}>
+            {i > 0 && <span aria-hidden="true" className="crumb-sep">/</span>}
+            {t.href ? <Link href={t.href}>{t.label}</Link> : <span aria-current="page">{t.label}</span>}
+          </span>
+        ))}
+      </nav>
+    </>
   );
 }
 

@@ -11,7 +11,9 @@ export const IMAGES = {
 
 export const LINKS = {
   github: 'https://github.com/tharun99856',
-  linkedin: 'https://linkedin.com/in/tharun-rathod',
+  linkedin: 'https://www.linkedin.com/in/tharun-rathod',
+  linkedin2: 'https://www.linkedin.com/in/tharun-rathod-0a1aa7412/',
+  scholar: 'https://scholar.google.com/citations?user=lZyc30EAAAAJ',
   zenodo: 'https://zenodo.org/doi/10.5281/zenodo.19885744',
   edcore: 'https://edcore.tech',
   rune: 'https://tharun99856.github.io/rune/',

@@ -12,7 +12,7 @@ export const dynamicParams = false
 export async function generateMetadata({ params }: { params: Promise<{ division: string }> }): Promise<Metadata> {
   const { division: slug } = await params
   const d = division(slug)
-  return d ? { title: `${d.name} | Tharun Rathod`, description: d.intro } : {}
+  return d ? { title: `${d.name} | Tharun Rathod`, description: d.intro, alternates: { canonical: `/${slug}` } } : {}
 }
 
 const clip = (s: string, n = 120) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s)

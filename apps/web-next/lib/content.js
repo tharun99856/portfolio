@@ -29,7 +29,9 @@ export const NAV_ITEMS = [
 
 export const NAV_CONTACT_LINKS = [
   { label: 'GitHub', href: 'https://github.com/tharun99856' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/tharun-rathod' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tharun-rathod' },
+  { label: 'LinkedIn (Work)', href: 'https://www.linkedin.com/in/tharun-rathod-0a1aa7412/' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=lZyc30EAAAAJ' },
   { label: 'Instagram', href: 'https://www.instagram.com/tharunr05/' },
   { label: 'Resume', href: '#contact' }
 ];

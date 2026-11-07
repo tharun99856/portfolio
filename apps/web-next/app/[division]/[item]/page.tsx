@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { ITEMS, division, item as getItem, itemsIn, relatedTo } from '@/lib/records'
+import { PERSON_ID, canonical } from '@/lib/site'
 import Constellation from '@/components/crt/Constellation'
 import { Crumbs, Keys, Media, StepNav, Tags } from '@/components/crt/Parts'
 
@@ -14,7 +15,32 @@ type Params = { params: Promise<{ division: string; item: string }> }
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { division: d, item: s } = await params
   const it = getItem(d, s)
-  return it ? { title: `${it.title} | Tharun Rathod`, description: it.sub } : {}
+  if (!it) return {}
+  const media = it.media?.type === 'image' ? { url: encodeURI(it.media.src) } : null
+  return {
+    title: `${it.title} | Tharun Rathod`,
+    description: it.sub,
+    alternates: { canonical: `/${d}/${s}` },
+    ...(media ? { openGraph: { images: [media] }, twitter: { card: 'summary_large_image', images: [media.url] } } : {})
+  }
+}
+
+const paperSchema = (it: (typeof ITEMS)[number]) => {
+  const doi = it.links.find((l) => /doi\.org|zenodo\.org/.test(l.href))
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    '@id': `${canonical(`/${it.division}/${it.slug}`)}#article`,
+    mainEntityOfPage: canonical(`/${it.division}/${it.slug}`),
+    headline: it.title,
+    description: it.description,
+    author: { '@id': PERSON_ID },
+    publisher: { '@type': 'Organization', name: 'IIT Roorkee' },
+    inLanguage: 'en',
+    keywords: it.tags.join(', '),
+    ...(it.meta.match(/(19|20)\d{2}/) ? { datePublished: it.meta.match(/(19|20)\d{2}/)[0] } : {}),
+    ...(doi ? { sameAs: doi.href } : {})
+  }
 }
 
 const sentences = (t: string) => t.split(/(?<=[.!?])\s+(?=[A-Z])/).filter(Boolean)
@@ -79,6 +105,7 @@ export default async function ItemPage({ params }: Params) {
 
         {it.kind === 'paper' && (
           <div className="detail-text">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(paperSchema(it)) }} />
             <p className="lede" data-reveal>{it.description}</p>
             {it.finding && <p className="finding" data-reveal><b>Finding</b>{it.finding}</p>}
             <div data-reveal><Tags items={it.tags} label="Topics" /><Keys links={it.links} /></div>

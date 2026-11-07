@@ -4,7 +4,11 @@ import { LINKS, RESUMES } from '@/lib/portfolio-data'
 import AskKey from '@/components/crt/AskKey'
 import { Crumbs, StepNav } from '@/components/crt/Parts'
 
-export const metadata: Metadata = { title: 'Contact | Tharun Rathod', description: CONTACT.lead }
+export const metadata: Metadata = {
+  title: 'Contact | Tharun Rathod',
+  description: CONTACT.lead,
+  alternates: { canonical: '/contact' }
+}
 
 const delay = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties
 

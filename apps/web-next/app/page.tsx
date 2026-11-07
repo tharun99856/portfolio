@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { HERO } from '@/lib/content'
 import { DIVISIONS, itemsIn, READOUTS } from '@/lib/records'
@@ -5,6 +6,8 @@ import { CONTACT } from '@/lib/content'
 import Constellation from '@/components/crt/Constellation'
 import DitherImage from '@/components/crt/DitherImage'
 import AskKey from '@/components/crt/AskKey'
+
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 const AREAS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const clip = (s: string, n = 96) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s)
@@ -43,7 +46,7 @@ export default function Hub() {
             centerLabel="Portrait of Tharun Rathod"
             center={
               <div className="core core-rect">
-                <DitherImage src="/main%20image.jpeg" alt="Portrait of Tharun Rathod, rendered as an amber dithered image" sample={440} ratio="16 / 9" />
+                <DitherImage src="/tharun-rathod-hero.jpeg" alt="Tharun Rathod, founder of Edcore and AI researcher at IIT Roorkee" sample={440} ratio="16 / 9" />
               </div>
             }
           />
